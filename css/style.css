@@ -1,0 +1,17 @@
+
+html, body{
+    text-align:center;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.mytable{
+    text-align: center;
+    margin-top: 10px;
+}
+
+.login_bar{
+    margin-top: 10px;
+    border-bottom: 2px solid grey;
+    border-top: 2px solid grey;
+}
