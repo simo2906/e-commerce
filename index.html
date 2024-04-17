@@ -28,7 +28,7 @@
             <a class="ins_annuncio_text" href="inserisci_annuncio.html">
                 <div class="ins_annuncio">
                     <img class="icon" src="./img/plus.png">
-                    <b>Inserisci annuncio</b>
+                    <b style="font-size: 23px;">Inserisci annuncio</b>
                 </div>
             </a>
         </div>
@@ -42,16 +42,25 @@
     <form action="" method="post" name="ricerca" id="ricerca">
         <div class="container">
             <div class="search">
-                <label class="search_label">Cerchi qualcosa?</label>
-                <input class="input_text" type="text" name="cosaCerchi">
+                <label><b>Cerchi qualcosa?</b></label>
+                <div class="search_bar">
+                    <img class="category_img" src="./img/search-simbol.png">
+                    <input class="input_text" type="text" name="cosaCerchi" placeholder="Vespa, motorino..">
+                </div>
             </div>
             <div class="search">
-                <label class="search_label">Cosa cerchi?</label>
-                <input class="input_text" type="text" name="categoria">
+                <label><b>Cosa cerchi?</b></label>
+                <div class="search_bar">
+                    <img class="category_img" src="./img/menu.png">
+                    <input class="input_text" type="text" name="categoria" placeholder="Categoria">
+                </div>
             </div>
             <div class="search">
-                <label class="search_label">Dove la cerchi?</label>
-                <input class="input_text" type="text" name="doveCerchi">
+                <label><b>Dove la cerchi?</b></label>
+                <div class="search_bar">
+                    <img class="category_img" src="./img/maps.png">
+                    <input class="input_text" type="text" name="doveCerchi" placeholder="Comune, Provincia o Regione">
+                </div>
             </div>
             <input type="image" class="search_ico" src="./img/search.png" id="imgSubmit">
         </div>
