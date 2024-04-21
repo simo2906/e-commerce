@@ -8,7 +8,23 @@
     <link rel="stylesheet" href="/css/mobile.css">
     <link rel="application/javascript" href="/js/login.js">
     <title>Babazon.it</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="./js/bootstrap.js"></script>
+    
 </head>
+<style>
+     .carousel-inner {
+      display: flex; /* Utilizza un layout flexbox */
+      overflow-x: auto; /* Abilita lo scorrimento orizzontale */
+    }
+
+    .carousel-item {
+      flex: 0 0 auto; /* Imposta la larghezza delle slide in base al loro contenuto */
+      width: 100%; /* Imposta la larghezza delle slide al 100% */
+    }
+</style>
 
 <script type="application/javascript">
     document.getElementById("imgSubmit").addEventListener("clic", function(){
@@ -33,14 +49,14 @@
             </a>
         </div>
         <div style="margin-right: 100px;" align="right">
-            <img class="icon" src="./img/login.png">
+            <a href="login.html"><img class="icon" src="./img/login.png"></a>
             <a class="login_link" href="login.html"><b>Accedi</b></a>
             <a class="reg_link" href="registrati.html"><b>Registrati</b></a>
         </div>
     </div>
     <br>
     <form action="" method="post" name="ricerca" id="ricerca">
-        <div class="container">
+        <div class="container" align="center">
             <div class="search">
                 <label><b>Cerchi qualcosa?</b></label>
                 <div class="search_bar">
@@ -65,5 +81,71 @@
             <input type="image" class="search_ico" src="./img/search.png" id="imgSubmit">
         </div>
     </form>
+    <br>
+    <div align="center">
+        <div id="carouselExampleControls" class="mycarousel carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="d-block w-100" src="./img/prova1.jpg" alt="Prima immagine">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="./img/prova2.jpg" alt="Seconda immagine">
+              </div>
+            </div>
+            <!-- Pulsanti di scorrimento -->
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Attiva il carosello con scorrimento automatico ogni 2 secondi
+        $('.carousel').carousel({
+          interval: 2000 // 2000 millisecondi = 2 secondi
+        });
+        
+    </script>
+    
 </body>
+<br>
+<footer >
+    <br>
+    <div class="div_footer">  
+        <div>
+            <b>Servizio Clienti</b>
+            <ul>
+                <li>Centro Assistenza</li>
+                <li>Contattaci</li>
+                <li>FAQ</li>
+                <li>Condizioni Generali</li>
+                <li>Privacy</li>
+            </ul>
+        </div>
+        <div>
+            <b>Paga Con</b><br><br>
+            <img src="https://img.alicdn.com/tfs/TB1xcMWdEKF3KVjSZFEXXXExFXa-68-48.png" class="pay_icon">
+            <img src="https://ae01.alicdn.com/kf/S7b20ce778ba44e60a062008c35e98b57M/216x144.png" class="pay_icon">
+            <img src="https://ae01.alicdn.com/kf/S91ee3e0f4fde4535aad35f7c30f6bacfh/216x144.png" class="pay_icon">
+            <img src="https://ae01.alicdn.com/kf/S173da9e53a234dcb9795cebd1856c4d7J/216x144.png" class="pay_icon">
+            <img src="https://ae01.alicdn.com/kf/S8df1a1d99c8049d1b1a86c9a144719b6W/216x144.png" class="pay_icon"><br>
+            <img style="margin-top: 5px;" src="https://ae01.alicdn.com/kf/S0321450614244c4dafba2517560de3b8s/216x144.png" class="pay_icon">
+            <img src="https://ae01.alicdn.com/kf/S2a5881f5906b4fb58a0c6da600ddf7bf1/216x144.png" class="pay_icon">
+        </div>
+        <div>
+            <b>Scoprici sui Social</b><br><br>
+            <img class="icon" src="./img/social/facebook.png">
+            <img class="icon" src="./img/social/instagram.png">
+            <img class="icon" src="./img/social/twitter.png">
+            <img class="icon" src="./img/social/whatsapp.png">
+            <img class="icon" src="./img/social/messenger.png"><br>
+            <img style="margin-top: 5px;" class="icon" src="./img/social/tiktok.png">
+            <img class="icon" src="./img/social/youtube.png">
+
+        </div>
+    </div>
+</footer>
 </html>
