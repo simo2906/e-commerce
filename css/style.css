@@ -16,7 +16,7 @@
 
 .login_bar{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     padding: 20px;
     border-top: 2px solid grey;
@@ -75,10 +75,8 @@ b{
 
 .container {
     display: flex;
-    justify-content: space-between;
+    justify-content:space-around;
     align-items: center;
-    width: 100%;
-    margin: auto;
     padding: 20px;
     border-radius: 0.375rem;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
@@ -93,9 +91,10 @@ b{
 }
 
 .search_bar{
+    
     display: flex;
-    justify-content: space-between;
-    width: 375px;
+    justify-content: space-around;
+    width: 40vh;
     border: 2px solid #fb9354;
     border-radius: 0.375rem;
     margin: 0%;
@@ -127,7 +126,7 @@ b{
 }
 
 .carousel {
-    width: 72%;
+    width: 80%;
     height: auto;
 }
 
@@ -140,7 +139,7 @@ footer{
 
 .div_footer{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     margin-left: 20%;
     margin-right: 20%;
 }
@@ -153,8 +152,8 @@ footer{
 
 .product{
     display: flex;
-    justify-content: space-between;
-    width: 72%;
+    justify-content: space-around;
+    width: 80%;
     height: auto;
     text-align: left;
 }
@@ -203,7 +202,7 @@ footer{
 
 .container-item {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     width: 68%;
 }
 
@@ -232,9 +231,14 @@ footer{
     height: auto;
 }
 
-.input_log{
+.input_log, .input_log:focus{
     margin-top: 7px; 
     padding: 7px;
+    width: 75%;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    outline: none;
 }
 
 .log_button{
@@ -243,4 +247,8 @@ footer{
     padding: 15px;
     border: none;
     color: white;
+}
+
+.link_log, .link_log:hover, .link_log:visited, .link_log:focus{
+    color: #fa5f5a;
 }
