@@ -1,22 +1,31 @@
 <?php
-if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
-    $db = pg_connect("host=localhost port=5432 dbname=Users user=jacopo password=password") or die("Errore di connessione" . pg_last_error());
-    $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
 
-    $sql = "SELECT * from utenti where email = $1 and password = $2";
-    $query = pg_query_params($db, $sql, array($email, $password));
-    $result = pg_fetch_assoc($db, $query);
-    $id = $result["id"];
-    if($result != null) header("Location: index.php?id=$id");
-    else header("Location: login.php?id=error");
+        $db = pg_connect("host=localhost port=5432 dbname=Users user=jacopo password=password") or die("Errore di connessione");
+        $nome = $_POST['nome'];
+        $cognome = $_POST['cognome'];
+        $email = $_POST['email'];
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-} else {
+        $sql = "SELECT * FROM utente where email = $1";
+        $query = pg_query_params($db, $sql, array($email));
+        $result = pg_fetch_assoc($db, $query);
+        if($result != null) header("Location: register.php?id=success");
+        
+        $sql = "INSERT INTO utente VALUES ($1, $2, $3, $4)";
+        $result = pg_query_params($db, $sql, array($nome, $cognome, $email, $password));
+        if ($result) {
+            header("Location: register.php?id=success");
+        } else {
+            echo "Errore durante l'inserimento dei dati: " . pg_last_error();
+        }
+
+    } else {
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/mobile.css">
@@ -24,7 +33,7 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script src="../js/script.js"></script>
-    <title>Accedi</title>
+    <title>Registrati</title>
 </head>
 <body>
     <div class="header">
@@ -36,36 +45,43 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
         <br>
         <a href="../index.html"><img class="logo_img" src="../img/2_new.png"></a>
     </div>
-    <div align="center">
-        <form action="login.php" method="post" name="loginForm" class="register" onsubmit="return valida_login();">
+    <div  align="center">
+        <form action="register.php" method="post" name="register" class="register" onsubmit="return valida_registrazione();">
             <br>
-            <h3>Accedi</h3>
-            
+            <h3>Registrati</h3>
+
             <hr style="margin-top: 20px; margin-left: 3%; margin-right: 3%">
             
             <?php
-                if(isset($_GET["id"]) && $_GET["id"] == 'error'){
-                    echo '<br><b>Utente o password errate</b>';
+                if(isset($_GET["id"])){
+                    
+                    $id = $_GET["id"];
+
+                    if($id == 'error') echo '<br><b>Utente già registrato</b>';
+                    else if($id == 'success') echo '<br><b>Registrazione avvenuta con successo</b>';
                 }
             ?>
+            <br>
+            <input type="text" name="nome" class="input_log" placeholder="Nome">
             <br><br>
-            <input type="email" name="email" placeholder="Inserisci la tua mail" class="input_log">
+            <input type="text" name="cognome" class="input_log" placeholder="Cognome">
             <br><br>
-            <input type="password" name="password" placeholder="Inserisci la tua password" class="input_log">
-            <br><br><br>
-            <a href="" class="link_log">Non ricordi la password?</a>
+            <input type="email" name="email" class="input_log" placeholder="Email">
             <br><br>
-            <button name="loginButton" type="submit" class="log_button"><b>Accedi</b></button>
+            <input type="password" name="password" class="input_log" placeholder="Password">
             <br><br>
-            Prima volta su Babazon?
-            <a href="../register/register.php" class="link_log">Registrati</a>
+            <input type="checkbox" name="checkbox"> Accetto termini e condizioni
             <br><br>
-        </form>
+            <button type="submit" class="log_button"><b>Registrati</b></button>
+            <br><br>
+            Già registrato?
+            <a href="../login/login.php" class="link_log">Effettua il login</a>
+            <br><br>
+        </form> 
     </div>
 </body>
-<br>
-<br>
-<footer >
+<br><br>
+<footer>
     <br>
     <div class="div_footer">  
         <div>
@@ -100,10 +116,8 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
         </div>
     </div>
 </footer>
-</html>
-
 
 <?php
-}
+    }
 ?>
 </html>

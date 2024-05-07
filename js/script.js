@@ -27,3 +27,18 @@ function valida_registrazione(){
 
     return true;
 }
+
+function valida_login(){
+
+    if(doument.loginForm.email.value == ""){
+        alert("Inserire email");
+        return false;
+    }
+
+    if(document.loginForm.password.value == ""){
+        alert("Inserire password");
+        return false;
+    }
+
+    return true;
+}

@@ -56,7 +56,7 @@
 }
 
 .header_icon{
-    width: 30px;
+    width: 15px;
     height: auto;
     vertical-align:sub;
 }
@@ -70,12 +70,18 @@
 
 b{
     font-size: 20px;
-    font-family: Optima;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .container {
-    border: 2px solid black;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     width: 100%;
+    margin: auto;
+    padding: 20px;
+    border-radius: 0.375rem;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
 }
 
 .input_text, .input_text:focus{
