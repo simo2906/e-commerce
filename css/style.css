@@ -74,12 +74,8 @@ b{
 }
 
 .container {
-    display: flex;
-    justify-content:space-around;
-    align-items: center;
-    padding: 20px;
-    border-radius: 0.375rem;
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    border: 2px solid black;
+    width: 100%;
 }
 
 .input_text, .input_text:focus{
