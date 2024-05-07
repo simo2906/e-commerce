@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fai il login!</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/mobile.css">
     <link rel="application/javascript" href="/js/script.js">
@@ -11,8 +10,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 
+    <title>Registrazione avvenuta</title>
 </head>
-<body>
+<body >
+<div class="wrapper">
     <div class="header">
         <img class="header_icon" src="../img/star.png">
         <b style="font-size: 15px;">L'E-COMMERCE CHE SOGNAVI</b>
@@ -20,32 +21,23 @@
     </div>
     <div align="center">
         <br>
-        <a href="../index.html"><img class="logo_img" src="../img/2_new.png"></a>
+        <a href="../index.php"><img class="logo_img" src="../img/2_new.png"></a>
     </div>
+    <br><br>
     <div align="center">
-        <form action="" method="post" name="loginForm" class="register" onsubmit="return login()">
+        <form action="" class="register">
+            <br><br>
+            <h3>Inserire email</h3>
             <br>
-            <h3>Accedi</h3>
-            
-            <hr style="margin-top: 20px; margin-left: 3%; margin-right: 3%">
+            <input type="email" name="email" placeholder="Inserisci la tua mail" class="input_log">
             <br><br>
-            <input type="text" name="loginEmail" placeholder="Inserisci la tua mail" class="input_log">
-            <br><br>
-            <input type="text" name="loginPassword" placeholder="Inserisci la tua password" class="input_log">
-            <br><br><br>
-            <a href="" class="link_log">Non ricordi la password?</a>
-            <br><br>
-            <button name="loginButton" type="submit" class="log_button"><b>Accedi</b></button>
-            <br><br>
-            Prima volta su Babazon?
-            <a href="../register/register.php" class="link_log">Registrati</a>
+            <button type="submit" class="log_button"><b>Invia</b></button>
             <br><br>
         </form>
     </div>
-</body>
-<br>
-<br>
-<footer >
+    <br><br>
+</div>
+<footer>
     <br>
     <div class="div_footer">  
         <div>
@@ -77,7 +69,9 @@
             <img class="icon" src="../img/social/messenger.png"><br>
             <img style="margin-top: 5px;" class="icon" src="../img/social/tiktok.png">
             <img class="icon" src="../img/social/youtube.png">
+
         </div>
     </div>
 </footer>
+</body>
 </html>

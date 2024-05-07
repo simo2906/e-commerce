@@ -1,3 +1,8 @@
+<?php
+    session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -27,13 +32,14 @@
 </head>
 
 <body>
-    <div class="header">
+<div class="wrapper">
+    <div class="header" align="center">
         <img class="header_icon" src="./img/star.png">
         <b style="font-size: 15px;">L'E-COMMERCE CHE SOGNAVI</b>
         <img class="header_icon" src="./img/star.png">
     </div>
     <div class="login_bar">
-        <a class="login_link" href="index.html"><img class="logo_img" src="./img/2_new.png"></a>
+        <a class="login_link" href="index.php"><img style="margin-left:45px" class="logo_img" src="./img/2_new.png"></a>
         <div align="center">
             <a class="ins_annuncio_text" href="inserisci_annuncio.html">
                 <div class="ins_annuncio">
@@ -42,11 +48,37 @@
                 </div>
             </a>
         </div>
-        <div  align="right">
-            <a href="./login/login.html"><img class="icon" src="./img/login.png"></a>
-            <a class="login_link" href="./login/login.php"><b>Accedi</b></a>
-            <a class="reg_link" href="./register/register.php"><b>Registrati</b></a>
+
+        <?php
+
+            if(isset($_SESSION["id"])){
+
+        ?>
+
+        <div align="right">
+            <b style="margin-right: 5px;">Benvenuto <?php echo $_SESSION["id"] ?></b>
+            <a href="./logout/logout.php"><img style="margin-right: 40px;" class="icon" src="./img/logout.png"></a>
+            <a href="./carrello/carrello.php"><img style="margin-right: 15px" class="icon" src="./img/carrello.png"></a>
+            <a href="./carrello/hearth.php"><img class="icon" src="./img/hearth_header.png"></a>
         </div>
+
+        <?php
+
+            } else {
+
+        ?>  
+
+        <div  align="right">
+            <a href="./login/login.php"><img class="icon" src="./img/login.png"></a>
+            <a class="login_link" href="./login/login.php"><b>Accedi</b></a>
+            <a class="reg_link" href="./register/register.php"><b style="margin-right: 140px;">Registrati</b></a>
+        </div>
+
+        <?php
+
+            }
+
+        ?>
     </div>
     <br>
     <form action="" method="post" name="ricerca" id="ricerca">
@@ -271,9 +303,9 @@
             <img srcset="./img/prova4.webp" type="image/webp">
         </div>
     </div>
-</body>
-<br>
-<footer >
+    <br>
+</div>
+<footer>
     <br>
     <div class="div_footer">  
         <div>
@@ -309,4 +341,5 @@
         </div>
     </div>
 </footer>
+</body>
 </html>

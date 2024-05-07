@@ -1,21 +1,23 @@
 <?php
+    session_start();
+
     if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
 
-        $db = pg_connect("host=localhost port=5432 dbname=Users user=jacopo password=password") or die("Errore di connessione");
-        $nome = $_POST['nome'];
-        $cognome = $_POST['cognome'];
-        $email = $_POST['email'];
+        $db = pg_connect("host=localhost port=5432 dbname=ecommerce user=simone password=biar") or die("Errore di connessione");
+        $nome = strtolower($_POST['nome']);
+        $cognome = strtolower($_POST['cognome']);
+        $email = strtolower($_POST['email']);
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-        $sql = "SELECT * FROM utente where email = $1";
+        $sql = "SELECT * FROM utenti where email = $1";
         $query = pg_query_params($db, $sql, array($email));
-        $result = pg_fetch_assoc($db, $query);
-        if($result != null) header("Location: register.php?id=success");
+        if(pg_num_rows($query) > 0) die(header("Location: register.php?id=error"));
         
-        $sql = "INSERT INTO utente VALUES ($1, $2, $3, $4)";
+        $sql = "INSERT INTO utenti (nome, cognome, email, password) VALUES ($1, $2, $3, $4)";
         $result = pg_query_params($db, $sql, array($nome, $cognome, $email, $password));
         if ($result) {
-            header("Location: register.php?id=success");
+            $_SESSION["id"] = ucfirst($nome);
+            header("Location: success.html");
         } else {
             echo "Errore durante l'inserimento dei dati: " . pg_last_error();
         }
@@ -34,8 +36,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script src="../js/script.js"></script>
     <title>Registrati</title>
+   
 </head>
 <body>
+<div class="wrapper">
     <div class="header">
         <img class="header_icon" src="../img/star.png">
         <b style="font-size: 15px;">L'E-COMMERCE CHE SOGNAVI</b>
@@ -43,7 +47,7 @@
     </div>
     <div align="center">
         <br>
-        <a href="../index.html"><img class="logo_img" src="../img/2_new.png"></a>
+        <a href="../index.php"><img class="logo_img" src="../img/2_new.png"></a>
     </div>
     <div  align="center">
         <form action="register.php" method="post" name="register" class="register" onsubmit="return valida_registrazione();">
@@ -53,12 +57,9 @@
             <hr style="margin-top: 20px; margin-left: 3%; margin-right: 3%">
             
             <?php
-                if(isset($_GET["id"])){
+                if(isset($_GET["id"]) && $_GET["id"] == 'error'){
                     
-                    $id = $_GET["id"];
-
-                    if($id == 'error') echo '<br><b>Utente già registrato</b>';
-                    else if($id == 'success') echo '<br><b>Registrazione avvenuta con successo</b>';
+                    echo '<br><b>Utente già registrato</b>';
                 }
             ?>
             <br>
@@ -79,8 +80,8 @@
             <br><br>
         </form> 
     </div>
-</body>
-<br><br>
+    <br><br>
+</div>
 <footer>
     <br>
     <div class="div_footer">  
@@ -116,7 +117,7 @@
         </div>
     </div>
 </footer>
-
+</body>
 <?php
     }
 ?>

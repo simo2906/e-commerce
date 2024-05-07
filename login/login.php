@@ -1,15 +1,26 @@
 <?php
-if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
-    $db = pg_connect("host=localhost port=5432 dbname=Users user=jacopo password=password") or die("Errore di connessione" . pg_last_error());
-    $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+session_start();
 
-    $sql = "SELECT * from utenti where email = $1 and password = $2";
-    $query = pg_query_params($db, $sql, array($email, $password));
-    $result = pg_fetch_assoc($db, $query);
-    $id = $result["id"];
-    if($result != null) header("Location: index.php?id=$id");
-    else header("Location: login.php?id=error");
+
+if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
+    $db = pg_connect("host=localhost port=5432 dbname=ecommerce user=simone password=biar") or die("Errore di connessione" . pg_last_error());
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $sql = "SELECT * from utenti where email = $1";
+    $query = pg_query_params($db, $sql, array($email));
+    if(pg_num_rows($query) == 1) {
+        $result = pg_fetch_assoc($query);
+        $hashed_password = $result["password"];
+        if(password_verify($password, $hashed_password)){
+            $nome = ucfirst($result["nome"]);
+            $_SESSION["id"] = $nome;
+            header("Location: ../index.php");
+        }
+        
+    } else die(header("Location: login.php?id=error"));
+    
+    
 
 } else {
 ?>
@@ -27,6 +38,7 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
     <title>Accedi</title>
 </head>
 <body>
+<div class="wrapper">
     <div class="header">
         <img class="header_icon" src="../img/star.png">
         <b style="font-size: 15px;">L'E-COMMERCE CHE SOGNAVI</b>
@@ -34,7 +46,7 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
     </div>
     <div align="center">
         <br>
-        <a href="../index.html"><img class="logo_img" src="../img/2_new.png"></a>
+        <a href="../index.php"><img class="logo_img" src="../img/2_new.png"></a>
     </div>
     <div align="center">
         <form action="login.php" method="post" name="loginForm" class="register" onsubmit="return valida_login();">
@@ -45,7 +57,7 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
             
             <?php
                 if(isset($_GET["id"]) && $_GET["id"] == 'error'){
-                    echo '<br><b>Utente o password errate</b>';
+                    echo '<br><b>Email o password errate</b>';
                 }
             ?>
             <br><br>
@@ -53,7 +65,7 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
             <br><br>
             <input type="password" name="password" placeholder="Inserisci la tua password" class="input_log">
             <br><br><br>
-            <a href="" class="link_log">Non ricordi la password?</a>
+            <a href="password.php" class="link_log">Non ricordi la password?</a>
             <br><br>
             <button name="loginButton" type="submit" class="log_button"><b>Accedi</b></button>
             <br><br>
@@ -62,10 +74,9 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
             <br><br>
         </form>
     </div>
-</body>
-<br>
-<br>
-<footer >
+    <br><br>
+</div>
+<footer>
     <br>
     <div class="div_footer">  
         <div>
@@ -100,9 +111,7 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
         </div>
     </div>
 </footer>
-</html>
-
-
+</body>
 <?php
 }
 ?>

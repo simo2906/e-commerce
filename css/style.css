@@ -1,4 +1,7 @@
-
+html, body {
+    height: 100%;
+    margin: 0;
+}
 
 .mytable{
     text-align: left;
@@ -38,9 +41,16 @@
     
 }
 
+.login_link:hover{
+    text-decoration: underline;
+}
+
 .reg_link, .reg_link:hover, .reg_link:active, .reg_link:visited{
     color: #666666;
     text-decoration: none;   
+}
+.reg_link:hover{
+    text-decoration: underline;
 }
 
 .ins_annuncio_text, .ins_annuncio_text:hover, .ins_annuncio_text:active, .ins_annuncio_text:visited{
@@ -96,10 +106,10 @@ b{
     
     display: flex;
     justify-content: space-around;
-    width: 40vh;
+    width: 35vh;
     border: 2px solid #fb9354;
     border-radius: 0.375rem;
-    margin: 0%;
+    margin: auto;
 }
 
 .category_img{
@@ -133,10 +143,17 @@ b{
 }
 
 footer{
-
+    
     background-color: #e8e8e8;
     color: black;
-    height: 250px;
+    height: 30%;
+}
+
+.footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
 }
 
 .div_footer{
@@ -253,4 +270,14 @@ footer{
 
 .link_log, .link_log:hover, .link_log:visited, .link_log:focus{
     color: #fa5f5a;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 70%;
+}
+
+main {
+    flex-grow: 1;
 }
