@@ -18,8 +18,6 @@ html, body {
 }
 
 .login_bar{
-    display: flex;
-    justify-content: space-around;
     align-items: center;
     padding: 20px;
     border-top: 2px solid grey;
@@ -28,8 +26,7 @@ html, body {
 }
 
 .logo_img{
-    width: 80%;
-    height: auto;
+    size: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -60,6 +57,8 @@ html, body {
 }
 
 .ins_annuncio{
+    border: none;
+    text-decoration: none;
     background: linear-gradient(to right, #fcbe4f, #fa5f5a);
     padding: 15px;
     border-radius: 0.375rem;
@@ -84,11 +83,9 @@ b{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.container {
-    display: flex;
-    justify-content: space-around;
+.mycontainer {
     align-items: center;
-    width: 100%;
+    width: 80%;
     margin: auto;
     padding: 20px;
     border-radius: 0.375rem;
@@ -107,7 +104,7 @@ b{
     
     display: flex;
     justify-content: space-around;
-    width: 35vh;
+    width: 90%;
     border: 2px solid #fb9354;
     border-radius: 0.375rem;
     margin: auto;
@@ -182,8 +179,7 @@ footer{
     position: relative;
     display: inline-block;
     width: 250px;
-    height: 141px;
-    border: 0%;
+    height: auto;
     
 }
 
@@ -281,4 +277,64 @@ footer{
 
 main {
     flex-grow: 1;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    border-radius: 0.355rem;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    z-index: 1;
+}
+
+.dropdown-icon{
+    width: 20px;
+    margin-right: 10px;
+    vertical-align: sub;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    min-width: 180px;    
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    display: block;
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.grid-header {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-item {
+    text-align: center;
+}
+
+.second-grid-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) minmax(auto, 100px);
+}
+
+.third-grid-container{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.third-grid-item{
+    text-align: center;
 }

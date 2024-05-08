@@ -26,14 +26,16 @@
         <b style="font-size: 15px;">L'E-COMMERCE CHE SOGNAVI</b>
         <img class="header_icon" src="./img/star.png">
     </div>
-    <div class="login_bar">
-        <a class="login_link" href="index.php"><img class="logo_img" src="./img/2_new.png"></a>
-        <div align="center">
+    <div class="login_bar grid-header">
+        <div align="center" class="grid-item">
+            <a class="login_link" href="index.php"><img class="logo_img" style="size: 80%" src="./img/2_new.png"></a>
+        </div>
+        <div align="center" class="grid-item">
             <a class="ins_annuncio_text" href="inserisci_annuncio.html">
-                <div class="ins_annuncio">
-                    <img class="icon" style="vertical-align: center" src="./img/plus.png">
+                <button class="ins_annuncio">
+                    <img class="icon" style="vertical-align: center;" src="./img/plus.png">
                     <b style="font-size: 20px;">Inserisci annuncio</b>
-                </div>
+                </button>
             </a>
         </div>
 
@@ -43,22 +45,25 @@
 
         ?>
 
-        <div align="right" style="display: flex;">
+        <div align="center" class="grid-item">
         
-            <div align="left" style="display: flex;">
-                <span><img class="icon" style="width: 45px; vertical-align: text-bottom;" src="./img/user.png"></span>
-                <div>
-                    <b style="font-size: 16px; margin-right: 5px; margin-bottom: 3px;">Ciao <span style="color: #fa5f5a;"><?php echo $_SESSION["id"] ?></span></b><br>
-                    <b style="font-size: 13px">Account <img class=icon style="width: 18px; vertical-align: sub;" src="./img/down.png"></b>
+            <div align="left" class="dropdown">
+                <div style="margin: 15px;">
+                    <a style="text-decoration: none; color: black;" href="#">
+                        <img class="icon" src="./img/user.png">
+                        <b>Ciao <span style="color: #fa5f5a;"><?php echo $_SESSION["id"] ?></span> <img class=icon src="./img/down.png"></b>
+                    </a>
                 </div>
-            </div>
-
-            <div align="left" style="display: flex;">
-                <span><img class="icon" style="width: 45px; vertical-align: text-bottom;" src="./img/carrello.png"></span>
-                <div>
-                    
-                    <b style="font-size: 13px; vertical-align: bottom;">Carrello</b>
-                </div>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="./logout/logout.php">
+                        <div>
+                            <img class="dropdown-icon" src="./img/logout.png">
+                            Esci
+                        </div>
+                    </a>
+                </div>                
             </div>
         </div>
 
@@ -68,10 +73,10 @@
 
         ?>  
 
-        <div  align="right">
+        <div  align="right" class="grid-item">
             <a href="./login/login.php"><img class="icon" src="./img/login.png"></a>
             <a class="login_link" href="./login/login.php"><b>Accedi</b></a>
-            <a class="reg_link" href="./register/register.php"><b style="margin-right: 140px;">Registrati</b></a>
+            <a class="reg_link" href="./register/register.php"><b>Registrati</b></a>
         </div>
 
         <?php
@@ -82,30 +87,33 @@
     </div>
     <br>
     <form action="" method="post" name="ricerca" id="ricerca">
-        <div class="container" align="center">
-            <div class="search">
+        <div class="mycontainer second-grid-container" align="center">
+            <div class="search second-grid-item">
                 <label><b>Cerchi qualcosa?</b></label>
                 <div class="search_bar">
                     <img class="category_img" src="./img/search-simbol.png">
                     <input class="input_text" type="text" name="cosaCerchi" placeholder="Vespa, motorino..">
                 </div>
             </div>
-            <div class="search">
+            <div class="search second-grid-item">
                 <label><b>Cosa cerchi?</b></label>
                 <div class="search_bar">
                     <img class="category_img" src="./img/menu.png">
                     <input class="input_text" type="text" name="categoria" placeholder="Categoria">
                 </div>
             </div>
-            <div class="search">
+            <div class="search second-grid-item">
                 <label><b>Dove la cerchi?</b></label>
                 <div class="search_bar">
                     <img class="category_img" src="./img/maps.png">
                     <input class="input_text" type="text" name="doveCerchi" placeholder="Comune, Provincia o Regione">
                 </div>
             </div>
-            <input type="image" class="search_ico" src="./img/search2.png" id="imgSubmit">
+            <div class="second-grid-item">
+                <input type="image" class="search_ico" src="./img/search2.png" id="imgSubmit">
+            </div>
         </div>
+        
     </form>
     <br>
     <div align="center">
@@ -138,8 +146,8 @@
     </div>
     <br><br>
     <div align="center">
-        <div class="product">
-            <div class="single_product">
+        <div class="product third-grid-container">
+            <div class="single_product third-grid-item">
                 <div class="img_product">
                     <a href="" class="login_link"><img width="100%" style="border-radius: 0.375rem;" src="./img/scarpa_prova.jpg"></a>
                     <div class="overlay-container">
@@ -154,7 +162,7 @@
                     </a>
                 </div>
             </div>
-            <div class="single_product">
+            <div class="single_product third-grid-item">
                 <div class="img_product">
                     <a href="" class="login_link"><img width="100%" style="border-radius: 0.375rem;" src="./img/scarpa_prova.jpg"></a>
                     <div class="overlay-container">
@@ -169,14 +177,14 @@
                     </a>
                 </div>
             </div>
-            <div class="single_product">
+            <div class="single_product third-grid-item">
                 <div class="img_product">
                     <a href="" class="login_link"><img width="100%" style="border-radius: 0.375rem;" src="./img/scarpa_prova.jpg"></a>
                     <div class="overlay-container">
                         <button class="overlay_button"><img id="hearth3" class="icon" onclick="cambiaImmagine(id)" src="./img/hearth.png" ></button>
                     </div>
                 </div>
-                <div class="description_product">
+                <div class="description_product third-grid-item">
                     <a href="" class="login_link">
                         <p class="product-title">Nike Air Max 90 Premium</p>
                         <p class="product-category">Scarpe</p>
@@ -184,7 +192,7 @@
                     </a>
                 </div>
             </div>
-            <div class="single_product">
+            <div class="single_product third-grid-item">
                 <div class="img_product">
                     <a href="" class="login_link"><img width="100%" style="border-radius: 0.375rem;" src="./img/scarpa_prova.jpg"></a>
                     <div class="overlay-container">
@@ -199,7 +207,7 @@
                     </a>
                 </div>
             </div>
-            <div class="single_product">
+            <div class="single_product third-grid-item">
                 <div class="img_product">
                     <a href="" class="login_link"><img width="100%" style="border-radius: 0.375rem;" src="./img/scarpa_prova.jpg"></a>
                     <div class="overlay-container">
@@ -218,8 +226,8 @@
     </div>
     <br>
     <div align="center">
-        <div class="product">
-            <div class="single_product">
+        <div class="product third-grid-container">
+            <div class="single_product third-grid-item">
                 <div class="img_product">
                     <a href="" class="login_link"><img width="100%" style="border-radius: 0.375rem;" src="./img/scarpa_prova.jpg"></a>
                     <div class="overlay-container">
@@ -234,7 +242,7 @@
                     </a>
                 </div>
             </div>
-            <div class="single_product">
+            <div class="single_product third-grid-item">
                 <div class="img_product">
                     <a href="" class="login_link"><img width="100%" style="border-radius: 0.375rem;" src="./img/scarpa_prova.jpg"></a>
                     <div class="overlay-container">
@@ -249,7 +257,7 @@
                     </a>
                 </div>
             </div>
-            <div class="single_product">
+            <div class="single_product third-grid-item">
                 <div class="img_product">
                     <a href="" class="login_link"><img width="100%" style="border-radius: 0.375rem;" src="./img/scarpa_prova.jpg"></a>
                     <div class="overlay-container">
@@ -264,7 +272,7 @@
                     </a>
                 </div>
             </div>
-            <div class="single_product">
+            <div class="single_product third-grid-item">
                 <div class="img_product">
                     <a href="" class="login_link"><img width="100%" style="border-radius: 0.375rem;" src="./img/scarpa_prova.jpg"></a>
                     <div class="overlay-container">
@@ -279,7 +287,7 @@
                     </a>
                 </div>
             </div>
-            <div class="single_product">
+            <div class="single_product third-grid-item">
                 <div class="img_product">
                     <a href="" class="login_link"><img width="100%" style="border-radius: 0.375rem;" src="./img/scarpa_prova.jpg"></a>
                     <div class="overlay-container">
