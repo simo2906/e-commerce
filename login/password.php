@@ -1,3 +1,19 @@
+<?php
+    if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
+        $email = $_POST["email"];
+
+        $db = pg_connect("host=localhost port=5432 dbname=ecommerce user=simone password=biar") or die("Errore di connessione" . pg_last_error());
+
+        $sql = "SELECT * from utenti where email = $1";
+        $query = pg_query_params($db, $sql, array($email));
+
+        if(pg_num_rows($query) == 1){
+            header("Location: password.php?id=success");
+        } else header("Location: password.php?id=error");
+
+
+    }
+?>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -5,11 +21,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/mobile.css">
-    <link rel="application/javascript" href="/js/script.js">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-
+    <script src="../js/script.js"></script>
     <title>Registrazione avvenuta</title>
 </head>
 <body >
@@ -23,9 +38,9 @@
         <br>
         <a href="../index.php"><img class="logo_img" src="../img/2_new.png"></a>
     </div>
-    <br><br>
+    <br>
     <div align="center">
-        <form action="" class="register">
+        <form action="password.php" method="post"class="register">
             <br><br>
             <h3>Inserire email</h3>
             <br>
@@ -33,6 +48,13 @@
             <br><br>
             <button type="submit" class="log_button"><b>Invia</b></button>
             <br><br>
+            <?php
+                if(isset($_GET["id"])){
+                    if($_GET["id"] == 'success') echo '<b>Controlla l\'email per il reset password</b><br><br>';
+                    else if($_GET["id"] == 'error') echo '<b>Email non presente nel sistema</b><br><br>';
+                }
+
+            ?>  
         </form>
     </div>
     <br><br>

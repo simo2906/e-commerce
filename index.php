@@ -10,22 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/mobile.css">
-    <link rel="application/javascript" href="/js/script.js">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-
-    <script>
-        function cambiaImmagine(id) {
-            var immagine = document.getElementById(id);
-            if (immagine.src.match("./img/hearth.png")) {
-                immagine.src = "./img/hearth_black.png";
-            } else {
-                immagine.src = "./img/hearth.png";
-            }
-        }
-    </script>
-
+    <script src="../js/script.js"></script>
     <title>Babazon.it</title>
 
 
@@ -39,12 +27,12 @@
         <img class="header_icon" src="./img/star.png">
     </div>
     <div class="login_bar">
-        <a class="login_link" href="index.php"><img style="margin-left:45px" class="logo_img" src="./img/2_new.png"></a>
+        <a class="login_link" href="index.php"><img class="logo_img" src="./img/2_new.png"></a>
         <div align="center">
             <a class="ins_annuncio_text" href="inserisci_annuncio.html">
                 <div class="ins_annuncio">
-                    <img class="icon" src="./img/plus.png">
-                    <b style="font-size: 23px;">Inserisci annuncio</b>
+                    <img class="icon" style="vertical-align: center" src="./img/plus.png">
+                    <b style="font-size: 20px;">Inserisci annuncio</b>
                 </div>
             </a>
         </div>
@@ -55,11 +43,23 @@
 
         ?>
 
-        <div align="right">
-            <b style="margin-right: 5px;">Benvenuto <?php echo $_SESSION["id"] ?></b>
-            <a href="./logout/logout.php"><img style="margin-right: 40px;" class="icon" src="./img/logout.png"></a>
-            <a href="./carrello/carrello.php"><img style="margin-right: 15px" class="icon" src="./img/carrello.png"></a>
-            <a href="./carrello/hearth.php"><img class="icon" src="./img/hearth_header.png"></a>
+        <div align="right" style="display: flex;">
+        
+            <div align="left" style="display: flex;">
+                <span><img class="icon" style="width: 45px; vertical-align: text-bottom;" src="./img/user.png"></span>
+                <div>
+                    <b style="font-size: 16px; margin-right: 5px; margin-bottom: 3px;">Ciao <span style="color: #fa5f5a;"><?php echo $_SESSION["id"] ?></span></b><br>
+                    <b style="font-size: 13px">Account <img class=icon style="width: 18px; vertical-align: sub;" src="./img/down.png"></b>
+                </div>
+            </div>
+
+            <div align="left" style="display: flex;">
+                <span><img class="icon" style="width: 45px; vertical-align: text-bottom;" src="./img/carrello.png"></span>
+                <div>
+                    
+                    <b style="font-size: 13px; vertical-align: bottom;">Carrello</b>
+                </div>
+            </div>
         </div>
 
         <?php

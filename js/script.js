@@ -42,3 +42,18 @@ function valida_login(){
 
     return true;
 }
+
+function cambiaImmagine(id) {
+    var immagine = document.getElementById(id);
+    if (immagine.src.match("./img/hearth.png")) {
+        var counterElement = document.getElementById("counter_hearth");
+        var currentCount = parseInt(counterElement.innerText);
+        counterElement.innerText = currentCount + 1;
+        immagine.src = "./img/hearth_black.png";
+    } else {
+        var counterElement = document.getElementById("counter_hearth");
+        var currentCount = parseInt(counterElement.innerText);
+        counterElement.innerText = currentCount - 1;
+        immagine.src = "./img/hearth.png";
+    }
+}
