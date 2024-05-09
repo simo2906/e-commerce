@@ -46,14 +46,35 @@ function valida_login(){
 function cambiaImmagine(id) {
     var immagine = document.getElementById(id);
     if (immagine.src.match("./img/hearth.png")) {
-        var counterElement = document.getElementById("counter_hearth");
-        var currentCount = parseInt(counterElement.innerText);
-        counterElement.innerText = currentCount + 1;
         immagine.src = "./img/hearth_black.png";
     } else {
-        var counterElement = document.getElementById("counter_hearth");
-        var currentCount = parseInt(counterElement.innerText);
-        counterElement.innerText = currentCount - 1;
         immagine.src = "./img/hearth.png";
     }
 }
+
+function valida_insertAd(){
+    if(!document.insertAd_form.productPrice.value.test("/[1-9]\d*(?:\.\d{2})/")){
+        alert("Il prezzo non è numerico");
+        return false;
+    }
+    return true;
+}
+
+function previewImage(previewId, inputId) {
+    var preview = document.getElementById(previewId);
+    var file = document.getElementById(inputId).files[0];
+    var reader = new FileReader();
+  
+    reader.onloadend = function() {
+      preview.style.backgroundImage = 'url("' + reader.result + '")';
+    };
+  
+    if (file) {
+      preview.innerHTML = null;
+      reader.readAsDataURL(file);
+    } else {
+      preview.style.backgroundImage = null;
+      preview.innerHTML = '<img class="photo-icon" src="./img/camera.png">'
+    }
+  }
+  

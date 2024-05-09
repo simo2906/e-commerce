@@ -227,16 +227,16 @@ footer{
 }
 
 .single_product:hover {
-    background-color: #e8e8e8;
-    transform: scale(1.2);
+    background-color: white;
+    transform: scale(1.1);
     z-index: 1;
-    padding: 7px;
-    padding-bottom: 0;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border: 1px solid black;
+    
 }
 
 .description_product{
     margin: 0%;
+    padding: 0%;
 }
 
 .register{
@@ -284,17 +284,22 @@ main {
     display: inline-block;
 }
 
+.dropdown:hover{
+    border: 2px solid grey;
+    border-radius: 0.355rem;
+}
+
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
+    background-color: white;
     border-radius: 0.355rem;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
     z-index: 1;
 }
 
 .dropdown-icon{
-    width: 20px;
+    width: 25px;
     margin-right: 10px;
     vertical-align: sub;
 }
@@ -302,7 +307,7 @@ main {
 .dropdown-content a {
     color: black;
     padding: 12px 16px;
-    min-width: 180px;    
+    min-width: 230px;    
     text-decoration: none;
     display: block;
 }
@@ -316,21 +321,22 @@ main {
     display: block;
 }
 
-.grid-header {
+.first-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 }
 
-.grid-item {
+.first-grid-item{
+    align-items: center;
     text-align: center;
 }
 
-.second-grid-container{
+.second-grid{
     display: grid;
     grid-template-columns: repeat(3, 1fr) minmax(auto, 100px);
 }
 
-.third-grid-container{
+.third-grid{
     display: grid;
     grid-template-columns: repeat(5, 1fr);
 }
@@ -338,3 +344,53 @@ main {
 .third-grid-item{
     text-align: center;
 }
+
+.insertAd{
+    align-items:center;
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.5); 
+    border-radius: 0.355rem;
+    width: 30%; 
+    height: auto;
+}
+
+.photo-icon{
+    width: 30px;
+    height: auto;
+    margin-top: 5vh;
+    
+}
+
+.upload-container {
+    margin: auto;
+    border-radius: 0.355rem;
+    position: relative;
+    width: 14vh; 
+    height: 14vh;
+    border: 1px solid #ccc;
+    overflow: hidden;
+}
+
+#preview1, #preview2, #preview3, #preview4, #preview5, #preview6{
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+#fileToUpload1, #fileToUpload2, #fileToUpload3, #fileToUpload4, #fileToUpload5, #fileToUpload6{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.product-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+

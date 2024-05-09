@@ -13,8 +13,8 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
         $result = pg_fetch_assoc($query);
         $hashed_password = $result["password"];
         if(password_verify($password, $hashed_password)){
-            $nome = ucfirst($result["nome"]);
-            $_SESSION["id"] = $nome;
+            $id = $result["id"];
+            $_SESSION["id"] = $id;
             header("Location: ../index.php");
         }
         
