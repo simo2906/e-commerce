@@ -163,7 +163,7 @@
         <div class="product third-grid-container">
             <div class="single_product third-grid-item">
                 <div class="img_product">
-                    <a href="single-product.php?id=29" class="login_link"><img width="100%" style="border-radius: 0.375rem;" src="./img/scarpa_prova.jpg"></a>
+                    <a href="single-product.php?id=34" class="login_link"><img width="100%" style="border-radius: 0.375rem;" src="./img/scarpa_prova.jpg"></a>
                     <div class="overlay-container">
                         <button class="overlay_button"><img id="hearth1" class="icon" onclick="cambiaImmagine(id)" src="./img/hearth.png" ></button>
                     </div>

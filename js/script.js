@@ -10,6 +10,16 @@ function valida_registrazione(){
         return false;
     }
 
+    if(document.register.telefono.value == ""){
+        alert("Inserire numero di telefono");
+        return false;
+    }
+
+    if(!document.register.telefono.value.match(/^((00|\+)39[\. ]??)??3\d{2}[\. ]??\d{6,7}$/)){
+        alert("inserire un numero di telefono valido");
+        return false;
+    }
+
     if(document.register.email.value == ""){
         alert("Inserire un email");
         return false;
@@ -60,7 +70,7 @@ function valida_insertAd(){
     return true;
 }
 
-function previewImage(previewId, inputId) {
+function previewImage(previewId, inputId, id) {
     var preview = document.getElementById(previewId);
     var file = document.getElementById(inputId).files[0];
     var reader = new FileReader();
@@ -74,7 +84,38 @@ function previewImage(previewId, inputId) {
       reader.readAsDataURL(file);
     } else {
       preview.style.backgroundImage = null;
-      preview.innerHTML = '<img class="photo-icon" src="./img/camera.png">'
+      preview.innerHTML = '<b class="photo-icon">' + id + '</b>';
     }
   }
+
+
+  function valida_annuncio(){
+
+    if(document.insertAd_form.productTitle.value == ""){
+        alert("Inserire il titolo dell'articolo");
+        return false;
+    }
+
+    if(document.insertAd_form.productCategory.value == ""){
+        alert("Scegliere la categoria dell'articolo");
+        return false;
+    }
+
+    if(document.insertAd_form.productPrice.value == ""){
+        alert("Inserire il prezzo dell'articolo");
+        return false;
+    }
+
+    if(document.insertAd_form.productMunicipality.value == ""){
+        alert("Inserire la località dell'articolo");
+        return false;
+    }
+
+    if(document.insertAd_form.fileToUpload1.value == "" ){
+        alert("Caricare la prima immagine");
+        return false;
+    }
+
+    return true;
+}
   

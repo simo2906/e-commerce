@@ -20,20 +20,17 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
     $File4Name = pg_escape_string($_FILES['fileToUpload4']['name']);
     $tempFile5Path = $_FILES['fileToUpload5']['tmp_name'];
     $File5Name = pg_escape_string($_FILES['fileToUpload5']['name']);
-    $tempFile6Path = $_FILES['fileToUpload6']['tmp_name'];
-    $File6Name = pg_escape_string($_FILES['fileToUpload6']['name']);
 
     if(file_exists($tempFile1Path)) $File1 = '1-'. $File1Name;
     if(file_exists($tempFile2Path)) $File2 = '2-'. $File2Name;
     if(file_exists($tempFile3Path)) $File3 = '3-'. $File3Name;
     if(file_exists($tempFile4Path)) $File4 = '4-'. $File4Name;
     if(file_exists($tempFile5Path)) $File5 = '5-'. $File5Name;
-    if(file_exists($tempFile6Path)) $File6 = '6-'. $File6Name;
 
     
     
-    $sql = "INSERT INTO prodotti (utente, nome, categoria, prezzo, comune, descrizione, picture1, picture2) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) returning *";
-    $query = pg_query_params($db, $sql, array($_SESSION["id"], $nome, $categoria, $prezzo, $comune, $descrizione, $File1, $File2));
+    $sql = "INSERT INTO prodotti (utente, nome, categoria, prezzo, comune, descrizione, picture1, picture2, picture3, picture4, picture5) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) returning *";
+    $query = pg_query_params($db, $sql, array($_SESSION["id"], $nome, $categoria, $prezzo, $comune, $descrizione, $File1, $File2, $File3, $File4, $File5)) or die(pg_last_error());
     if($query){
         $result = pg_fetch_assoc($query);
 
@@ -55,9 +52,21 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
             move_uploaded_file($tempFile2Path, $path . $result["utente"] . '/' . $result["id"] . '/' . $File2);
         }
 
+        if(file_exists($tempFile3Path)){
+            move_uploaded_file($tempFile3Path, $path . $result["utente"] . '/' . $result["id"] . '/' . $File3);
+        }
+
+        if(file_exists($tempFile4Path)){
+            move_uploaded_file($tempFile4Path, $path . $result["utente"] . '/' . $result["id"] . '/' . $File4);
+        }
+
+        if(file_exists($tempFile5Path)){
+            move_uploaded_file($tempFile5Path, $path . $result["utente"] . '/' . $result["id"] . '/' . $File5);
+        }
+
         header("Location: successInsert.html");
     }else{
-        header("Location: file.php?id=error");
+        header("Location: insert_ad.php?id=error");
     }
 
     
@@ -90,57 +99,61 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
         <div align="center">
             <a href="../index.php"><img class="logo_img" src="../img/2_new.png"></a>
         </div>
+        
+       
         <br>
-
         <div align="center">
-            <form action="insert_ad.php" method="post" name="insertAd_form" class="insertAd" enctype="multipart/form-data" onsubmit="return valida_insertAd()">
+            <form action="insert_ad.php" method="post" name="insertAd_form" class="insertAd" enctype="multipart/form-data" onsubmit="return valida_annuncio();">
                 <br>
                 <h3>Inserisci il tuo annuncio!</h3>
                 <hr style="margin-top: 20px; margin-left: 3%; margin-right: 3%">
+                <?php
+                if(isset($_GET["id"]) && $_GET["id"] == 'error'){
+                    
+                    echo '<br><b>Errore inserimento annuncio</b>';
+                }
+                ?>
                 <br><br>
-                <input type="text" name="productTitle" placeholder="Nome*" class="input_log">
+                
+                <input type="text" name="productTitle" placeholder="Titolo*" class="input_log">
                 <br><br>
                 <input type="text" name="productCategory" placeholder="Categoria*" class="input_log">
                 <br><br>
-                <input type="text" name="productPrice" placeholder="Prezzo*" class="input_log">
+                <input type="number" name="productPrice" placeholder="€ Prezzo*" class="input_log">
                 <br><br>
                 <input type="text" name="productMunicipality" placeholder="Comune*" class="input_log">
-                <br><br>
-                <input type="text" name="productDescription" placeholder="Scrivi una breve descrizione del prodotto" class="input_log">
+                <br><br><br>
+                <textarea name="productDescription" class="textarea_input" placeholder="Scrivi una breve descrizione del prodotto" ></textarea>
                 <br><br><br>
                 <b>Inserisci le immagini del prodotto</b>
                 <br><br>
                 <div class="first-grid">
 
                     <div class="upload-container first-grid-item">
-                        <div id="preview1"><img class="photo-icon" src="./img/camera.png"></div>
-                        <input type="file" name="fileToUpload1" id="fileToUpload1" accept="image/*" onchange="previewImage('preview1','fileToUpload1')">
+                        <div id="preview1"><b class="photo-icon">1</b></div>
+                        <input type="file" name="fileToUpload1" id="fileToUpload1" accept="image/*" onchange="previewImage('preview1','fileToUpload1', 1)">
                         
                     </div>
                     <div class="upload-container first-grid-item">
-                        <div id="preview2"><img class="photo-icon" src="./img/camera.png"></div>
-                        <input type="file" name="fileToUpload2" id="fileToUpload2" accept="image/*" onchange="previewImage('preview2','fileToUpload2')">
+                        <div id="preview2"><b class="photo-icon">2</b></div>
+                        <input type="file" name="fileToUpload2" id="fileToUpload2" accept="image/*" onchange="previewImage('preview2','fileToUpload2', 2)">
                     </div>
                     <div class="upload-container first-grid-item">
-                        <div id="preview3"><img class="photo-icon" src="./img/camera.png"></div>
-                        <input type="file" name="fileToUpload3" id="fileToUpload3" accept="image/*" onchange="previewImage('preview3','fileToUpload3')">
+                        <div id="preview3"><b class="photo-icon">3</b></div>
+                        <input type="file" name="fileToUpload3" id="fileToUpload3" accept="image/*" onchange="previewImage('preview3','fileToUpload3', 3)">
                     </div>
 
                 </div>
                 <br><br>
-                <div class="first-grid">
+                <div class="product-grid">
 
-                    <div class="upload-container first-grid-item">
-                        <div id="preview4"><img class="photo-icon" src="./img/camera.png"></div>
-                        <input type="file" name="fileToUpload4" id="fileToUpload4" accept="image/*" onchange="previewImage('preview4','fileToUpload4')">
+                    <div class="upload-container product-grid-item" style="margin-left: 41%">
+                        <div id="preview4"><b class="photo-icon">4</b></div>
+                        <input type="file" name="fileToUpload4" id="fileToUpload4" accept="image/*" onchange="previewImage('preview4','fileToUpload4', 4)">
                     </div>
-                    <div class="upload-container first-grid-item">
-                        <div id="preview5"><img class="photo-icon" src="./img/camera.png"></div>
-                        <input type="file" name="fileToUpload5" id="fileToUpload5" accept="image/*" onchange="previewImage('preview5','fileToUpload5')">
-                    </div>
-                    <div class="upload-container first-grid-item">
-                        <div id="preview6"><img class="photo-icon" src="./img/camera.png"></div>
-                        <input type="file" name="fileToUpload6" id="fileToUpload6" accept="image/*" onchange="previewImage('preview6','fileToUpload6')">
+                    <div class="upload-container product-grid-item" style="margin-right: 41%">
+                        <div id="preview5"><b class="photo-icon">5</b></div>
+                        <input type="file" name="fileToUpload5" id="fileToUpload5" accept="image/*" onchange="previewImage('preview5','fileToUpload5', 5)">
                     </div>
 
                 </div>

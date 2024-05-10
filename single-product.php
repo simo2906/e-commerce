@@ -7,6 +7,7 @@
     $sql = "SELECT * from prodotti where id = $1";
     $query = pg_query_params($db, $sql, array($id));
     $result = pg_fetch_assoc($query);
+    
 ?>
 
 <!DOCTYPE html>
@@ -108,23 +109,70 @@
     <br>
     <div class="product-grid">
         <div class="produt-grid-item" align="center">
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div id="carouselExampleIndicators" class="carousel slide" >
               <div class="carousel-indicators">
+                <?php
+                    if($result["picture2"]){
+                ?>
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <?php
+                    }
+                    if($result["picture3"]){
+                ?>
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <?php
+                    }
+                    if($result["picture4"]){
+                ?>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 4"></button>
+                <?php
+                    }
+                    if($result["picture5"]){
+                ?>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 5"></button>
+                <?php
+                    }
+                ?>
               </div>
               <div class="carousel-inner">
                 <div class="carousel-item active">
                   <img src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture1"] ?>' class="d-block w-100" alt="Immagine 1">
                 </div>
+                <?php
+                    if($result["picture2"]){
+                ?>
                 <div class="carousel-item">
-                  <img src="https://via.placeholder.com/500x500" class="d-block w-100" alt="Immagine 2">
+                  <img src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture2"] ?>' class="d-block w-100" alt="Immagine 2">
                 </div>
+                <?php
+                    }
+                    if($result["picture3"]){
+                ?>
                 <div class="carousel-item">
-                  <img src="https://via.placeholder.com/500x500" class="d-block w-100" alt="Immagine 3">
+                  <img src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture3"] ?>' class="d-block w-100" alt="Immagine 2">
                 </div>
+                <?php
+                    }
+                    if($result["picture4"]){
+                ?>
+                <div class="carousel-item">
+                  <img src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture4"] ?>' class="d-block w-100" alt="Immagine 2">
+                </div>
+                <?php
+                    }
+                    if($result["picture5"]){
+                ?>
+                <div class="carousel-item">
+                  <img src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture5"] ?>' class="d-block w-100" alt="Immagine 2">
+                </div>
+                <?php
+                    }
+                ?>
               </div>
+                <?php
+                    if($result["picture2"] || $result["picture3"] || $result["picture4"] || $result["picture5"]){
+                ?>
               <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
@@ -133,12 +181,52 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
               </button>
+                <?php
+                    }
+                ?>
             </div>
         </div>
         
-        <div class="product-grid-item">
+        <div class="product-grid-item" >
             <div class="insert_Ad">
-                
+                <div class="product-grid">
+                    <div class="product-grid-item" align="left">
+                        <b style="background-color: #e8e8e8; padding: 6px;"><?php echo strtoupper($result["categoria"]) ?></b>
+                    </div>
+                    <div class="product-grid-item" align="right">
+                        <img id="preferito" style="margin-right: 30%; width: 35px;" onclick="cambiaImmagine(id)" src="./img/hearth.png">
+                    </div>
+                </div>
+            
+                <hr style=" margin-right: 15%">               
+                <div class="product-grid">
+                    <div class="product-grid-item">    
+                        <h2 style="text-align: left"><?php echo $result["nome"] ?></h2>
+                        <br>
+                        <b style="font-size: 20px"><img style="width: 25px; vertical-align: top;" src="./img/maps.png"> <?php echo strtoupper($result["comune"]) ?></b>
+                        <br><br>
+                        <h2 style="color: #fa5f5a;"><?php echo $result["prezzo"] ?> €</h2>
+                        <br>
+                        <div style="max-width: 40vh">
+                            <p><?php echo $result["descrizione"] ?></p>
+                        </div>
+                    </div>
+
+                    <div class="product-grid-item" align="center" style="margin-right: 30%">
+                        <div class="user-product">
+                            <img class="icon" src="./img/user (1).png">
+                            <b><?php echo ucfirst($result_utenti["nome"]) . ' ' . ucfirst($result_utenti["cognome"]) ?></b>
+                            <br><br>
+                            <b>N.Tel: <?php echo $result_utenti["num_tel"] ?></b>
+                        </div>
+                        <br>
+                        <a class="ins_annuncio_text" href="#">
+                            <button class="ins_annuncio">
+                                <b style="font-size: 20px;">Acquista</b>
+                            </button>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
