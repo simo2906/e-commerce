@@ -3,7 +3,7 @@ session_start();
 
 
 if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
-    $db = pg_connect("host=localhost port=5432 dbname=ecommerce user=simone password=biar") or die("Errore di connessione" . pg_last_error());
+    $db = pg_connect("host=localhost port=5432 dbname=Babazon user=jacopo password=password") or die("Errore di connessione" . pg_last_error());
     $email = $_POST['email'];
     $password = $_POST['password'];
 

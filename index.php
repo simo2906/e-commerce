@@ -1,5 +1,6 @@
 <?php
     session_start();
+    $db = pg_connect("host=localhost port=5432 dbname=Babazon user=jacopo password=password") or die("Errore di connessione");
 ?>
 
 
@@ -42,7 +43,6 @@
         <?php
 
             if(isset($_SESSION["id"])){
-                $db = pg_connect("host=localhost port=5432 dbname=ecommerce user=simone password=biar") or die("Errore di connessione");
                 $sql = "SELECT * from utenti where id = $1";
                 $query = pg_query_params($db, $sql, array($_SESSION["id"]));
                 $result = pg_fetch_assoc($query);
@@ -59,7 +59,7 @@
                     </a>
                 </div>
                 <div class="dropdown-content">
-                    <a href="#">
+                    <a href="favourites-product.php">
                         <div>
                             <img class="dropdown-icon" src="./img/love.png">
                             Preferiti
@@ -99,8 +99,7 @@
 
         ?>
     </div>
-    <br>
-    <form action="" method="post" name="ricerca" id="ricerca">
+    <form action="" method="post" name="ricerca" id="ricerca" style="margin-top: 1%;">
         <div class="mycontainer second-grid" align="center">
             <div class="search second-grid-item">
                 <label><b>Cerchi qualcosa?</b></label>
@@ -127,17 +126,15 @@
                 <input type="image" class="search_ico" src="./img/search2.png" id="imgSubmit">
             </div>
         </div>
-        
     </form>
-    <br>
     <div align="center">
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style="margin-top: 1%">
             <div class="carousel-indicators">
               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
-            <div class="carousel-inner">
+            <div class="carousel-inner" style="border-radius:0.375rem">
               <div class="carousel-item active" data-bs-interval="3000">
                 <img src="./img/prova1.jpg" class="d-block w-100" alt="...">
               </div>
@@ -159,176 +156,43 @@
           </div>
     </div>
     <br><br>
-    <div align="center">
+    <div align="center" style="margin-top: 2%;">
         <div class="product third-grid-container">
+        <?php
+            $sql = "SELECT * FROM prodotti ORDER BY id LIMIT 10";
+            $query = pg_query_params($db, $sql, array());
+            $counter=0;
+            while($result = pg_fetch_assoc($query)){
+                $counter++;
+        ?>
             <div class="single_product third-grid-item">
                 <div class="img_product">
-                    <a href="single-product.php?id=34" class="login_link"><img width="100%" style="border-radius: 0.375rem;" src="./img/scarpa_prova.jpg"></a>
+                    <a href="single-product.php?id=<?php echo $result["id"]?>" class="login_link"><img width="100%" style="border-radius: 2rem; padding: 5%;" src=<?php echo "./Annunci/" . $result["utente"] . "/" . $result["id"] . "/" . $result["picture1"] ?>></a>
                     <div class="overlay-container">
-                        <button class="overlay_button"><img id="hearth1" class="icon" onclick="cambiaImmagine(id)" src="./img/hearth.png" ></button>
+                        <button class="overlay_button"><img id="hearth<?php echo $counter?>" class="icon" onclick="cambiaImmagine(id)" src="./img/hearth.png" style="background-color: white; border-radius: 3rem" ></button>
                     </div>
                 </div>
                 <div class="description_product">
                     <a href="single-product.php" class="login_link">
-                        <p class="product-title">Nike Air Max 90 Premium</p>
-                        <p class="product-category">Scarpe</p>
-                        <p class="product-price">€140</p>
+                        <p class="product-title"><?php echo ucwords($result["nome"]) ?></p>
+                        <p class="product-category"><?php echo ucwords($result["categoria"]) ?></p>
+                        <p class="product-price"><?php echo "€" . $result["prezzo"] ?></p>
                     </a>
                 </div>
             </div>
-            <div class="single_product third-grid-item">
-                <div class="img_product">
-                    <a href="" class="login_link"><img width="100%" style="border-radius: 0.375rem;" src="./img/scarpa_prova.jpg"></a>
-                    <div class="overlay-container">
-                        <button class="overlay_button"><img id="hearth2" class="icon" onclick="cambiaImmagine(id)" src="./img/hearth.png" ></button>
-                    </div>
-                </div>
-                <div class="description_product">
-                    <a href="" class="login_link">
-                        <p class="product-title">Nike Air Max 90 Premium</p>
-                        <p class="product-category">Scarpe</p>
-                        <p class="product-price">€140</p>
-                    </a>
-                </div>
-            </div>
-            <div class="single_product third-grid-item">
-                <div class="img_product">
-                    <a href="" class="login_link"><img width="100%" style="border-radius: 0.375rem;" src="./img/scarpa_prova.jpg"></a>
-                    <div class="overlay-container">
-                        <button class="overlay_button"><img id="hearth3" class="icon" onclick="cambiaImmagine(id)" src="./img/hearth.png" ></button>
-                    </div>
-                </div>
-                <div class="description_product third-grid-item">
-                    <a href="" class="login_link">
-                        <p class="product-title">Nike Air Max 90 Premium</p>
-                        <p class="product-category">Scarpe</p>
-                        <p class="product-price">€140</p>
-                    </a>
-                </div>
-            </div>
-            <div class="single_product third-grid-item">
-                <div class="img_product">
-                    <a href="" class="login_link"><img width="100%" style="border-radius: 0.375rem;" src="./img/scarpa_prova.jpg"></a>
-                    <div class="overlay-container">
-                        <button class="overlay_button"><img id="hearth4" class="icon" onclick="cambiaImmagine(id)" src="./img/hearth.png" ></button>
-                    </div>
-                </div>
-                <div class="description_product">
-                    <a href="" class="login_link">
-                        <p class="product-title">Nike Air Max 90 Premium</p>
-                        <p class="product-category">Scarpe</p>
-                        <p class="product-price">€140</p>
-                    </a>
-                </div>
-            </div>
-            <div class="single_product third-grid-item">
-                <div class="img_product">
-                    <a href="" class="login_link"><img width="100%" style="border-radius: 0.375rem;" src="./img/scarpa_prova.jpg"></a>
-                    <div class="overlay-container">
-                        <button class="overlay_button"><img id="hearth5" class="icon" onclick="cambiaImmagine(id)" src="./img/hearth.png" ></button>
-                    </div>
-                </div>
-                <div class="description_product">
-                    <a href="" class="login_link">
-                        <p class="product-title">Nike Air Max 90 Premium</p>
-                        <p class="product-category">Scarpe</p>
-                        <p class="product-price">€140</p>
-                    </a>
-                </div>
-            </div>
+        <?php
+        }
+        ?>
         </div>
     </div>
-    <br>
-    <div align="center">
-        <div class="product third-grid-container">
-            <div class="single_product third-grid-item">
-                <div class="img_product">
-                    <a href="" class="login_link"><img width="100%" style="border-radius: 0.375rem;" src="./img/scarpa_prova.jpg"></a>
-                    <div class="overlay-container">
-                        <button class="overlay_button"><img id="hearth6" class="icon" onclick="cambiaImmagine(id)" src="./img/hearth.png" ></button>
-                    </div>
-                </div>
-                <div class="description_product">
-                    <a href="" class="login_link">
-                        <p class="product-title">Nike Air Max 90 Premium</p>
-                        <p class="product-category">Scarpe</p>
-                        <p class="product-price">€140</p>
-                    </a>
-                </div>
-            </div>
-            <div class="single_product third-grid-item">
-                <div class="img_product">
-                    <a href="" class="login_link"><img width="100%" style="border-radius: 0.375rem;" src="./img/scarpa_prova.jpg"></a>
-                    <div class="overlay-container">
-                        <button class="overlay_button"><img id="hearth7" class="icon" onclick="cambiaImmagine(id)" src="./img/hearth.png" ></button>
-                    </div>
-                </div>
-                <div class="description_product">
-                    <a href="" class="login_link">
-                        <p class="product-title">Nike Air Max 90 Premium</p>
-                        <p class="product-category">Scarpe</p>
-                        <p class="product-price">€140</p>
-                    </a>
-                </div>
-            </div>
-            <div class="single_product third-grid-item">
-                <div class="img_product">
-                    <a href="" class="login_link"><img width="100%" style="border-radius: 0.375rem;" src="./img/scarpa_prova.jpg"></a>
-                    <div class="overlay-container">
-                        <button class="overlay_button"><img id="hearth8" class="icon" onclick="cambiaImmagine(id)" src="./img/hearth.png" ></button>
-                    </div>
-                </div>
-                <div class="description_product">
-                    <a href="" class="login_link">
-                        <p class="product-title">Nike Air Max 90 Premium</p>
-                        <p class="product-category">Scarpe</p>
-                        <p class="product-price">€140</p>
-                    </a>
-                </div>
-            </div>
-            <div class="single_product third-grid-item">
-                <div class="img_product">
-                    <a href="" class="login_link"><img width="100%" style="border-radius: 0.375rem;" src="./img/scarpa_prova.jpg"></a>
-                    <div class="overlay-container">
-                        <button class="overlay_button"><img id="hearth9" class="icon" onclick="cambiaImmagine(id)" src="./img/hearth.png" ></button>
-                    </div>
-                </div>
-                <div class="description_product">
-                    <a href="" class="login_link">
-                        <p class="product-title">Nike Air Max 90 Premium</p>
-                        <p class="product-category">Scarpe</p>
-                        <p class="product-price">€140</p>
-                    </a>
-                </div>
-            </div>
-            <div class="single_product third-grid-item">
-                <div class="img_product">
-                    <a href="" class="login_link"><img width="100%" style="border-radius: 0.375rem;" src="./img/scarpa_prova.jpg"></a>
-                    <div class="overlay-container">
-                        <button class="overlay_button"><img id="hearth10" class="icon" onclick="cambiaImmagine(id)" src="./img/hearth.png" ></button>
-                    </div>
-                </div>
-                <div class="description_product">
-                    <a href="" class="login_link">
-                        <p class="product-title">Nike Air Max 90 Premium</p>
-                        <p class="product-category">Scarpe</p>
-                        <p class="product-price">€140</p>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br><br>
-    <div align="center">
+    <div align="center" style="margin-top: 2%">
         <div class="container-item">
             <img srcset="./img/prova3.webp" type="image/webp">
             <img srcset="./img/prova4.webp" type="image/webp">
         </div>
     </div>
-    <br>
 </div>
 <footer>
-    <br>
     <div class="div_footer grid-container">  
         <div class="grid-item">
             <b>Servizio Clienti</b>

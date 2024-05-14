@@ -4,12 +4,12 @@ session_start();
 if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
 
 if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
-    $db = pg_connect("host=localhost port=5432 dbname=ecommerce user=simone password=biar") or die("Errore di connessione" . pg_last_error());
-    $nome = pg_escape_string(strtolower($_POST["productTitle"]));
-    $categoria = pg_escape_string(strtolower($_POST["productCategory"]));
-    $prezzo = pg_escape_string(strtolower($_POST["productPrice"]));
-    $comune = pg_escape_string(strtolower($_POST["productMunicipality"]));
-    $descrizione = pg_escape_string(strtolower($_POST["productDescription"]));
+    $db = pg_connect("host=localhost port=5432 dbname=Babazon user=jacopo password=password") or die("Errore di connessione" . pg_last_error());
+    $nome = pg_escape_string($db, strtolower($_POST["productTitle"]));
+    $categoria = pg_escape_string($db, strtolower($_POST["productCategory"]));
+    $prezzo = pg_escape_string($db, strtolower($_POST["productPrice"]));
+    $comune = pg_escape_string($db, strtolower($_POST["productMunicipality"]));
+    $descrizione = pg_escape_string($db, strtolower($_POST["productDescription"]));
     $tempFile1Path = $_FILES['fileToUpload1']['tmp_name'];
     $File1Name = pg_escape_string($_FILES['fileToUpload1']['name']);
     $tempFile2Path = $_FILES['fileToUpload2']['tmp_name'];

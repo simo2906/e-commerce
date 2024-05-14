@@ -3,7 +3,7 @@
 
     if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
 
-        $db = pg_connect("host=localhost port=5432 dbname=ecommerce user=simone password=biar") or die("Errore di connessione");
+        $db = pg_connect("host=localhost port=5432 dbname=Babazon user=jacopo password=password") or die("Errore di connessione");
         $nome = strtolower($_POST['nome']);
         $cognome = strtolower($_POST['cognome']);
         $telefono = $_POST['telefono'];
@@ -14,7 +14,7 @@
         $query = pg_query_params($db, $sql, array($email));
         if(pg_num_rows($query) > 0) die(header("Location: register.php?id=error"));
         
-        $sql = "INSERT INTO utenti (nome, cognome, email, password, num_tel) VALUES ($1, $2, $3, $4, $5)";
+        $sql = "INSERT INTO utenti (nome, cognome, email, password, telefono) VALUES ($1, $2, $3, $4, $5)";
         $result = pg_query_params($db, $sql, array($nome, $cognome, $email, $password, $telefono));
         if ($result) {
             $sql = "SELECT * FROM utenti where email = $1";            

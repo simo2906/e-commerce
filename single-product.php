@@ -3,7 +3,7 @@
 
     $id = $_GET["id"];
 
-    $db = pg_connect("host=localhost port=5432 dbname=ecommerce user=simone password=biar") or die("Errore di connessione" . pg_last_error());
+    $db = pg_connect("host=localhost port=5432 dbname=Babazon user=jacopo password=password") or die("Errore di connessione" . pg_last_error());
     $sql = "SELECT * from prodotti where id = $1";
     $query = pg_query_params($db, $sql, array($id));
     $result = pg_fetch_assoc($query);
@@ -66,7 +66,7 @@
                     </a>
                 </div>
                 <div class="dropdown-content">
-                    <a href="#">
+                    <a href="favourites-product.php">
                         <div>
                             <img class="dropdown-icon" src="./img/love.png">
                             Preferiti
@@ -106,10 +106,9 @@
 
         ?>
     </div>
-    <br>
     <div class="product-grid">
         <div class="produt-grid-item" align="center">
-            <div id="carouselExampleIndicators" class="carousel slide" >
+            <div id="carouselExampleIndicators" class="carousel slide">
               <div class="carousel-indicators">
                 <?php
                     if($result["picture2"]){
@@ -135,7 +134,7 @@
                     }
                 ?>
               </div>
-              <div class="carousel-inner">
+              <div class="carousel-inner" style="border-radius: 2rem">
                 <div class="carousel-item active">
                   <img src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture1"] ?>' class="d-block w-100" alt="Immagine 1">
                 </div>
@@ -186,7 +185,11 @@
                 ?>
             </div>
         </div>
-        
+        <?php
+            $sql_proprietario = "SELECT * FROM utenti WHERE id=$1";
+            $query_proprietario = pg_query_params($db, $sql_proprietario, array($result["utente"]));
+            $result_proprietario = pg_fetch_assoc($query_proprietario);
+        ?>
         <div class="product-grid-item" >
             <div class="insert_Ad">
                 <div class="product-grid">
@@ -201,7 +204,7 @@
                 <hr style=" margin-right: 15%">               
                 <div class="product-grid">
                     <div class="product-grid-item">    
-                        <h2 style="text-align: left"><?php echo $result["nome"] ?></h2>
+                        <h2 style="text-align: left"><?php echo ucwords($result["nome"]) ?></h2>
                         <br>
                         <b style="font-size: 20px"><img style="width: 25px; vertical-align: top;" src="./img/maps.png"> <?php echo strtoupper($result["comune"]) ?></b>
                         <br><br>
@@ -215,9 +218,9 @@
                     <div class="product-grid-item" align="center" style="margin-right: 30%">
                         <div class="user-product">
                             <img class="icon" src="./img/user (1).png">
-                            <b><?php echo ucfirst($result_utenti["nome"]) . ' ' . ucfirst($result_utenti["cognome"]) ?></b>
+                            <b><?php echo ucfirst($result_proprietario["nome"]) . ' ' . ucfirst($result_proprietario["cognome"]) ?></b>
                             <br><br>
-                            <b>N.Tel: <?php echo $result_utenti["num_tel"] ?></b>
+                            <b>N.Tel: <?php echo $result_proprietario["telefono"] ?></b>
                         </div>
                         <br>
                         <a class="ins_annuncio_text" href="#">
