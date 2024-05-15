@@ -149,7 +149,6 @@ footer{
 
 
 .div_footer{
-    margin-bottom: 4%;
     margin-left: 20%;
     margin-right: 20%;
    
@@ -272,7 +271,7 @@ footer{
 .wrapper {
     display: flex;
     flex-direction: column;
-    min-height: 70%;
+    min-height: 65%;
 }
 
 main {
@@ -420,4 +419,9 @@ main {
     border-radius: 0.355rem;
     padding: 8px;
     text-align:center;
+}
+
+.list-product{
+    margin-left: 20%;
+    margin-right: 20%;
 }
