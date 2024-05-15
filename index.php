@@ -172,12 +172,12 @@
         ?>
             <div class="single_product third-grid-item">
                 <div class="img_product">
-                    <a href='single-product.php?id=<?php echo $result["id"]?>'><img width="100%" height="100%" style="border-radius: 1rem; padding: 5%;" src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture1"] ?>'></a>
+                    <a href='single-product.php?id=<?php echo $result["id"]?>'><img width="100%" height="100%" style="border-radius: 2rem; padding: 5%;" src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture1"] ?>'></a>
                     <div class="overlay-container">
                         <?php
                             if(!isset($_SESSION["id"])){
                         ?>
-                        <button class="overlay_button"><img id="preferito" data-id-prod='<?php echo $result["id"] ?>' class="icon" style="background-color: white; border-radius:0.375rem" onclick="redirectToLogin()" src="./img/hearth.png"></button>
+                        <button class="overlay_button"><img id="preferito" data-id-prod='<?php echo $result["id"] ?>' class="icon" style="background-color: white; border-radius: 0.4rem" onclick="redirectToLogin()" src="./img/hearth.png"></button>
                         <?php
                             } else {
                                 $sql_hearth = 'SELECT * from preferiti where utente = $1 and prodotto = $2';

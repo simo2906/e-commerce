@@ -171,7 +171,6 @@ footer{
 .img_product{
     position: relative;
     display: inline-block;
-    object-fit: contain;
     width: 23vh;
     height: 20vh;    
 }
@@ -227,7 +226,7 @@ footer{
     background-color: white;
     transform: scale(1.1);
     z-index: 1;
-    border: 1px solid black;    
+    border: 2px solid #fb9354;    
 }
 
 .register{
