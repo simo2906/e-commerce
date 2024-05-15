@@ -4,6 +4,10 @@
 
     unset($_SESSION["id"]);
     session_destroy();
-    header("Location: ../")
+    if (isset($_SESSION['previous_url'])) {
+        header('Location: ' . $_SESSION['previous_url']);
+    } else {
+        header('Location: index.php');
+    }
     
 ?>

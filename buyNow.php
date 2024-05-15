@@ -1,28 +1,41 @@
 <?php
 session_start();
 
-if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
+$_SESSION['previous_url'] = $_SERVER['REQUEST_URI'];
+
+$id = $_GET["id"];
+
+if(!isset($_SESSION["id"])){
+    header("Location: ./login/login.php");
+}
+
+$db = pg_connect("host=localhost port=5432 dbname=Babazon user=jacopo password=password") or die("Errore di connessione" . pg_last_error());
+    $sql = "SELECT * from prodotti where id = $1";
+    $query = pg_query_params($db, $sql, array($id));
+    $result = pg_fetch_assoc($query);
 ?>
 <!DOCTYPE html>
-<meta charset="UTF-8">
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/mobile.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../js/script.js"></script>
-    <title>I tuoi favoriti!</title>
+    <title>Acquista</title>
 </head>
 <body>
 <div class="wrapper">
-    <div class="header" align="center">
-        <img class="header_icon" src="./img/star.png">
-        <b style="font-size: 15px;">L'E-COMMERCE CHE SOGNAVI</b>
-        <img class="header_icon" src="./img/star.png">
-    </div>
-    <div class="login_bar first-grid">
+        <div class="header">
+            <img class="header_icon" src="../img/star.png">
+            <b style="font-size: 15px;">L'E-COMMERCE CHE SOGNAVI</b>
+            <img class="header_icon" src="../img/star.png">
+        </div>
+        <div class="login_bar first-grid">
         <div align="center" class="first-grid-item">
             <a class="login_link" href="index.php"><img class="logo_img" style="size: 80%" src="./img/2_new.png"></a>
         </div>
@@ -36,10 +49,12 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
         </div>
 
         <?php
-            $db = pg_connect("host=localhost port=5432 dbname=Babazon user=jacopo password=password") or die("Errore di connessione");
-            $sql = "SELECT * from utenti where id = $1";
-            $query = pg_query_params($db, $sql, array($_SESSION["id"]));
-            $result = pg_fetch_assoc($query);
+
+            if(isset($_SESSION["id"])){
+                $sql_utenti = "SELECT * from utenti where id = $1";
+                $query_utenti = pg_query_params($db, $sql_utenti, array($_SESSION["id"]));
+                $result_utenti = pg_fetch_assoc($query_utenti);
+
         ?>
 
         <div align="center" class="first-grid-item">
@@ -48,7 +63,7 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
                 <div style="margin: 15px;">
                     <a style="text-decoration: none; color: black;" href="#">
                         <img class="icon" src="./img/user.png">
-                        <b>Ciao <span style="color: #fa5f5a;"><?php echo ucfirst($result["nome"]) ?></span> <img class=icon src="./img/down.png"></b>
+                        <b>Ciao <span style="color: #fa5f5a;"><?php echo ucfirst($result_utenti["nome"]) ?></span> <img class=icon src="./img/down.png"></b>
                     </a>
                 </div>
                 <div class="dropdown-content">
@@ -73,12 +88,27 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
                 </div>                
             </div>
         </div>
-    </div>
-    <div class="list-product">
-        
-    </div>
-</div>
 
+        <?php
+
+            } else {
+
+        ?>  
+
+        <div align="right" class="first-grid-item">
+            <a href="./login/login.php"><img class="icon" src="./img/login.png"></a>
+            <a class="login_link" href="./login/login.php"><b>Accedi</b></a>
+            <a class="reg_link" href="./register/register.php"><b>Registrati</b></a>
+        </div>
+
+        <?php
+
+            }
+
+        ?>
+    </div>
+    
+</div>
 <footer>
     <div class="div_footer footer-grid-container">  
         <div class="footer-grid-item">

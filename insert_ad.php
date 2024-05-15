@@ -1,13 +1,17 @@
 <?php
 session_start();
 
-if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
+$_SESSION['previous_url'] = $_SERVER['REQUEST_URI'];
+
+if(!isset($_SESSION["id"])){
+    header("Location: ./login/login.php");
+} 
 
 if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
     $db = pg_connect("host=localhost port=5432 dbname=Babazon user=jacopo password=password") or die("Errore di connessione" . pg_last_error());
     $nome = pg_escape_string($db, strtolower($_POST["productTitle"]));
     $categoria = pg_escape_string($db, strtolower($_POST["productCategory"]));
-    $prezzo = pg_escape_string($db, strtolower($_POST["productPrice"]));
+    $prezzo = $_POST["productPrice"];
     $comune = pg_escape_string($db, strtolower($_POST["productMunicipality"]));
     $descrizione = pg_escape_string($db, strtolower($_POST["productDescription"]));
     $tempFile1Path = $_FILES['fileToUpload1']['tmp_name'];
@@ -84,6 +88,7 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="../js/script.js"></script>
 <title>Inserisci annuncio</title>
 </head>
@@ -167,9 +172,8 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
     </div>
 
     <footer>
-    <br>
-    <div class="div_footer grid-container">  
-        <div class="grid-item">
+    <div class="div_footer footer-grid-container">  
+        <div class="footer-grid-item">
             <b>Servizio Clienti</b>
             <ul style="list-style-type: none; padding: 0; margin: 0;">
                 <li>Centro Assistenza</li>
@@ -179,7 +183,7 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
                 <li>Privacy</li>
             </ul>
         </div>
-        <div class="grid-item">
+        <div class="footer-grid-item">
             <b>Paga Con</b><br><br>
             <img src="https://img.alicdn.com/tfs/TB1xcMWdEKF3KVjSZFEXXXExFXa-68-48.png" class="pay_icon">
             <img src="https://ae01.alicdn.com/kf/S7b20ce778ba44e60a062008c35e98b57M/216x144.png" class="pay_icon">
@@ -189,7 +193,7 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
             <img style="margin-top: 5px;" src="https://ae01.alicdn.com/kf/S0321450614244c4dafba2517560de3b8s/216x144.png" class="pay_icon">
             <img src="https://ae01.alicdn.com/kf/S2a5881f5906b4fb58a0c6da600ddf7bf1/216x144.png" class="pay_icon">
         </div>
-        <div class="grid-item">
+        <div class="footer-grid-item">
             <b>Scoprici sui Social</b><br><br>
             <img class="icon" src="./img/social/facebook.png">
             <img class="icon" src="./img/social/instagram.png">
@@ -201,7 +205,7 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
 
         </div>
     </div>
-    </footer>
+</footer>
 </body>
 </html>
 <?php

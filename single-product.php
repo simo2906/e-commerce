@@ -1,6 +1,8 @@
 <?php
     session_start();
 
+    $_SESSION['previous_url'] = $_SERVER['REQUEST_URI'];
+
     $id = $_GET["id"];
 
     $db = pg_connect("host=localhost port=5432 dbname=Babazon user=jacopo password=password") or die("Errore di connessione" . pg_last_error());
@@ -20,12 +22,22 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../js/script.js"></script>
     <title>Prodotto</title>
 </head>
-
 <style>
-    
+
+.carousel{
+    background-color: black;
+}
+
+.carousel-inner img {
+  width: 100vh;
+  height: 60vh;
+  object-fit: contain; 
+}
+
 </style>
 <body>
 <div class="wrapper">
@@ -124,17 +136,17 @@
                     }
                     if($result["picture4"]){
                 ?>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 4"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
                 <?php
                     }
                     if($result["picture5"]){
                 ?>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 5"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
                 <?php
                     }
                 ?>
               </div>
-              <div class="carousel-inner" style="border-radius: 2rem">
+              <div class="carousel-inner">
                 <div class="carousel-item active">
                   <img src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture1"] ?>' class="d-block w-100" alt="Immagine 1">
                 </div>
@@ -197,7 +209,25 @@
                         <b style="background-color: #e8e8e8; padding: 6px;"><?php echo strtoupper($result["categoria"]) ?></b>
                     </div>
                     <div class="product-grid-item" align="right">
-                        <img id="preferito" style="margin-right: 30%; width: 35px;" onclick="cambiaImmagine(id)" src="./img/hearth.png">
+                        <?php
+                            if(!isset($_SESSION["id"])){
+                        ?>
+                        <img id="preferito" data-id-prod='<?php echo $id ?>' style="margin-right: 30%; width: 35px;" onclick="redirectToLogin()" src="./img/hearth.png">
+                        <?php
+                            } else {
+                                $sql_hearth = 'SELECT * from preferiti where utente = $1 and prodotto = $2';
+                                $query_hearth = pg_query_params($db, $sql_hearth, array($_SESSION["id"], $id));
+                                if(!pg_fetch_assoc($query_hearth)){
+                        ?>
+                        <img id="preferito" data-id-prod='<?php echo $id ?>' style="margin-right: 30%; width: 35px;" onclick="cambiaImmagine(this)" src="./img/hearth.png">
+                        <?php
+                                } else {
+                        ?>
+                        <img id="preferito" data-id-prod='<?php echo $id ?>' style="margin-right: 30%; width: 35px;" onclick="cambiaImmagine(this)" src="./img/hearth_black.png">
+                        <?php
+                                }
+                            }
+                        ?>
                     </div>
                 </div>
             
@@ -222,24 +252,75 @@
                             <br><br>
                             <b>N.Tel: <?php echo $result_proprietario["telefono"] ?></b>
                         </div>
-                        <br>
-                        <a class="ins_annuncio_text" href="#">
-                            <button class="ins_annuncio">
-                                <b style="font-size: 20px;">Acquista</b>
-                            </button>
-                        </a>
+                        <button class="ins_annuncio" onclick="apriPopup()">
+                            <b style="font-size: 20px;">Acquista</b>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
-<br>
+<div class="transparent_layer" id="transparentDiv">
+    <div align="center" class="buyPopup" id="acquistaPopup">
+        <div class="popupHeader">
+            <div class="popupHeader-item" align="left"><h2>Acquista subito!</h2></div>
+            <div class="popupHeader-item" align="right"><img class="icon" src="./img/icons8-close-30.png" onclick=chiudiPopup()></div>
+        </div>
+        <div class="riepilogoOrdine">
+            <div align="left"><h4>Riepilogo dell'ordine</h4></div>
+            <div class="riepilogoBox">
+                <br>
+                <div class="riepilogo-grid-item">
+                    <div align="left"><h6>Costo articolo</h6></div>
+                    <div align="right"><h6><?php echo $result["prezzo"]?>€</h6></div>
+                </div>
+                <div class="riepilogo-grid-item">
+                    <div align="left"><h6>Costo spedizione</h6></div>
+                    <div align="right"><h6>0€</h6></div>
+                </div>
+                <hr style="margin-top: 0px">
+                <div class="riepilogo-grid-item">
+                    <div align="left"><h6>Costo totale</h6></div>
+                    <div align="right"><h6><?php echo $result["prezzo"]?>€</h6></div>
+                </div>
+            </div>
+            <br>
+        <div class="riepilogoBox">
+            <br>
+            <form action="" method="post" name="confermaOrdine" id="confermaOrdine">
+                <div>
+                    <input type="text" style="width: 70%" name="indirizzoSped" placeholder="Inserisci il tuo indirizzo (Via/V.le/P.za)" class="input_log">
+                    <input type="text" style="width: 20%" name="nCivSped" placeholder="N. Civico" class="input_log">
+                </div>
+                <div>
+                    <input type="text" style="width: 20%" name="cittaSped" placeholder="Città" class="input_log">
+                    <input type="text" style="width: 15%" name="provinciaSped" placeholder="Provincia" size=2 class="input_log">
+                    <input type="text" style="width: 30%" name="paeseSped" placeholder="Nazione" class="input_log">
+                    <input type="text" style="width: 25%" name="zipCodeSped" placeholder="Cod. Postale" class="input_log" size=5>
+                </div>
+                <br>
+            </div>
+            <br>
+            <div class="riepilogoBox">
+                <br>
+                <form action="" method="post" name="carteForm" id="pagamentoCarte">
+                    <input type="text" style="width: 90%" name="numeroCarta" placeholder="Numero della carta" class="input_log">
+                    <div>
+                        <input type="text" style="width: 60%" name="nomeTitolare" placeholder="Nome titolare" class="input_log">
+                        <input type="password" style="width: 30%" name="CVV" placeholder="CVV" class="input_log">
+                    </div>
+                </form>
+                <br>
+            </div>
+            <button class="ins_annuncio"><b>Acquista</b></button>
+        </form>
+        </div>
+    </div>
+</div>
 <footer>
-    <br>
-    <div class="div_footer grid-container">  
-        <div class="grid-item">
+    <div class="div_footer footer-grid-container">  
+        <div class="footer-grid-item">
             <b>Servizio Clienti</b>
             <ul style="list-style-type: none; padding: 0; margin: 0;">
                 <li>Centro Assistenza</li>
@@ -249,7 +330,7 @@
                 <li>Privacy</li>
             </ul>
         </div>
-        <div class="grid-item">
+        <div class="footer-grid-item">
             <b>Paga Con</b><br><br>
             <img src="https://img.alicdn.com/tfs/TB1xcMWdEKF3KVjSZFEXXXExFXa-68-48.png" class="pay_icon">
             <img src="https://ae01.alicdn.com/kf/S7b20ce778ba44e60a062008c35e98b57M/216x144.png" class="pay_icon">
@@ -259,7 +340,7 @@
             <img style="margin-top: 5px;" src="https://ae01.alicdn.com/kf/S0321450614244c4dafba2517560de3b8s/216x144.png" class="pay_icon">
             <img src="https://ae01.alicdn.com/kf/S2a5881f5906b4fb58a0c6da600ddf7bf1/216x144.png" class="pay_icon">
         </div>
-        <div class="grid-item">
+        <div class="footer-grid-item">
             <b>Scoprici sui Social</b><br><br>
             <img class="icon" src="./img/social/facebook.png">
             <img class="icon" src="./img/social/instagram.png">
@@ -271,6 +352,6 @@
 
         </div>
     </div>
-    </footer>
+</footer>
 </body>
 </html>

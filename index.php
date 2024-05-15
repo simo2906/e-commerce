@@ -1,5 +1,8 @@
 <?php
     session_start();
+
+    $_SESSION['previous_url'] = $_SERVER['REQUEST_URI'];
+
     $db = pg_connect("host=localhost port=5432 dbname=Babazon user=jacopo password=password") or die("Errore di connessione");
 ?>
 
@@ -14,9 +17,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../js/script.js"></script>
     <title>Babazon.it</title>
-
 
 </head>
 
@@ -125,9 +128,9 @@
             <div class="second-grid-item">
                 <input type="image" class="search_ico" src="./img/search2.png" id="imgSubmit">
             </div>
-        </div>
+        </div> 
     </form>
-    <div align="center">
+    <div align="center" style="margin-top: 1%;">
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style="margin-top: 1%">
             <div class="carousel-indicators">
               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -155,25 +158,89 @@
             </button>
           </div>
     </div>
-    <br><br>
+    <div align="center" style="margin-top: 2%; margin-left: 10%; margin-right: 10%;">
+        <b style="font-family: SuisseIntl-Medium, sans-serif; color: #fb9354; font-size: 30px">Ultimi Annunci</b>
+    </div>
     <div align="center" style="margin-top: 2%;">
         <div class="product third-grid-container">
         <?php
-            $sql = "SELECT * FROM prodotti ORDER BY id LIMIT 10";
+            $sql = "SELECT * FROM prodotti ORDER BY id LIMIT 12";
             $query = pg_query_params($db, $sql, array());
             $counter=0;
-            while($result = pg_fetch_assoc($query)){
+            while($counter < 6 && $result = pg_fetch_assoc($query)){
                 $counter++;
         ?>
             <div class="single_product third-grid-item">
                 <div class="img_product">
-                    <a href="single-product.php?id=<?php echo $result["id"]?>" class="login_link"><img width="100%" style="border-radius: 2rem; padding: 5%;" src=<?php echo "./Annunci/" . $result["utente"] . "/" . $result["id"] . "/" . $result["picture1"] ?>></a>
+                    <a href='single-product.php?id=<?php echo $result["id"]?>'><img width="100%" height="100%" style="border-radius: 2rem; padding: 5%" src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture1"] ?>'></a>
                     <div class="overlay-container">
-                        <button class="overlay_button"><img id="hearth<?php echo $counter?>" class="icon" onclick="cambiaImmagine(id)" src="./img/hearth.png" style="background-color: white; border-radius: 3rem" ></button>
+                        <?php
+                            if(!isset($_SESSION["id"])){
+                        ?>
+                        <button class="overlay_button"><img id="preferito" data-id-prod='<?php echo $result["id"] ?>' class="icon" style="background-color: white; border-radius: 3rem" onclick="redirectToLogin()" src="./img/hearth.png"></button>
+                        <?php
+                            } else {
+                                $sql_hearth = 'SELECT * from preferiti where utente = $1 and prodotto = $2';
+                                $query_hearth = pg_query_params($db, $sql_hearth, array($_SESSION["id"], $result["id"]));
+                                if(!pg_fetch_assoc($query_hearth)){
+                        ?>
+                        <button class="overlay_button"><img id="preferito" data-id-prod='<?php echo $result["id"] ?>' class="icon" style="background-color: white; border-radius: 3rem" onclick="cambiaImmagine(this)" src="./img/hearth.png"></button>
+                        <?php
+                                } else {
+                        ?>
+                        <button class="overlay_button"><img id="preferito" data-id-prod='<?php echo $result["id"] ?>' class="icon" style="background-color: white; border-radius: 3rem" onclick="cambiaImmagine(this)" src="./img/hearth_black.png"></button>
+                        <?php
+                                }
+                            }
+                        ?>
                     </div>
                 </div>
-                <div class="description_product">
-                    <a href="single-product.php" class="login_link">
+                <div class="description_product" >
+                    <a href="single-product.php?id=<?php echo $result["id"]?>" class="login_link">
+                        <p class="product-title"><?php echo ucwords($result["nome"]) ?></p>
+                        <p class="product-category"><?php echo ucwords($result["categoria"]) ?></p>
+                        <p class="product-price"><?php echo "€" . $result["prezzo"] ?></p>
+                    </a>
+                </div>
+            </div>
+        <?php
+        }
+        ?>
+        </div>
+    </div>
+    <div align="center" style="margin-top: 2%;">
+        <div class="product third-grid-container">
+        <?php
+            while($counter < 12 && $result = pg_fetch_assoc($query)){
+                $counter++;
+        ?>
+            <div class="single_product third-grid-item">
+                <div class="img_product">
+                    <a href='single-product.php?id=<?php echo $result["id"]?>'><img width="100%" height="100%" style="border-radius: 2rem; padding: 5%;" src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture1"] ?>'></a>
+                    <div class="overlay-container">
+                        <?php
+                            if(!isset($_SESSION["id"])){
+                        ?>
+                        <button class="overlay_button"><img id="preferito" data-id-prod='<?php echo $result["id"] ?>' class="icon" style="background-color: white; border-radius: 3rem" onclick="redirectToLogin()" src="./img/hearth.png"></button>
+                        <?php
+                            } else {
+                                $sql_hearth = 'SELECT * from preferiti where utente = $1 and prodotto = $2';
+                                $query_hearth = pg_query_params($db, $sql_hearth, array($_SESSION["id"], $result["id"]));
+                                if(!pg_fetch_assoc($query_hearth)){
+                        ?>
+                        <button class="overlay_button"><img id="preferito" data-id-prod='<?php echo $result["id"] ?>' class="icon" style="background-color: white; border-radius: 3rem" onclick="cambiaImmagine(this)" src="./img/hearth.png"></button>
+                        <?php
+                                } else {
+                        ?>
+                        <button class="overlay_button"><img id="preferito" data-id-prod='<?php echo $result["id"] ?>' class="icon" style="background-color: white; border-radius: 3rem" onclick="cambiaImmagine(this)" src="./img/hearth_black.png"></button>
+                        <?php
+                                }
+                            }
+                        ?>
+                    </div>
+                </div>
+                <div class="description_product" >
+                    <a href="single-product.php?id=<?php echo $result["id"]?>" class="login_link">
                         <p class="product-title"><?php echo ucwords($result["nome"]) ?></p>
                         <p class="product-category"><?php echo ucwords($result["categoria"]) ?></p>
                         <p class="product-price"><?php echo "€" . $result["prezzo"] ?></p>
@@ -193,8 +260,8 @@
     </div>
 </div>
 <footer>
-    <div class="div_footer grid-container">  
-        <div class="grid-item">
+    <div class="div_footer footer-grid-container">  
+        <div class="footer-grid-item">
             <b>Servizio Clienti</b>
             <ul style="list-style-type: none; padding: 0; margin: 0;">
                 <li>Centro Assistenza</li>
@@ -204,7 +271,7 @@
                 <li>Privacy</li>
             </ul>
         </div>
-        <div class="grid-item">
+        <div class="footer-grid-item">
             <b>Paga Con</b><br><br>
             <img src="https://img.alicdn.com/tfs/TB1xcMWdEKF3KVjSZFEXXXExFXa-68-48.png" class="pay_icon">
             <img src="https://ae01.alicdn.com/kf/S7b20ce778ba44e60a062008c35e98b57M/216x144.png" class="pay_icon">
@@ -214,7 +281,7 @@
             <img style="margin-top: 5px;" src="https://ae01.alicdn.com/kf/S0321450614244c4dafba2517560de3b8s/216x144.png" class="pay_icon">
             <img src="https://ae01.alicdn.com/kf/S2a5881f5906b4fb58a0c6da600ddf7bf1/216x144.png" class="pay_icon">
         </div>
-        <div class="grid-item">
+        <div class="footer-grid-item">
             <b>Scoprici sui Social</b><br><br>
             <img class="icon" src="./img/social/facebook.png">
             <img class="icon" src="./img/social/instagram.png">
