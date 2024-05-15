@@ -53,12 +53,41 @@ function valida_login(){
     return true;
 }
 
-function cambiaImmagine(id) {
-    var immagine = document.getElementById(id);
+function redirectToLogin() {
+    window.location.href = "./login/login.php";
+}
+
+function cambiaImmagine(elemento) {
+    var immagine = elemento;
+    var id_prod = immagine.getAttribute('data-id-prod');
     if (immagine.src.match("./img/hearth.png")) {
-        immagine.src = "./img/hearth_black.png";
+        $.ajax({
+            url: './preferiti/aggiungipreferiti.php',
+            type: 'POST',
+            data: {id_prod: id_prod},
+            success: function(response) { 
+                console.log(response);
+                immagine.src = "./img/hearth_black.png" 
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+        
+        
     } else {
-        immagine.src = "./img/hearth.png";
+        $.ajax({
+            url: './preferiti/rimuovipreferiti.php',
+            type: 'POST',
+            data: {id_prod: id_prod}, 
+            success:function(response) { 
+                console.log(response);
+                immagine.src = "./img/hearth.png"
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
     }
 }
 

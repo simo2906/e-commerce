@@ -14,7 +14,7 @@
         $query = pg_query_params($db, $sql, array($email));
         if(pg_num_rows($query) > 0) die(header("Location: register.php?id=error"));
         
-        $sql = "INSERT INTO utenti (nome, cognome, email, password, num_tel) VALUES ($1, $2, $3, $4, $5)";
+        $sql = "INSERT INTO utenti (nome, cognome, email, password, telefono) VALUES ($1, $2, $3, $4, $5)";
         $result = pg_query_params($db, $sql, array($nome, $cognome, $email, $password, $telefono));
         if ($result) {
             $sql = "SELECT * FROM utenti where email = $1";            
@@ -89,9 +89,8 @@
     <br><br>
 </div>
 <footer>
-    <br>
-    <div class="div_footer">  
-        <div>
+    <div class="div_footer footer-grid-container">  
+        <div class="footer-grid-item">
             <b>Servizio Clienti</b>
             <ul style="list-style-type: none; padding: 0; margin: 0;">
                 <li>Centro Assistenza</li>
@@ -101,7 +100,7 @@
                 <li>Privacy</li>
             </ul>
         </div>
-        <div>
+        <div class="footer-grid-item">
             <b>Paga Con</b><br><br>
             <img src="https://img.alicdn.com/tfs/TB1xcMWdEKF3KVjSZFEXXXExFXa-68-48.png" class="pay_icon">
             <img src="https://ae01.alicdn.com/kf/S7b20ce778ba44e60a062008c35e98b57M/216x144.png" class="pay_icon">
@@ -111,15 +110,16 @@
             <img style="margin-top: 5px;" src="https://ae01.alicdn.com/kf/S0321450614244c4dafba2517560de3b8s/216x144.png" class="pay_icon">
             <img src="https://ae01.alicdn.com/kf/S2a5881f5906b4fb58a0c6da600ddf7bf1/216x144.png" class="pay_icon">
         </div>
-        <div>
+        <div class="footer-grid-item">
             <b>Scoprici sui Social</b><br><br>
-            <img class="icon" src="../img/social/facebook.png">
-            <img class="icon" src="../img/social/instagram.png">
-            <img class="icon" src="../img/social/twitter.png">
-            <img class="icon" src="../img/social/whatsapp.png">
-            <img class="icon" src="../img/social/messenger.png"><br>
-            <img style="margin-top: 5px;" class="icon" src="../img/social/tiktok.png">
-            <img class="icon" src="../img/social/youtube.png">
+            <img class="icon" src="./img/social/facebook.png">
+            <img class="icon" src="./img/social/instagram.png">
+            <img class="icon" src="./img/social/twitter.png">
+            <img class="icon" src="./img/social/whatsapp.png">
+            <img class="icon" src="./img/social/messenger.png"><br>
+            <img style="margin-top: 5px;" class="icon" src="./img/social/tiktok.png">
+            <img class="icon" src="./img/social/youtube.png">
+
         </div>
     </div>
 </footer>
