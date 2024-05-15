@@ -422,6 +422,12 @@ main {
 }
 
 .list-product{
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.favourite-grid{
+    margin-top: 2%;
+    display: grid;
+    grid-template-columns: minmax(auto, 30vh) 1fr;
 }

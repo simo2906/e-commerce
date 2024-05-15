@@ -61,7 +61,7 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
                             Preferiti
                         </div>
                     </a>
-                    <a href="myad.php">
+                    <a href="shop.php">
                         <div>
                             <img class="dropdown-icon" src="./img/message.png">
                             I Miei Annunci
@@ -77,16 +77,13 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
             </div>
         </div>
     </div>
-    <b style="font-family: SuisseIntl-Medium, sans-serif; color: #fb9354; font-size: 30px; text-align: center; margin-top: 1%">I Miei Preferiti</b>
+    <b style="font-family: SuisseIntl-Medium, sans-serif; color: #fb9354; font-size: 30px; text-align: center; margin-top: 1%">I Miei Annunci</b>
     <div class="list-product">
         <?php
 
-            $sql_utente='SELECT * from preferiti where utente = $1 order by id desc';
-            $query_utente = pg_query_params($db, $sql_utente, array($_SESSION["id"]));
-            while($result_utente = pg_fetch_assoc($query_utente)){
-                $sql_prodotto = 'SELECT * from prodotti where id = $1';
-                $query_prodotto = pg_query_params($db, $sql_prodotto, array($result_utente["prodotto"]));
-                $result_prodotto = pg_fetch_assoc($query_prodotto);
+            $sql_prodotto='SELECT * from prodotti where utente = $1 order by id desc';
+            $query_prodotto = pg_query_params($db, $sql_prodotto, array($_SESSION["id"]));
+            while($result_prodotto = pg_fetch_assoc($query_prodotto)){
         ?>
         <div class="favourite-grid" style="border-radius: 1rem; border: 2px solid #fb9354">
             <div class="favourite-grid-item">
@@ -104,10 +101,23 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
                         <b style="font-size: 25px; color: #fa5f5a;"><?php echo $result_prodotto["prezzo"] ?> €</b>
                     </div>
                     <div class="product-grid-item" align="right">
+                        <?php
+                        
+                                $sql_hearth = 'SELECT * from preferiti where utente = $1 and prodotto = $2';
+                                $query_hearth = pg_query_params($db, $sql_hearth, array($_SESSION["id"], $result_prodotto["id"]));
+                                if(!pg_fetch_assoc($query_hearth)){
+                        ?>
+                        <img id="preferito" data-id-prod='<?php echo $result_prodotto["id"] ?>' style="margin-right: 15%; width: 35px;" onclick="cambiaImmagine(this)" src="./img/hearth.png"><br><br><br><br>
+                        <?php
+                                } else {
+                        ?>
                         <img id="preferito" data-id-prod='<?php echo $result_prodotto["id"] ?>' style="margin-right: 15%; width: 35px;" onclick="cambiaImmagine(this)" src="./img/hearth_black.png"><br><br><br><br>
-                        <a class="ins_annuncio_text" style="margin-right: 15%;" href="#">
+                        <?php
+                                }
+                        ?>
+                        <a class="ins_annuncio_text" style="margin-right: 15%;" href="./remove/remove_ad.php?id=<?php echo $result_prodotto["id"] ?>">
                             <button class="ins_annuncio">
-                                <b style="font-size: 20px;">Acquista</b>
+                                <b style="font-size: 20px;">Elimina annuncio</b>
                             </button>
                         </a>
                     </div>

@@ -104,13 +104,13 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
         </div>
         <div class="footer-grid-item">
             <b>Scoprici sui Social</b><br><br>
-            <img class="icon" src="./img/social/facebook.png">
-            <img class="icon" src="./img/social/instagram.png">
-            <img class="icon" src="./img/social/twitter.png">
-            <img class="icon" src="./img/social/whatsapp.png">
-            <img class="icon" src="./img/social/messenger.png"><br>
-            <img style="margin-top: 5px;" class="icon" src="./img/social/tiktok.png">
-            <img class="icon" src="./img/social/youtube.png">
+            <img class="icon" src="../img/social/facebook.png">
+            <img class="icon" src="../img/social/instagram.png">
+            <img class="icon" src="../img/social/twitter.png">
+            <img class="icon" src="../img/social/whatsapp.png">
+            <img class="icon" src="../img/social/messenger.png"><br>
+            <img style="margin-top: 5px;" class="icon" src="../img/social/tiktok.png">
+            <img class="icon" src="../img/social/youtube.png">
 
         </div>
     </div>

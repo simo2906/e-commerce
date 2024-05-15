@@ -68,7 +68,7 @@
                             Preferiti
                         </div>
                     </a>
-                    <a href="#">
+                    <a href="myad.php">
                         <div>
                             <img class="dropdown-icon" src="./img/message.png">
                             I Miei Annunci
@@ -102,7 +102,7 @@
 
         ?>
     </div>
-    <form action="" method="post" name="ricerca" id="ricerca" style="margin-top: 1%;">
+    <form action="search.php" method="post" name="ricerca" id="ricerca" style="margin-top: 2%;">
         <div class="mycontainer second-grid" align="center">
             <div class="search second-grid-item">
                 <label><b>Cerchi qualcosa?</b></label>
@@ -139,13 +139,13 @@
             </div>
             <div class="carousel-inner" style="border-radius:0.375rem">
               <div class="carousel-item active" data-bs-interval="3000">
-                <img src="./img/prova1.jpg" class="d-block w-100" alt="...">
+                <a href="shop.php"><img src="./img/prova1.jpg" class="d-block w-100" alt="immagine1"></a>
               </div>
               <div class="carousel-item">
-                <img src="./img/prova2.jpg" class="d-block w-100" alt="...">
+                <a href="shop.php"><img src="./img/prova2.jpg" class="d-block w-100" alt="immagine2"></a>
               </div>
               <div class="carousel-item">
-                <img src="./img/prova1.jpg" class="d-block w-100" alt="...">
+                <a href="shop.php"><img src="./img/prova1.jpg" class="d-block w-100" alt="immagine3"></a>
               </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -177,7 +177,7 @@
                         <?php
                             if(!isset($_SESSION["id"])){
                         ?>
-                        <button class="overlay_button"><img id="preferito" data-id-prod='<?php echo $result["id"] ?>' class="icon" style="background-color: white; border-radius: 0.4rem" onclick="redirectToLogin()" src="./img/hearth.png"></button>
+                        <button class="overlay_button"><img id="preferito" data-id-prod='<?php echo $result["id"] ?>' class="icon" style="background-color: white; border-radius: 3rem" onclick="redirectToLogin()" src="./img/hearth.png"></button>
                         <?php
                             } else {
                                 $sql_hearth = 'SELECT * from preferiti where utente = $1 and prodotto = $2';

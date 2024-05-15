@@ -84,7 +84,7 @@
                             Preferiti
                         </div>
                     </a>
-                    <a href="#">
+                    <a href="myad.php">
                         <div>
                             <img class="dropdown-icon" src="./img/message.png">
                             I Miei Annunci
@@ -236,7 +236,7 @@
                     <div class="product-grid-item">    
                         <h2 style="text-align: left"><?php echo ucwords($result["nome"]) ?></h2>
                         <br>
-                        <b style="font-size: 20px"><img style="width: 25px; vertical-align: top;" src="./img/maps.png"> <?php echo strtoupper($result["comune"]) ?></b>
+                        <b style="font-size: 20px"><img style="width: 25px; vertical-align: sub;" src="./img/maps.png"> <?php echo strtoupper($result["comune"]) ?></b>
                         <br><br>
                         <h2 style="color: #fa5f5a;"><?php echo $result["prezzo"] ?> €</h2>
                         <br>
