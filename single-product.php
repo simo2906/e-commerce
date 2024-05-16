@@ -24,7 +24,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../js/script.js"></script>
-    <title>Prodotto</title>
+    <title><?php echo $result["nome"] ?></title>
 </head>
 <style>
 
@@ -72,7 +72,7 @@
         
             <div align="left" class="dropdown">
                 <div style="margin: 15px;">
-                    <a style="text-decoration: none; color: black;" href="#">
+                    <a style="text-decoration: none; color: black;" href="myaccount.php">
                         <img class="icon" src="./img/user.png">
                         <b>Ciao <span style="color: #fa5f5a;"><?php echo ucfirst($result_utenti["nome"]) ?></span> <img class=icon src="./img/down.png"></b>
                     </a>
@@ -82,6 +82,12 @@
                         <div>
                             <img class="dropdown-icon" src="./img/love.png">
                             Preferiti
+                        </div>
+                    </a>
+                    <a href="mypurchase.php">
+                        <div>
+                            <img class="dropdown-icon" src="./img/carrello.png">
+                            I Miei Acquisti
                         </div>
                     </a>
                     <a href="myad.php">
@@ -214,6 +220,8 @@
                         ?>
                         <img id="preferito" data-id-prod='<?php echo $id ?>' style="margin-right: 30%; width: 35px;" onclick="redirectToLogin()" src="./img/hearth.png">
                         <?php
+                            } else if($_SESSION["id"] == $result["utente"]){
+                                
                             } else {
                                 $sql_hearth = 'SELECT * from preferiti where utente = $1 and prodotto = $2';
                                 $query_hearth = pg_query_params($db, $sql_hearth, array($_SESSION["id"], $id));
@@ -245,27 +253,103 @@
                         </div>
                     </div>
 
-                    <div class="product-grid-item" align="center" style="margin-right: 30%">
-                        <div class="user-product">
+                    <div class="product-grid-item" align="center" >
+                        <div class="user-product" style="margin-right: 30%">
                             <img class="icon" src="./img/user (1).png">
                             <b><?php echo ucfirst($result_proprietario["nome"]) . ' ' . ucfirst($result_proprietario["cognome"]) ?></b>
                             <br><br>
                             <b>N.Tel: <?php echo $result_proprietario["telefono"] ?></b>
                         </div>
                         <br>
-                        <a class="ins_annuncio_text" href="#">
-                            <button class="ins_annuncio">
-                                <b style="font-size: 20px;">Acquista</b>
-                            </button>
-                        </a>
+                        <?php
+                            if($_SESSION["id"] == $result["utente"]){
+
+                            } else {
+                                if(!isset($_SESSION["id"])){ 
+                        
+                        ?>
+                            <a class="ins_annuncio_text" style="margin-right: 30%;" href="./login/login.php">
+                                <button class="ins_annuncio">
+                                    <b style="font-size: 20px;">Acquista</b>
+                                </button>
+                            </a>
+                        <?php } else { ?>
+                            <a class="ins_annuncio_text" style="margin-right: 30%;" href="#">
+                                <button class="ins_annuncio" data-id-prod="<?php echo $result['id']?>" data-id-costoArtic="<?php echo $result["prezzo"]?>" data-id-costoSped="0" onclick="apriPopup(this);">
+                                    <b style="font-size: 20px;">Acquista</b>
+                                </button>
+                            </a>
+                        
+                        <?php }
+                            } 
+                        ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
-<br>
+<div class="transparent_layer" id="transparentDiv">
+    <div align="center" class="buyPopup" id="acquistaPopup">
+        <div class="popupHeader">
+            <div class="popupHeader-item" align="left"><h2>Acquista subito!</h2></div>
+            <div class="popupHeader-item" align="right"><img class="icon" src="./img/icons8-close-30.png" onclick=chiudiPopup()></div>
+        </div>
+        <div class="riepilogoOrdine">
+            <div align="left"><h4>Riepilogo dell'ordine</h4></div>
+            <div class="riepilogoBox">
+                <br>
+                <div class="riepilogo-grid-item">
+                    <div align="left"><h6>Costo articolo</h6></div>
+                    <div align="right"><h6 id="costoOggetto"></h6></div>
+                </div>
+                <div class="riepilogo-grid-item">
+                    <div align="left"><h6>Costo spedizione</h6></div>
+                    <div align="right"><h6 id="costoSpedizione"></h6></div>
+                </div>
+                <hr style="margin-top: 0px">
+                <div class="riepilogo-grid-item">
+                    <div align="left"><h6>Costo totale</h6></div>
+                    <div align="right"><h6 id="costoTotale"></h6></div>
+                </div>
+            </div>
+            <br>
+        <div class="riepilogoBox">
+            <br>
+            <form action="#" method="post" name="confermaOrdine" id="confermaOrdine">
+                <div>
+                    <input type="text" style="width: 70%" id="indirizzoSped" placeholder="Inserisci il tuo indirizzo (Via/V.le/P.za)" class="input_log">
+                    <input type="text" style="width: 20%" id="nCivSped" placeholder="N. Civico" class="input_log">
+                </div>
+                <div>
+                    <input type="text" style="width: 20%" id="cittaSped" placeholder="Città" class="input_log">
+                    <input type="text" style="width: 15%" id="provinciaSped" placeholder="Provincia" size=2 class="input_log">
+                    <input type="text" style="width: 30%" id="paeseSped" placeholder="Nazione" class="input_log">
+                    <input type="text" style="width: 25%" id="zipCodeSped" placeholder="Cod. Postale" class="input_log" size=5>
+                </div>
+                <br>
+            </div>
+            <br>
+            <div class="riepilogoBox">
+                <br>
+                <form action="#" method="post" name="carteForm" id="pagamentoCarte">
+                    <div>
+                        <input type="text" style="width: 60%" id="numeroCarta" placeholder="Numero della carta" class="input_log">
+                        <input type="text" style="width: 30%" id="dataScadenza" placeholder="MM/YY" class="input_log">
+                    </div>
+                    <div>
+                        <input type="text" style="width: 60%" id="nomeTitolare" placeholder="Nome titolare" class="input_log">
+                        <input type="password" style="width: 30%" id="CVV" placeholder="CVV" class="input_log">
+                    </div>
+                </form>
+                <br>
+            </div>
+            <br>
+            <button onclick="controllaOrdine()" id="acquistaButton" class="ins_annuncio"><b>Acquista</b></button>
+        </form>
+        </div>
+    </div>
+</div>
 <footer>
     <div class="div_footer footer-grid-container">  
         <div class="footer-grid-item">

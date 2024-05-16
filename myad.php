@@ -16,7 +16,7 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../js/script.js"></script>
-    <title>I tuoi favoriti!</title>
+    <title>I Miei Annunci</title>
 </head>
 <body>
 <div class="wrapper">
@@ -49,7 +49,7 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
         
             <div align="left" class="dropdown">
                 <div style="margin: 15px;">
-                    <a style="text-decoration: none; color: black;" href="#">
+                    <a style="text-decoration: none; color: black;" href="myaccount.php">
                         <img class="icon" src="./img/user.png">
                         <b>Ciao <span style="color: #fa5f5a;"><?php echo ucfirst($result["nome"]) ?></span> <img class=icon src="./img/down.png"></b>
                     </a>
@@ -59,6 +59,12 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
                         <div>
                             <img class="dropdown-icon" src="./img/love.png">
                             Preferiti
+                        </div>
+                    </a>
+                    <a href="mypurchase.php">
+                        <div>
+                            <img class="dropdown-icon" src="./img/carrello.png">
+                            I Miei Acquisti
                         </div>
                     </a>
                     <a href="shop.php">
@@ -92,7 +98,7 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
             <div class="favourite-grid-item" style="margin-top: 2%">
                 <div class="product-grid">
                     <div class="product-grid-item" align="left">
-                        <a href='single-product.php?id=<?php echo $result["id"]?>' class="login_link">
+                        <a href='single-product.php?id=<?php echo $result_prodotto["id"]?>' class="login_link">
                             <b style="font-family: SuisseIntl-Medium, sans-serif; font-size: 25px"><?php echo ucwords($result_prodotto["nome"]) ?></b><br>
                         </a>
                         <b style="color: #A0A0A0; font-size: 16px; margin-bottom: 10px"><?php echo strtoupper($result_prodotto["categoria"]) ?></b><br>
@@ -101,25 +107,44 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
                         <b style="font-size: 25px; color: #fa5f5a;"><?php echo $result_prodotto["prezzo"] ?> €</b>
                     </div>
                     <div class="product-grid-item" align="right">
-                        <?php
                         
-                                $sql_hearth = 'SELECT * from preferiti where utente = $1 and prodotto = $2';
-                                $query_hearth = pg_query_params($db, $sql_hearth, array($_SESSION["id"], $result_prodotto["id"]));
-                                if(!pg_fetch_assoc($query_hearth)){
-                        ?>
-                        <img id="preferito" data-id-prod='<?php echo $result_prodotto["id"] ?>' style="margin-right: 15%; width: 35px;" onclick="cambiaImmagine(this)" src="./img/hearth.png"><br><br><br><br>
                         <?php
-                                } else {
+
+                            if($result_prodotto["quantita"] > 0){
+
                         ?>
-                        <img id="preferito" data-id-prod='<?php echo $result_prodotto["id"] ?>' style="margin-right: 15%; width: 35px;" onclick="cambiaImmagine(this)" src="./img/hearth_black.png"><br><br><br><br>
-                        <?php
-                                }
-                        ?>
-                        <a class="ins_annuncio_text" style="margin-right: 15%;" href="./remove/remove_ad.php?id=<?php echo $result_prodotto["id"] ?>">
-                            <button class="ins_annuncio">
+                        <form action="./refill/confirmRefill.php?id=<?php echo $result_prodotto["id"]?>" method="post" name="addForm" id="addForm">
+                            <input type="number" placeholder="Quantità da aggiungere:" name="scorteDaAggiungere" min="0" class="input_log" style="margin-bottom: 2%; margin-right:15%; width: 80%"/>
+                            <a class="ins_annuncio_text" style="margin-right: 15%;" href="#">
+                                <button class="ins_annuncio" style="width: 80%; margin-bottom: 3%; background: linear-gradient(to right, #5170ff, #37b629);">
+                                    <b style="font-size: 20px;">Aggiungi scorte</b>
+                                </button>
+                            </a>
+                        </form>
+                        <a class="ins_annuncio_text" style="margin-right: 15%; width: 30%" href="./remove/confirmRemove.php?id=<?php echo $result_prodotto["id"] ?>">
+                            <button class="ins_annuncio" style="width: 80%;">
                                 <b style="font-size: 20px;">Elimina annuncio</b>
                             </button>
                         </a>
+
+                        <?php
+                            } else {
+                        ?>
+                        
+                        <div>
+                        <br><br><br>
+                            <form action="./reinsert/confirmReinsert.php?id=<?php echo $result_prodotto["id"]?>" method="post" name="reinsertForm" id="reinsertForm">
+                                <input type="number" placeholder="Quantità da aggiungere:" min="0" name="scorteAggiunte" class="input_log" style="margin-bottom: 2%; margin-right:15%; width:80%"/>
+                                <a class="ins_annuncio_text" style="margin-right: 15%;" href="#">
+                                    <button class="ins_annuncio" style="width:80%">
+                                        <b style="font-size: 20px;">Reinserisci annuncio</b>
+                                    </button>
+                                </a>
+                            </form>
+                        </div>
+                        <?php
+                            }
+                        ?>
                     </div>
                 </div>
             </div>  

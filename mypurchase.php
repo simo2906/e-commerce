@@ -16,7 +16,7 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../js/script.js"></script>
-    <title>I Miei Preferiti</title>
+    <title>I Miei Acquisti</title>
 </head>
 <body>
 <div class="wrapper">
@@ -83,16 +83,16 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
             </div>
         </div>
     </div>
-    <b style="font-family: SuisseIntl-Medium, sans-serif; color: #fb9354; font-size: 30px; text-align: center; margin-top: 1%">I Miei Preferiti</b>
+    <b style="font-family: SuisseIntl-Medium, sans-serif; color: #fb9354; font-size: 30px; text-align: center; margin-top: 1%">I Miei Acquisti</b>
     <div class="list-product">
         <?php
 
-            $sql_utente='SELECT * from preferiti where utente = $1 order by id desc';
+            $sql_utente='SELECT * from acquisti where utente = $1 order by id desc';
             $query_utente = pg_query_params($db, $sql_utente, array($_SESSION["id"]));
             while($result_utente = pg_fetch_assoc($query_utente)){
                 $sql_prodotto = 'SELECT * from prodotti where id = $1 and utente != $2';
-                $query_prodotto = pg_query_params($db, $sql_prodotto, array($result_utente["prodotto"], $_SESSION["id"]));
-                $result_prodotto = pg_fetch_assoc($query_prodotto)
+                $query_prodotto = pg_query_params($db, $sql_prodotto, array($result_utente["acquisto"], $_SESSION["id"]));
+                $result_prodotto = pg_fetch_assoc($query_prodotto);
         ?>
         <div class="favourite-grid" style="border-radius: 1rem; border: 2px solid #fb9354">
             <div class="favourite-grid-item">
@@ -112,15 +112,9 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
                     <div class="product-grid-item" align="right">
                         <img id="preferito" data-id-prod='<?php echo $result_prodotto["id"] ?>' style="margin-right: 15%; width: 35px;" onclick="cambiaImmagine(this)" src="./img/hearth_black.png"><br><br><br><br>
                         <a class="ins_annuncio_text" style="margin-right: 15%;" href="#">
-                            <?php if($result_prodotto["quantita"] > 0){ ?>
                             <button class="ins_annuncio" data-id-prod="<?php echo $result_prodotto['id']?>" data-id-costoArtic="<?php echo $result_prodotto["prezzo"]?>" data-id-costoSped="0" onclick="apriPopup(this);">
-                                <b style="font-size: 20px;">Acquista</b>
+                                <b style="font-size: 20px;">Acquista di nuovo</b>
                             </button>
-                            <?php } else { ?>
-                                <button class="ins_annuncio" style="background: #808080">
-                                    <b style="font-size: 20px;">Non Disponibile</b>
-                                </button>
-                            <?php } ?>
                         </a>
                     </div>
                 </div>
@@ -159,16 +153,16 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
             <br>
         <div class="riepilogoBox">
             <br>
-            <form action="#" method="post" name="confermaOrdine" id="confermaOrdine">
+            <form action="#" method="post" name="confermaOrdine" id="confermaOrdine" onsubmit="controllaOrdine()">
                 <div>
-                    <input type="text" style="width: 70%" name="indirizzoSped" placeholder="Inserisci il tuo indirizzo (Via/V.le/P.za)" class="input_log">
-                    <input type="text" style="width: 20%" name="nCivSped" placeholder="N. Civico" class="input_log">
+                    <input type="text" style="width: 70%" id="indirizzoSped" placeholder="Inserisci il tuo indirizzo (Via/V.le/P.za)" class="input_log">
+                    <input type="text" style="width: 20%" id="nCivSped" placeholder="N. Civico" class="input_log">
                 </div>
                 <div>
-                    <input type="text" style="width: 20%" name="cittaSped" placeholder="Città" class="input_log">
-                    <input type="text" style="width: 15%" name="provinciaSped" placeholder="Provincia" size=2 class="input_log">
-                    <input type="text" style="width: 30%" name="paeseSped" placeholder="Nazione" class="input_log">
-                    <input type="text" style="width: 25%" name="zipCodeSped" placeholder="Cod. Postale" class="input_log" size=5>
+                    <input type="text" style="width: 20%" id="cittaSped" placeholder="Città" class="input_log">
+                    <input type="text" style="width: 15%" id="provinciaSped" placeholder="Provincia" size=2 class="input_log">
+                    <input type="text" style="width: 30%" id="paeseSped" placeholder="Nazione" class="input_log">
+                    <input type="text" style="width: 25%" id="zipCodeSped" placeholder="Cod. Postale" class="input_log" size=5>
                 </div>
                 <br>
             </div>
@@ -181,14 +175,14 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
                         <input type="text" style="width: 30%" id="dataScadenza" placeholder="MM/YY" class="input_log">
                     </div>
                     <div>
-                        <input type="text" style="width: 60%" name="nomeTitolare" placeholder="Nome titolare" class="input_log">
-                        <input type="password" style="width: 30%" name="CVV" placeholder="CVV" class="input_log">
+                        <input type="text" style="width: 60%" id="nomeTitolare" placeholder="Nome titolare" class="input_log">
+                        <input type="password" style="width: 30%" id="CVV" placeholder="CVV" class="input_log">
                     </div>
                 </form>
                 <br>
             </div>
             <br>
-            <button onclick="controllaOrdine()" class="ins_annuncio" id="acquistaButton"><b>Acquista</b></button>
+            <button onclick="controllaOrdine()" id="acquistaButton" class="ins_annuncio"><b>Acquista</b></button>
         </form>
         </div>
     </div>

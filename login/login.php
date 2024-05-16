@@ -71,7 +71,7 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
             <br><br><br>
             <a href="password.php" class="link_log">Non ricordi la password?</a>
             <br><br>
-            <button name="loginButton" type="submit" class="log_button"><b>Accedi</b></button>
+            <button name="loginButton" type="submit" class="ins_annuncio"><b>Accedi</b></button>
             <br><br>
             Prima volta su Babazon?
             <a href="../register/register.php" class="link_log">Registrati</a>

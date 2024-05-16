@@ -79,7 +79,7 @@
             <br><br>
             <input type="checkbox" name="checkbox"> Accetto termini e condizioni
             <br><br>
-            <button type="submit" class="log_button"><b>Registrati</b></button>
+            <button type="submit" class="ins_annuncio"><b>Registrati</b></button>
             <br><br>
             Già registrato?
             <a href="../login/login.php" class="link_log">Effettua il login</a>

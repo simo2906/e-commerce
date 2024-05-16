@@ -46,7 +46,7 @@
             <br>
             <input type="email" name="email" placeholder="Inserisci la tua mail" class="input_log">
             <br><br>
-            <button type="submit" class="log_button"><b>Invia</b></button>
+            <button type="submit" class="ins_annuncio"><b>Invia</b></button>
             <br><br>
             <?php
                 if(isset($_GET["id"])){

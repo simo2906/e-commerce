@@ -1,39 +1,52 @@
+<?php
+session_start();
+
+    
+    $id=$_GET["id"];
+    $scorte = $_POST["scorteDaAggiungere"];
+
+    $db = pg_connect("host=localhost port=5432 dbname=ecommerce user=simone password=biar") or die("Errore di connessione");
+    $sql = 'SELECT * FROM prodotti WHERE id = $1';
+    $query = pg_query_params($db, $sql, array($id));
+    $result = pg_fetch_assoc($query);
+?>
 <!DOCTYPE html>
-<html lang="it">
+<meta charset="UTF-8">
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/mobile.css">
-    <link rel="application/javascript" href="/js/script.js">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-
-    <title>Registrazione avvenuta</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../js/script.js"></script>
+    <title>Conferma Aggiungi Scorta</title>
 </head>
-<body >
+<body>
 <div class="wrapper">
     <div class="header">
         <img class="header_icon" src="../img/star.png">
         <b style="font-size: 15px;">L'E-COMMERCE CHE SOGNAVI</b>
         <img class="header_icon" src="../img/star.png">
     </div>
+    <br>
     <div align="center">
-        <br>
         <a href="../index.php"><img class="logo_img" src="../img/2_new.png"></a>
     </div>
-    <br><br>
+    <br>
     <div align="center">
-        <form action="../index.php" class="register">
+        <form action="refill.php" method="post" class="register">
+            <input type="hidden" name="id" value="<?php echo $id ?>">
+            <input type="hidden" name="scorteDaAggiungere" value="<?php echo $scorte ?>">
             <br><br>
-            <h4>Registrazione avvenuta con successo</h4>
-            <br>
-            <button type="submit" class="ins_annuncio"><b>Torna alla home</b></button>
+            <p style="font-size: 20px">Sicuro di voler aggiungere <b><?php echo $scorte ?></b> prodotti?</p>
+            <br><br><br>
+            <button class="ins_annuncio"><b>Aggiungi</b></button>
             <br><br>
         </form>
+        <br><br>
     </div>
-    <br><br>
 </div>
 <footer>
     <div class="div_footer footer-grid-container">  

@@ -145,6 +145,70 @@ function previewImage(previewId, inputId, id) {
         return false;
     }
 
+    if(document.insertAd_form.productQuantity.value == "" ){
+        alert("Caricare quantità del prodotto");
+        return false;
+    }
+
     return true;
 }
-  
+
+
+function apriPopup(elemento){
+    document.getElementById("transparentDiv").style.display="block";
+    document.getElementById("acquistaPopup").style.display = "block";
+    document.getElementById("costoOggetto").innerHTML = elemento.getAttribute("data-id-costoArtic") + "€";
+    document.getElementById("costoSpedizione").innerHTML =  elemento.getAttribute("data-id-costoSped") + "€";
+    document.getElementById("costoTotale").innerHTML = parseInt(elemento.getAttribute("data-id-costoArtic")) + parseInt(elemento.getAttribute("data-id-costoSped")) + "€";
+    document.getElementById("acquistaButton").href = "./successbuy.php?id=" + elemento.getAttribute("data-id-prod");
+}
+
+function chiudiPopup(){
+    document.getElementById("transparentDiv").style.display="none";
+    document.getElementById("acquistaPopup").style.display = "none";
+}
+
+function controllaOrdine(){
+    if(!document.getElementById("indirizzoSped").value.match(/^(Via|Viale|Piazza|via|viale|piazza) \w+$/gm)){
+        alert("Il campo indirizzo non è valido");
+        return false;
+    }
+    if(!document.getElementById("nCivSped").value.match(/^\d+$/gm)){
+        alert("Il campo numero civico non è valido");
+        return false;
+    }
+    if(!document.getElementById("cittaSped").value.match(/^(\w+)+$/gm)){
+        alert("Il campo città non è valido");
+        return false;
+    }
+    if(!document.getElementById("provinciaSped").value.match(/^\w{2}$/gm)){
+        alert("Il campo provincia non è valido");
+        return false;
+    }
+    if(!document.getElementById("paeseSped").value.match(/^\w+$/gm)){
+        alert("Il paese non è valido");
+        return false;
+    }
+    if(!document.getElementById("zipCodeSped").value.match(/^\d{5}$/gm)){
+        alert("Il codice postale non è valido");
+        return false;
+    }
+    if(!document.getElementById("numeroCarta").value.match(/^(\d{4}|\d{4} ){4}$/gm)){
+        alert("Il numero della carta è sbagliato");
+        return false;
+    }
+    if(!document.getElementById("dataScadenza").value.match(/^\d{2}\/\d{2}$/gm)){
+        alert("Data di scadenza non valida");
+        return false;
+    }
+    if(!document.getElementById("nomeTitolare").value.match(/^(\w+|\w+ )+$/gm)){
+        alert("Il nome del titolare non è valido");
+        return false;
+    }
+    if(!document.getElementById("CVV").value.match(/^\d{3}|\d{4}$/gm)){
+        alert("Il CVV non è valido");
+        return false;
+    }
+    window.open("../successbuy.php?id=" + elemento.getAttribute("data-id-prod"));
+    return true;
+}

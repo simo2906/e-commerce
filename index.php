@@ -56,7 +56,7 @@
         
             <div align="left" class="dropdown">
                 <div style="margin: 15px;">
-                    <a style="text-decoration: none; color: black;" href="#">
+                    <a style="text-decoration: none; color: black;" href="myaccount.php">
                         <img class="icon" src="./img/user.png">
                         <b>Ciao <span style="color: #fa5f5a;"><?php echo ucfirst($result["nome"]) ?></span> <img class=icon src="./img/down.png"></b>
                     </a>
@@ -66,6 +66,12 @@
                         <div>
                             <img class="dropdown-icon" src="./img/love.png">
                             Preferiti
+                        </div>
+                    </a>
+                    <a href="mypurchase.php">
+                        <div>
+                            <img class="dropdown-icon" src="./img/carrello.png">
+                            I Miei Acquisti
                         </div>
                     </a>
                     <a href="myad.php">
@@ -163,8 +169,8 @@
     </div>
     <div align="center" style="margin-top: 2%;">
         <div class="product third-grid-container">
-        <?php
-            $sql = "SELECT * FROM prodotti ORDER BY id LIMIT 10";
+        <?php    
+            $sql = "SELECT * FROM prodotti where quantita > 0 ORDER BY id desc LIMIT 12";
             $query = pg_query_params($db, $sql, array());
             $counter=0;
             while($counter < 6 && $result = pg_fetch_assoc($query)){
@@ -179,6 +185,8 @@
                         ?>
                         <button class="overlay_button"><img id="preferito" data-id-prod='<?php echo $result["id"] ?>' class="icon" style="background-color: white; border-radius: 3rem" onclick="redirectToLogin()" src="./img/hearth.png"></button>
                         <?php
+                            } else if($_SESSION["id"] == $result["utente"]){
+
                             } else {
                                 $sql_hearth = 'SELECT * from preferiti where utente = $1 and prodotto = $2';
                                 $query_hearth = pg_query_params($db, $sql_hearth, array($_SESSION["id"], $result["id"]));
@@ -223,6 +231,8 @@
                         ?>
                         <button class="overlay_button"><img id="preferito" data-id-prod='<?php echo $result["id"] ?>' class="icon" style="background-color: white; border-radius: 3rem" onclick="redirectToLogin()" src="./img/hearth.png"></button>
                         <?php
+                            } else if($_SESSION["id"] == $result["utente"]){
+
                             } else {
                                 $sql_hearth = 'SELECT * from preferiti where utente = $1 and prodotto = $2';
                                 $query_hearth = pg_query_params($db, $sql_hearth, array($_SESSION["id"], $result["id"]));

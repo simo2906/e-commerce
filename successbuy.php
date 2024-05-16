@@ -1,3 +1,16 @@
+<?php
+    session_start();
+
+    $id = $_GET["id"];
+
+    $db = pg_connect("host=localhost port=5432 dbname=ecommerce user=simone password=biar") or die("Errore di connessione" . pg_last_error());
+    $sql = 'INSERT INTO acquisti(acquisto, utente) VALUES ($1, $2)';
+    $query = pg_query_params($db, $sql, array($id, $_SESSION["id"]));
+
+    $sql = 'UPDATE prodotti SET quantita = quantita - 1 WHERE id=$1';
+    $query = pg_query_params($db, $sql, array($id));
+
+?>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -10,7 +23,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 
-    <title>Registrazione avvenuta</title>
+    <title>Acquisto avvenuto</title>
 </head>
 <body >
 <div class="wrapper">
@@ -27,9 +40,9 @@
     <div align="center">
         <form action="../index.php" class="register">
             <br><br>
-            <h4>Registrazione avvenuta con successo</h4>
+            <h4>Acquisto avvenuto con successo</h4>
             <br>
-            <button type="submit" class="ins_annuncio"><b>Torna alla home</b></button>
+            <button type="submit" class="log_button"><b>Torna alla home</b></button>
             <br><br>
         </form>
     </div>
@@ -59,13 +72,13 @@
         </div>
         <div class="footer-grid-item">
             <b>Scoprici sui Social</b><br><br>
-            <img class="icon" src="../img/social/facebook.png">
-            <img class="icon" src="../img/social/instagram.png">
-            <img class="icon" src="../img/social/twitter.png">
-            <img class="icon" src="../img/social/whatsapp.png">
-            <img class="icon" src="../img/social/messenger.png"><br>
-            <img style="margin-top: 5px;" class="icon" src="../img/social/tiktok.png">
-            <img class="icon" src="../img/social/youtube.png">
+            <img class="icon" src="./img/social/facebook.png">
+            <img class="icon" src="./img/social/instagram.png">
+            <img class="icon" src="./img/social/twitter.png">
+            <img class="icon" src="./img/social/whatsapp.png">
+            <img class="icon" src="./img/social/messenger.png"><br>
+            <img style="margin-top: 5px;" class="icon" src="./img/social/tiktok.png">
+            <img class="icon" src="./img/social/youtube.png">
 
         </div>
     </div>

@@ -14,6 +14,7 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
     $prezzo = $_POST["productPrice"];
     $comune = pg_escape_string($db, strtolower($_POST["productMunicipality"]));
     $descrizione = pg_escape_string($db, strtolower($_POST["productDescription"]));
+    $quantita = $_POST["productQuantity"];
     $tempFile1Path = $_FILES['fileToUpload1']['tmp_name'];
     $File1Name = pg_escape_string($_FILES['fileToUpload1']['name']);
     $tempFile2Path = $_FILES['fileToUpload2']['tmp_name'];
@@ -33,8 +34,8 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
 
     
     
-    $sql = "INSERT INTO prodotti (utente, nome, categoria, prezzo, comune, descrizione, picture1, picture2, picture3, picture4, picture5) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) returning *";
-    $query = pg_query_params($db, $sql, array($_SESSION["id"], $nome, $categoria, $prezzo, $comune, $descrizione, $File1, $File2, $File3, $File4, $File5)) or die(pg_last_error());
+    $sql = "INSERT INTO prodotti (utente, nome, categoria, prezzo, comune, descrizione, picture1, picture2, picture3, picture4, picture5, quantita) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) returning *";
+    $query = pg_query_params($db, $sql, array($_SESSION["id"], $nome, $categoria, $prezzo, $comune, $descrizione, $File1, $File2, $File3, $File4, $File5, $quantita)) or die(pg_last_error());
     if($query){
         $result = pg_fetch_assoc($query);
 
@@ -127,6 +128,8 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
                 <input type="number" name="productPrice" placeholder="€ Prezzo*" class="input_log">
                 <br><br>
                 <input type="text" name="productMunicipality" placeholder="Comune*" class="input_log">
+                <br><br>
+                <input type="number" name="productquantity" placeholder="Quantità*" class="input_log">
                 <br><br><br>
                 <textarea name="productDescription" class="textarea_input" placeholder="Scrivi una breve descrizione del prodotto" ></textarea>
                 <br><br><br>

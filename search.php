@@ -2,8 +2,12 @@
 session_start();
 
 $_SESSION['previous_url'] = '../index.php';
+$db = pg_connect("host=localhost port=5432 dbname=ecommerce user=simone password=biar") or die("Errore di connessione" . pg_last_error());
 
-if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
+$cosa_cerchi = strtolower($_POST["cosaCerchi"]);
+$categoria = strtolower($_POST["categoria"]);
+$dove_cerchi = strtolower($_POST["doveCerchi"]);
+
 ?>
 <!DOCTYPE html>
 <meta charset="UTF-8">
@@ -16,7 +20,7 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../js/script.js"></script>
-    <title>I Miei Preferiti</title>
+    <title>Search</title>
 </head>
 <body>
 <div class="wrapper">
@@ -39,10 +43,12 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
         </div>
 
         <?php
-            $db = pg_connect("host=localhost port=5432 dbname=ecommerce user=simone password=biar") or die("Errore di connessione");
-            $sql = "SELECT * from utenti where id = $1";
-            $query = pg_query_params($db, $sql, array($_SESSION["id"]));
-            $result = pg_fetch_assoc($query);
+
+            if(isset($_SESSION["id"])){
+                $sql_utenti = "SELECT * from utenti where id = $1";
+                $query_utenti = pg_query_params($db, $sql_utenti, array($_SESSION["id"]));
+                $result_utenti = pg_fetch_assoc($query_utenti);
+
         ?>
 
         <div align="center" class="first-grid-item">
@@ -51,7 +57,7 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
                 <div style="margin: 15px;">
                     <a style="text-decoration: none; color: black;" href="myaccount.php">
                         <img class="icon" src="./img/user.png">
-                        <b>Ciao <span style="color: #fa5f5a;"><?php echo ucfirst($result["nome"]) ?></span> <img class=icon src="./img/down.png"></b>
+                        <b>Ciao <span style="color: #fa5f5a;"><?php echo ucfirst($result_utenti["nome"]) ?></span> <img class=icon src="./img/down.png"></b>
                     </a>
                 </div>
                 <div class="dropdown-content">
@@ -82,17 +88,32 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
                 </div>                
             </div>
         </div>
+
+        <?php
+
+            } else {
+
+        ?>  
+
+        <div align="right" class="first-grid-item">
+            <a href="./login/login.php"><img class="icon" src="./img/login.png"></a>
+            <a class="login_link" href="./login/login.php"><b>Accedi</b></a>
+            <a class="reg_link" href="./register/register.php"><b>Registrati</b></a>
+        </div>
+
+        <?php
+
+            }
+
+        ?>
     </div>
-    <b style="font-family: SuisseIntl-Medium, sans-serif; color: #fb9354; font-size: 30px; text-align: center; margin-top: 1%">I Miei Preferiti</b>
+    <b style="font-family: SuisseIntl-Medium, sans-serif; color: #fb9354; font-size: 30px; text-align: center; margin-top: 1%">Risultati</b>
     <div class="list-product">
         <?php
 
-            $sql_utente='SELECT * from preferiti where utente = $1 order by id desc';
-            $query_utente = pg_query_params($db, $sql_utente, array($_SESSION["id"]));
-            while($result_utente = pg_fetch_assoc($query_utente)){
-                $sql_prodotto = 'SELECT * from prodotti where id = $1 and utente != $2';
-                $query_prodotto = pg_query_params($db, $sql_prodotto, array($result_utente["prodotto"], $_SESSION["id"]));
-                $result_prodotto = pg_fetch_assoc($query_prodotto)
+            $sql_prodotto="SELECT * from prodotti where quantita > 0 and nome LIKE '%" . $cosa_cerchi ."%' and categoria LIKE '%" . $categoria ."%' and comune LIKE '%" . $dove_cerchi ."%' order by id desc";
+            $query_prodotto = pg_query($db, $sql_prodotto);
+            while($result_prodotto = pg_fetch_assoc($query_prodotto)){
         ?>
         <div class="favourite-grid" style="border-radius: 1rem; border: 2px solid #fb9354">
             <div class="favourite-grid-item">
@@ -110,18 +131,49 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
                         <b style="font-size: 25px; color: #fa5f5a;"><?php echo $result_prodotto["prezzo"] ?> €</b>
                     </div>
                     <div class="product-grid-item" align="right">
+                    <?php
+                            if(!isset($_SESSION["id"])){
+                        ?>
+                        <img id="preferito" data-id-prod='<?php echo $result_prodotto["id"] ?>' style="margin-right: 15%; width: 35px;" onclick="redirectToLogin()" src="./img/hearth.png"><br><br><br><br>
+                        <?php
+                            } else if($_SESSION["id"] == $result_prodotto["utente"]){
+                                
+                            } else {
+                                $sql_hearth = 'SELECT * from preferiti where utente = $1 and prodotto = $2';
+                                $query_hearth = pg_query_params($db, $sql_hearth, array($_SESSION["id"], $result_prodotto["id"]));
+                                if(!pg_fetch_assoc($query_hearth)){
+                        ?>
+                        <img id="preferito" data-id-prod='<?php echo $result_prodotto["id"] ?>' style="margin-right: 15%; width: 35px;" onclick="cambiaImmagine(this)" src="./img/hearth.png"><br><br><br><br>
+                        <?php
+                                } else {
+                        ?>
                         <img id="preferito" data-id-prod='<?php echo $result_prodotto["id"] ?>' style="margin-right: 15%; width: 35px;" onclick="cambiaImmagine(this)" src="./img/hearth_black.png"><br><br><br><br>
-                        <a class="ins_annuncio_text" style="margin-right: 15%;" href="#">
-                            <?php if($result_prodotto["quantita"] > 0){ ?>
-                            <button class="ins_annuncio" data-id-prod="<?php echo $result_prodotto['id']?>" data-id-costoArtic="<?php echo $result_prodotto["prezzo"]?>" data-id-costoSped="0" onclick="apriPopup(this);">
-                                <b style="font-size: 20px;">Acquista</b>
-                            </button>
-                            <?php } else { ?>
-                                <button class="ins_annuncio" style="background: #808080">
-                                    <b style="font-size: 20px;">Non Disponibile</b>
+                        <?php
+                                }
+                            }
+                        ?>
+                        <?php
+                            if(isset($_SESSION["id"]) && $_SESSION["id"] == $result["utente"]){
+
+                            } else {
+                                if(!isset($_SESSION["id"])){ 
+                        
+                        ?>
+                            <a class="ins_annuncio_text" style="margin-right: 15%;" href="./login/login.php">
+                                <button class="ins_annuncio">
+                                    <b style="font-size: 20px;">Acquista</b>
                                 </button>
-                            <?php } ?>
-                        </a>
+                            </a>
+                        <?php } else { ?>
+                            <a class="ins_annuncio_text" style="margin-right: 15%;" href="#">
+                                <button class="ins_annuncio" data-id-prod="<?php echo $result['id']?>" data-id-costoArtic="<?php echo $result["prezzo"]?>" data-id-costoSped="0" onclick="apriPopup(this);">
+                                    <b style="font-size: 20px;">Acquista</b>
+                                </button>
+                            </a>
+                        
+                        <?php }
+                            } 
+                        ?>
                     </div>
                 </div>
             </div>  
@@ -161,14 +213,14 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
             <br>
             <form action="#" method="post" name="confermaOrdine" id="confermaOrdine">
                 <div>
-                    <input type="text" style="width: 70%" name="indirizzoSped" placeholder="Inserisci il tuo indirizzo (Via/V.le/P.za)" class="input_log">
-                    <input type="text" style="width: 20%" name="nCivSped" placeholder="N. Civico" class="input_log">
+                    <input type="text" style="width: 70%" id="indirizzoSped" placeholder="Inserisci il tuo indirizzo (Via/V.le/P.za)" class="input_log">
+                    <input type="text" style="width: 20%" id="nCivSped" placeholder="N. Civico" class="input_log">
                 </div>
                 <div>
-                    <input type="text" style="width: 20%" name="cittaSped" placeholder="Città" class="input_log">
-                    <input type="text" style="width: 15%" name="provinciaSped" placeholder="Provincia" size=2 class="input_log">
-                    <input type="text" style="width: 30%" name="paeseSped" placeholder="Nazione" class="input_log">
-                    <input type="text" style="width: 25%" name="zipCodeSped" placeholder="Cod. Postale" class="input_log" size=5>
+                    <input type="text" style="width: 20%" id="cittaSped" placeholder="Città" class="input_log">
+                    <input type="text" style="width: 15%" id="provinciaSped" placeholder="Provincia" size=2 class="input_log">
+                    <input type="text" style="width: 30%" id="paeseSped" placeholder="Nazione" class="input_log">
+                    <input type="text" style="width: 25%" id="zipCodeSped" placeholder="Cod. Postale" class="input_log" size=5>
                 </div>
                 <br>
             </div>
@@ -181,14 +233,14 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
                         <input type="text" style="width: 30%" id="dataScadenza" placeholder="MM/YY" class="input_log">
                     </div>
                     <div>
-                        <input type="text" style="width: 60%" name="nomeTitolare" placeholder="Nome titolare" class="input_log">
-                        <input type="password" style="width: 30%" name="CVV" placeholder="CVV" class="input_log">
+                        <input type="text" style="width: 60%" id="nomeTitolare" placeholder="Nome titolare" class="input_log">
+                        <input type="password" style="width: 30%" id="CVV" placeholder="CVV" class="input_log">
                     </div>
                 </form>
                 <br>
             </div>
             <br>
-            <button onclick="controllaOrdine()" class="ins_annuncio" id="acquistaButton"><b>Acquista</b></button>
+            <button  onclick="controllaOrdine()" id="acquistaButton" class="ins_annuncio"><b>Acquista</b></button>
         </form>
         </div>
     </div>

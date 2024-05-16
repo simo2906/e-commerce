@@ -271,7 +271,7 @@ footer{
 .wrapper {
     display: flex;
     flex-direction: column;
-    min-height: 65%;
+    min-height: 70%;
 }
 
 main {
@@ -358,7 +358,7 @@ main {
     align-items:center;
     box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.5); 
     border-radius: 0.355rem;
-    width: 30%; 
+    width: 30%;
     height: auto;
 }
 
@@ -430,4 +430,82 @@ main {
     margin-top: 2%;
     display: grid;
     grid-template-columns: minmax(auto, 30vh) 1fr;
+}
+
+.popupHeader{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.transparent_layer{
+    display:none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 9999;
+}
+
+.buyPopup{
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    width: 40%;
+    height: auto;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid black;
+    border-radius: 2rem;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+#acquistaPopup[display="block"]:hover {
+    cursor: pointer;
+}
+
+.riepilogoOrdine{
+    display:block;
+    padding: 2%;
+    background-color: #fb945430;
+    border-radius: 1rem;
+}
+
+.riepilogo-grid-item{
+    display:grid;
+    grid-template-columns: repeat(2,1fr);
+    width: 90%;
+}
+
+.riepilogoBox{
+    background-color: white;
+    border-radius: 1rem;
+}
+
+.first-account-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.second-account-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.first-account-grid-item, .second-account-grid-item{
+    border-radius: 1rem; 
+    border: 2px solid #fb9354; 
+    height: 10vh; 
+    margin-left: 5%; 
+    margin-right: 5%;
+    margin-top: 10%;
+}
+
+.user-grid{
+    display: grid;
+    grid-template-columns: minmax(auto, 60%) 1fr;
 }
