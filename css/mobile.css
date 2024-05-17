@@ -1,0 +1,64 @@
+@media screen and (max-width: 992px){
+
+
+    .home_carousel{
+        display: none;
+    }
+
+    #accedi{
+        margin-top: 6%;
+    }
+
+    #dropdown{
+        margin:5px;
+    }
+
+    .product{
+        width: 100%;
+    }
+    
+    .login_bar{
+        width: 100%;
+    }
+
+    .header{
+        width: 100%;
+    }
+
+    .ricerca{
+        margin-top: 5%;
+    }
+
+    .line{
+        margin-right: 0%;
+    }
+
+    .hearth{
+        margin-right: 0%;
+    }
+
+    .custom-auto-width{
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-top: 5% !important;
+    }
+
+    .single_product{
+        width: 80%;
+    }
+
+    .user-product{
+        margin-top: 10%;
+    }
+
+    .ins_annuncio{
+        margin-bottom: 5%;
+    }
+
+    .single_product:hover{
+        transform: none;
+        border: none;
+    }
+
+}

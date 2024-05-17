@@ -212,4 +212,7 @@ function controllaOrdine(){
     
     window.location.href = document.getElementById("acquistaButton").getAttribute("data-id-href");
     return true;
+    
 }
+
+

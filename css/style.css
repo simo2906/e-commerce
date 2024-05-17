@@ -11,22 +11,35 @@ html, body {
     padding: 10px;
 }
 
+.header_container{
+    border-top: 2px solid grey;
+    border-bottom: 2px solid grey;
+}
+
+.line{
+    margin-right: 8%;
+}
+
+.hearth{
+    margin-right: 50%;
+}
+
+.title{
+    text-align: left;
+}
+
 .header{
     background: linear-gradient(to right, #fcbe4f, #fa5f5a);
     color: white;
     text-align: center;
 }
-
 .login_bar{
     align-items: center;
     padding: 20px;
-    border-top: 2px solid grey;
-    border-bottom: 2px solid grey;
-
 }
 
 .logo_img{
-    size: 100%;
+    size: 80%;
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -54,15 +67,17 @@ html, body {
 .ins_annuncio_text, .ins_annuncio_text:hover, .ins_annuncio_text:active, .ins_annuncio_text:visited{
     color: black;
     text-decoration: none;
+   
 }
 
-.ins_annuncio{
+.ins_annuncio, .ins_annuncio_header{
     border: none;
     text-decoration: none;
     background: linear-gradient(to right, #fcbe4f, #fa5f5a);
     padding: 15px;
     border-radius: 2rem;
     color: white;
+    align-items: center;
 }
 
 .header_icon{
@@ -75,7 +90,7 @@ html, body {
     width: 30px;
     height: auto;
     vertical-align: bottom;
-    margin-right: 5px;
+    
 }
 
 b{
@@ -168,10 +183,9 @@ footer{
 
 
 .img_product{
-    position: relative;
-    display: inline-block;
-    width: 23vh;
-    height: 20vh;    
+    width: 100%;
+    height: auto;
+    display: block;  
 }
 
 .product-title {
@@ -214,17 +228,14 @@ footer{
 }
 
 .single_product {
-    margin-left: 5%;
-    margin-right: 5%;
-    width: 90%;
-    height: auto;
-    border-radius:0.375rem
+    border-radius: 0.375rem !important;
 }
 
 .single_product:hover {
     background-color: white;
     transform: scale(1.1);
     z-index: 1;
+    margin:0;
     border: 2px solid #fb9354;    
 }
 
@@ -256,6 +267,11 @@ footer{
     resize: none;
 }
 
+.container{
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
 .log_button{
     background: linear-gradient(to right, #fcbe4f, #fa5f5a);
     border-radius: 0.355rem;
@@ -274,8 +290,14 @@ footer{
     min-height: 70%;
 }
 
+
+
 main {
     flex-grow: 1;
+}
+
+#dropdown {
+    margin: 15px;
 }
 
 .dropdown {
@@ -318,6 +340,10 @@ main {
 
 .dropdown:hover .dropdown-content {
     display: block;
+}
+
+.ricerca{
+    margin-top: 2%;
 }
 
 .footer-grid-container{
@@ -419,6 +445,8 @@ main {
     border-radius: 0.355rem;
     padding: 8px;
     text-align:center;
+    width: 65%;
+    height: auto;
 }
 
 .list-product{

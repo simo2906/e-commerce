@@ -30,114 +30,118 @@
         <b style="font-size: 15px;">L'E-COMMERCE CHE SOGNAVI</b>
         <img class="header_icon" src="./img/star.png">
     </div>
-    <div class="login_bar first-grid">
-        <div align="center" class="first-grid-item">
-            <a class="login_link" href="index.php"><img class="logo_img" style="size: 80%" src="./img/2_new.png"></a>
-        </div>
-        <div align="center" class="first-grid-item">
-            <a class="ins_annuncio_text" href="insert_ad.php">
-                <button class="ins_annuncio">
-                    <img class="icon" style="vertical-align: center;" src="./img/plus.png">
-                    <b style="font-size: 20px;">Inserisci annuncio</b>
-                </button>
-            </a>
-        </div>
-
-        <?php
-
-            if(isset($_SESSION["id"])){
-                $sql = "SELECT * from utenti where id = $1";
-                $query = pg_query_params($db, $sql, array($_SESSION["id"]));
-                $result = pg_fetch_assoc($query);
-
-        ?>
-
-        <div align="center" class="first-grid-item">
-        
-            <div align="left" class="dropdown">
-                <div style="margin: 15px;">
-                    <a style="text-decoration: none; color: black;" href="myaccount.php">
-                        <img class="icon" src="./img/user.png">
-                        <b>Ciao <span style="color: #fa5f5a;"><?php echo ucfirst($result["nome"]) ?></span> <img class=icon src="./img/down.png"></b>
-                    </a>
-                </div>
-                <div class="dropdown-content">
-                    <a href="favourites-product.php">
-                        <div>
-                            <img class="dropdown-icon" src="./img/love.png">
-                            Preferiti
-                        </div>
-                    </a>
-                    <a href="mypurchase.php">
-                        <div>
-                            <img class="dropdown-icon" src="./img/carrello.png">
-                            I Miei Acquisti
-                        </div>
-                    </a>
-                    <a href="myad.php">
-                        <div>
-                            <img class="dropdown-icon" src="./img/message.png">
-                            I Miei Annunci
-                        </div>
-                    </a>
-                    <a href="./logout/logout.php">
-                        <div>
-                            <img class="dropdown-icon" src="./img/logout.png">
-                            Esci
-                        </div>
-                    </a>
-                </div>                
+    <div class="container header_container" align="center">
+        <div class="login_bar row">
+            <div  class="col-12 col-lg-4">
+                <a class="login_link" href="index.php"><img class="logo_img" src="./img/2_new.png"></a>
             </div>
+            <div class="col-12 col-lg-4">
+                <a class="ins_annuncio_text" href="insert_ad.php">
+                    <button class="ins_annuncio_header">
+                        <img class="icon" style="vertical-align: center;" src="./img/plus.png">
+                        <b style="font-size: 20px;">Inserisci annuncio</b>
+                    </button>
+                </a>
+            </div>
+
+            <?php
+
+                if(isset($_SESSION["id"])){
+                    $sql = "SELECT * from utenti where id = $1";
+                    $query = pg_query_params($db, $sql, array($_SESSION["id"]));
+                    $result = pg_fetch_assoc($query);
+
+            ?>
+
+            <div align="center" id="accedi" class="col-12 col-lg-4">
+                
+                <div align="left" class="dropdown">
+                    <div id="dropdown">
+                        <a style="text-decoration: none; color: black;" href="myaccount.php">
+                            <img class="icon" src="./img/user.png">
+                            <b>Ciao <span style="color: #fa5f5a;"><?php echo ucfirst($result["nome"]) ?></span> <img class=icon src="./img/down.png"></b>
+                        </a>
+                    </div>
+                    <div class="dropdown-content">
+                        <a href="favourites-product.php">
+                            <div>
+                                <img class="dropdown-icon" src="./img/love.png">
+                                Preferiti
+                            </div>
+                        </a>
+                        <a href="mypurchase.php">
+                            <div>
+                                <img class="dropdown-icon" src="./img/carrello.png">
+                                I Miei Acquisti
+                            </div>
+                        </a>
+                        <a href="myad.php">
+                            <div>
+                                <img class="dropdown-icon" src="./img/message.png">
+                                I Miei Annunci
+                            </div>
+                        </a>
+                        <a href="./logout/logout.php">
+                            <div>
+                                <img class="dropdown-icon" src="./img/logout.png">
+                                Esci
+                            </div>
+                        </a>
+                    </div>                
+                </div>
+            </div>
+
+            <?php
+
+                } else {
+
+            ?>  
+
+            <div align="center" id="accedi" class="col-12 col-lg-4">
+                <a href="./login/login.php"><img class="icon" src="./img/login.png"></a>
+                <a class="login_link" href="./login/login.php"><b>Accedi</b></a>
+                <a class="reg_link" href="./register/register.php"><b>Registrati</b></a>
+            </div>
+
+            <?php
+
+                }
+
+            ?>
         </div>
-
-        <?php
-
-            } else {
-
-        ?>  
-
-        <div align="right" class="first-grid-item">
-            <a href="./login/login.php"><img class="icon" src="./img/login.png"></a>
-            <a class="login_link" href="./login/login.php"><b>Accedi</b></a>
-            <a class="reg_link" href="./register/register.php"><b>Registrati</b></a>
-        </div>
-
-        <?php
-
-            }
-
-        ?>
     </div>
-    <form action="search.php" method="post" name="ricerca" id="ricerca" style="margin-top: 2%;">
-        <div class="mycontainer second-grid" align="center">
-            <div class="search second-grid-item">
+    <div align="center">
+    <form action="search.php" method="post" name="ricerca" id="ricerca" class="ricerca">
+        <div class="mycontainer row" align="center">
+            <div class="search col custom-auto-width">
                 <label><b>Cerchi qualcosa?</b></label>
                 <div class="search_bar">
                     <img class="category_img" src="./img/search-simbol.png">
                     <input class="input_text" type="text" name="cosaCerchi" placeholder="Vespa, motorino..">
                 </div>
             </div>
-            <div class="search second-grid-item">
+            <div class="search col custom-auto-width">
                 <label><b>Cosa cerchi?</b></label>
                 <div class="search_bar">
                     <img class="category_img" src="./img/menu.png">
                     <input class="input_text" type="text" name="categoria" placeholder="Categoria">
                 </div>
             </div>
-            <div class="search second-grid-item">
+            <div class="search col custom-auto-width">
                 <label><b>Dove la cerchi?</b></label>
                 <div class="search_bar">
                     <img class="category_img" src="./img/maps.png">
                     <input class="input_text" type="text" name="doveCerchi" placeholder="Comune, Provincia o Regione">
                 </div>
             </div>
-            <div class="second-grid-item">
+            <div class="col-lg-auto custom-auto-width">
                 <input type="image" class="search_ico" src="./img/search2.png" id="imgSubmit">
             </div>
         </div> 
     </form>
+    </div>
     <div align="center" style="margin-top: 1%;">
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style="margin-top: 1%">
+        <div id="carouselExampleIndicators" class="carousel slide home_carousel" data-bs-ride="carousel" style="margin-top: 1%">
             <div class="carousel-indicators">
               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -168,7 +172,7 @@
         <b style="font-family: SuisseIntl-Medium, sans-serif; color: #fb9354; font-size: 30px">Ultimi Annunci</b>
     </div>
     <div align="center" style="margin-top: 2%;">
-        <div class="product third-grid-container">
+        <div class="product row">
         <?php    
             $sql = "SELECT * FROM prodotti where quantita > 0 ORDER BY id desc LIMIT 12";
             $query = pg_query_params($db, $sql, array());
@@ -176,39 +180,42 @@
             while($counter < 6 && $result = pg_fetch_assoc($query)){
                 $counter++;
         ?>
-            <div class="single_product third-grid-item">
-                <div class="img_product">
-                    <a href='single-product.php?id=<?php echo $result["id"]?>'><img width="100%" height="100%" style="border-radius: 2rem; padding: 5%;" src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture1"] ?>'></a>
-                    <div class="overlay-container">
-                        <?php
-                            if(!isset($_SESSION["id"])){
-                        ?>
-                        <button class="overlay_button"><img id="preferito" data-id-prod='<?php echo $result["id"] ?>' class="icon" style="background-color: white; border-radius: 3rem" onclick="redirectToLogin()" src="./img/hearth.png"></button>
-                        <?php
-                            } else if($_SESSION["id"] == $result["utente"]){
+            <div align="center" class=" col-lg-2 col-sm-12">
+                <div  class="single_product">
+                    <div class="card">
+                        <a href='single-product.php?id=<?php echo $result["id"]?>'><img class="card-img-top" src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture1"] ?>'></a>
+                        <div class="overlay-container">
+                            <?php
+                                if(!isset($_SESSION["id"])){
+                            ?>
+                            <button class="overlay_button"><img id="preferito" data-id-prod='<?php echo $result["id"] ?>' class="icon" style="background-color: white; border-radius: 3rem" onclick="redirectToLogin()" src="./img/hearth.png"></button>
+                            <?php
+                                } else if($_SESSION["id"] == $result["utente"]){
 
-                            } else {
-                                $sql_hearth = 'SELECT * from preferiti where utente = $1 and prodotto = $2';
-                                $query_hearth = pg_query_params($db, $sql_hearth, array($_SESSION["id"], $result["id"]));
-                                if(!pg_fetch_assoc($query_hearth)){
-                        ?>
-                        <button class="overlay_button"><img id="preferito" data-id-prod='<?php echo $result["id"] ?>' class="icon" style="background-color: white; border-radius: 3rem" onclick="cambiaImmagine(this)" src="./img/hearth.png"></button>
-                        <?php
                                 } else {
-                        ?>
-                        <button class="overlay_button"><img id="preferito" data-id-prod='<?php echo $result["id"] ?>' class="icon" style="background-color: white; border-radius: 3rem" onclick="cambiaImmagine(this)" src="./img/hearth_black.png"></button>
-                        <?php
+                                    $sql_hearth = 'SELECT * from preferiti where utente = $1 and prodotto = $2';
+                                    $query_hearth = pg_query_params($db, $sql_hearth, array($_SESSION["id"], $result["id"]));
+                                    if(!pg_fetch_assoc($query_hearth)){
+                            ?>
+                            <button class="overlay_button"><img id="preferito" data-id-prod='<?php echo $result["id"] ?>' class="icon" style="background-color: white; border-radius: 3rem" onclick="cambiaImmagine(this)" src="./img/hearth.png"></button>
+                            <?php
+                                    } else {
+                            ?>
+                            <button class="overlay_button"><img id="preferito" data-id-prod='<?php echo $result["id"] ?>' class="icon" style="background-color: white; border-radius: 3rem" onclick="cambiaImmagine(this)" src="./img/hearth_black.png"></button>
+                            <?php
+                                    }
                                 }
-                            }
-                        ?>
+                            ?>
+                        </div>
                     </div>
-                </div>
-                <div class="description_product" >
-                    <a href="single-product.php?id=<?php echo $result["id"]?>" class="login_link">
-                        <p class="product-title"><?php echo ucwords($result["nome"]) ?></p>
-                        <p class="product-category"><?php echo ucwords($result["categoria"]) ?></p>
-                        <p class="product-price"><?php echo "€" . $result["prezzo"] ?></p>
-                    </a>
+                    <br>
+                    <div class="card-body">
+                        <a href="single-product.php?id=<?php echo $result["id"]?>" class="login_link">
+                            <h5 class="card-title"><?php echo ucwords($result["nome"]) ?></h5>
+                            <p class="card-text"><?php echo ucwords($result["categoria"]) ?></p>
+                            <p class="product-price" style="color: #fa5f5a;"><?php echo "€" . $result["prezzo"] ?></p>
+                        </a> 
+                    </div>
                 </div>
             </div>
         <?php
@@ -217,44 +224,47 @@
         </div>
     </div>
     <div align="center" style="margin-top: 2%;">
-        <div class="product third-grid-container">
+        <div class="product row">
         <?php
             while($counter < 12 && $result = pg_fetch_assoc($query)){
                 $counter++;
         ?>
-            <div class="single_product third-grid-item">
-                <div class="img_product">
-                    <a href='single-product.php?id=<?php echo $result["id"]?>'><img width="100%" height="100%" style="border-radius: 2rem; padding: 5%;" src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture1"] ?>'></a>
-                    <div class="overlay-container">
-                        <?php
-                            if(!isset($_SESSION["id"])){
-                        ?>
-                        <button class="overlay_button"><img id="preferito" data-id-prod='<?php echo $result["id"] ?>' class="icon" style="background-color: white; border-radius: 3rem" onclick="redirectToLogin()" src="./img/hearth.png"></button>
-                        <?php
-                            } else if($_SESSION["id"] == $result["utente"]){
-
-                            } else {
-                                $sql_hearth = 'SELECT * from preferiti where utente = $1 and prodotto = $2';
-                                $query_hearth = pg_query_params($db, $sql_hearth, array($_SESSION["id"], $result["id"]));
-                                if(!pg_fetch_assoc($query_hearth)){
-                        ?>
-                        <button class="overlay_button"><img id="preferito" data-id-prod='<?php echo $result["id"] ?>' class="icon" style="background-color: white; border-radius: 3rem" onclick="cambiaImmagine(this)" src="./img/hearth.png"></button>
-                        <?php
+            <div align="center" class=" col-lg-2 col-sm-12">
+                <div class="single_product">
+                    <div class="card">
+                        <a href='single-product.php?id=<?php echo $result["id"]?>'><img class="card-img-top" src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture1"] ?>'></a>
+                        <div class="overlay-container">
+                            <?php
+                                if(!isset($_SESSION["id"])){
+                            ?>
+                            <button class="overlay_button"><img id="preferito" data-id-prod='<?php echo $result["id"] ?>' class="icon" style="background-color: white; border-radius: 3rem" onclick="redirectToLogin()" src="./img/hearth.png"></button>
+                            <?php
+                                } else if($_SESSION["id"] == $result["utente"]){
+                                
                                 } else {
-                        ?>
-                        <button class="overlay_button"><img id="preferito" data-id-prod='<?php echo $result["id"] ?>' class="icon" style="background-color: white; border-radius: 3rem" onclick="cambiaImmagine(this)" src="./img/hearth_black.png"></button>
-                        <?php
+                                    $sql_hearth = 'SELECT * from preferiti where utente = $1 and prodotto = $2';
+                                    $query_hearth = pg_query_params($db, $sql_hearth, array($_SESSION["id"], $result["id"]));
+                                    if(!pg_fetch_assoc($query_hearth)){
+                            ?>
+                            <button class="overlay_button"><img id="preferito" data-id-prod='<?php echo $result["id"] ?>' class="icon" style="background-color: white; border-radius: 3rem" onclick="cambiaImmagine(this)" src="./img/hearth.png"></button>
+                            <?php
+                                    } else {
+                            ?>
+                            <button class="overlay_button"><img id="preferito" data-id-prod='<?php echo $result["id"] ?>' class="icon" style="background-color: white; border-radius: 3rem" onclick="cambiaImmagine(this)" src="./img/hearth_black.png"></button>
+                            <?php
+                                    }
                                 }
-                            }
-                        ?>
+                            ?>
+                        </div>
                     </div>
-                </div>
-                <div class="description_product" >
-                    <a href="single-product.php?id=<?php echo $result["id"]?>" class="login_link">
-                        <p class="product-title"><?php echo ucwords($result["nome"]) ?></p>
-                        <p class="product-category"><?php echo ucwords($result["categoria"]) ?></p>
-                        <p class="product-price"><?php echo "€" . $result["prezzo"] ?></p>
-                    </a>
+                    <br>
+                    <div class="card-body">
+                        <a href="single-product.php?id=<?php echo $result["id"]?>" class="login_link">
+                            <h5 class="card-title"><?php echo ucwords($result["nome"]) ?></h5>
+                            <p class="card-text"><?php echo ucwords($result["categoria"]) ?></p>
+                            <p class="product-price" style="color: #fa5f5a;"><?php echo "€" . $result["prezzo"] ?></p>
+                        </a> 
+                    </div>
                 </div>
             </div>
         <?php
@@ -262,16 +272,20 @@
         ?>
         </div>
     </div>
+
+    <!--
     <div align="center" style="margin-top: 2%">
         <div class="container-item">
-            <img srcset="./img/prova3.webp" type="image/webp">
-            <img srcset="./img/prova4.webp" type="image/webp">
+            <a href="shop.php" style="margin-right: 3%"><img srcset="./img/prova3.webp"  type="image/webp"></a>
+            <a href="shop.php"><img srcset="./img/right-banner.png" width="100%" height="100%" type="image/webp"></a>
         </div>
     </div>
+    -->
 </div>
 <footer>
-    <div class="div_footer footer-grid-container">  
-        <div class="footer-grid-item">
+    <div class="div_footer">
+        <div class="row">
+        <div class="col-lg-4 col-sm-4">
             <b>Servizio Clienti</b>
             <ul style="list-style-type: none; padding: 0; margin: 0;">
                 <li>Centro Assistenza</li>
@@ -281,17 +295,13 @@
                 <li>Privacy</li>
             </ul>
         </div>
-        <div class="footer-grid-item">
+        <div class="col-lg-4 col-sm-4">
             <b>Paga Con</b><br><br>
             <img src="https://img.alicdn.com/tfs/TB1xcMWdEKF3KVjSZFEXXXExFXa-68-48.png" class="pay_icon">
             <img src="https://ae01.alicdn.com/kf/S7b20ce778ba44e60a062008c35e98b57M/216x144.png" class="pay_icon">
             <img src="https://ae01.alicdn.com/kf/S91ee3e0f4fde4535aad35f7c30f6bacfh/216x144.png" class="pay_icon">
-            <img src="https://ae01.alicdn.com/kf/S173da9e53a234dcb9795cebd1856c4d7J/216x144.png" class="pay_icon">
-            <img src="https://ae01.alicdn.com/kf/S8df1a1d99c8049d1b1a86c9a144719b6W/216x144.png" class="pay_icon"><br>
-            <img style="margin-top: 5px;" src="https://ae01.alicdn.com/kf/S0321450614244c4dafba2517560de3b8s/216x144.png" class="pay_icon">
-            <img src="https://ae01.alicdn.com/kf/S2a5881f5906b4fb58a0c6da600ddf7bf1/216x144.png" class="pay_icon">
         </div>
-        <div class="footer-grid-item">
+        <div class="col-lg-4 col-sm-4">
             <b>Scoprici sui Social</b><br><br>
             <img class="icon" src="./img/social/facebook.png">
             <img class="icon" src="./img/social/instagram.png">
@@ -301,6 +311,7 @@
             <img style="margin-top: 5px;" class="icon" src="./img/social/tiktok.png">
             <img class="icon" src="./img/social/youtube.png">
 
+        </div>
         </div>
     </div>
 </footer>

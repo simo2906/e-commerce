@@ -33,256 +33,273 @@
 }
 
 .carousel-inner img {
-  width: 100vh;
+  width: 100%;
   height: 60vh;
   object-fit: contain; 
+}
+
+@media screen and (max-width: 992px){
+
+    .carousel{
+        margin-bottom: 5%;
+    }
+
+    .carousel-inner img {
+        width: 100%;
+        height: 30vh;
+    }
 }
 
 </style>
 <body>
 <div class="wrapper">
-        <div class="header">
-            <img class="header_icon" src="../img/star.png">
-            <b style="font-size: 15px;">L'E-COMMERCE CHE SOGNAVI</b>
-            <img class="header_icon" src="../img/star.png">
-        </div>
-        <div class="login_bar first-grid">
-        <div align="center" class="first-grid-item">
-            <a class="login_link" href="index.php"><img class="logo_img" style="size: 80%" src="./img/2_new.png"></a>
-        </div>
-        <div align="center" class="first-grid-item">
-            <a class="ins_annuncio_text" href="insert_ad.php">
-                <button class="ins_annuncio">
-                    <img class="icon" style="vertical-align: center;" src="./img/plus.png">
-                    <b style="font-size: 20px;">Inserisci annuncio</b>
-                </button>
-            </a>
-        </div>
-
-        <?php
-
-            if(isset($_SESSION["id"])){
-                $sql_utenti = "SELECT * from utenti where id = $1";
-                $query_utenti = pg_query_params($db, $sql_utenti, array($_SESSION["id"]));
-                $result_utenti = pg_fetch_assoc($query_utenti);
-
-        ?>
-
-        <div align="center" class="first-grid-item">
-        
-            <div align="left" class="dropdown">
-                <div style="margin: 15px;">
-                    <a style="text-decoration: none; color: black;" href="myaccount.php">
-                        <img class="icon" src="./img/user.png">
-                        <b>Ciao <span style="color: #fa5f5a;"><?php echo ucfirst($result_utenti["nome"]) ?></span> <img class=icon src="./img/down.png"></b>
-                    </a>
-                </div>
-                <div class="dropdown-content">
-                    <a href="favourites-product.php">
-                        <div>
-                            <img class="dropdown-icon" src="./img/love.png">
-                            Preferiti
-                        </div>
-                    </a>
-                    <a href="mypurchase.php">
-                        <div>
-                            <img class="dropdown-icon" src="./img/carrello.png">
-                            I Miei Acquisti
-                        </div>
-                    </a>
-                    <a href="myad.php">
-                        <div>
-                            <img class="dropdown-icon" src="./img/message.png">
-                            I Miei Annunci
-                        </div>
-                    </a>
-                    <a href="./logout/logout.php">
-                        <div>
-                            <img class="dropdown-icon" src="./img/logout.png">
-                            Esci
-                        </div>
-                    </a>
-                </div>                
-            </div>
-        </div>
-
-        <?php
-
-            } else {
-
-        ?>  
-
-        <div align="right" class="first-grid-item">
-            <a href="./login/login.php"><img class="icon" src="./img/login.png"></a>
-            <a class="login_link" href="./login/login.php"><b>Accedi</b></a>
-            <a class="reg_link" href="./register/register.php"><b>Registrati</b></a>
-        </div>
-
-        <?php
-
-            }
-
-        ?>
+    <div class="header" align="center">
+        <img class="header_icon" src="./img/star.png">
+        <b style="font-size: 15px;">L'E-COMMERCE CHE SOGNAVI</b>
+        <img class="header_icon" src="./img/star.png">
     </div>
-    <div class="product-grid">
-        <div class="produt-grid-item" align="center">
-            <div id="carouselExampleIndicators" class="carousel slide">
-              <div class="carousel-indicators">
-                <?php
-                    if($result["picture2"]){
-                ?>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <?php
-                    }
-                    if($result["picture3"]){
-                ?>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                <?php
-                    }
-                    if($result["picture4"]){
-                ?>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 4"></button>
-                <?php
-                    }
-                    if($result["picture5"]){
-                ?>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 5"></button>
-                <?php
-                    }
-                ?>
-              </div>
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture1"] ?>' class="d-block w-100" alt="Immagine 1">
-                </div>
-                <?php
-                    if($result["picture2"]){
-                ?>
-                <div class="carousel-item">
-                  <img src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture2"] ?>' class="d-block w-100" alt="Immagine 2">
-                </div>
-                <?php
-                    }
-                    if($result["picture3"]){
-                ?>
-                <div class="carousel-item">
-                  <img src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture3"] ?>' class="d-block w-100" alt="Immagine 2">
-                </div>
-                <?php
-                    }
-                    if($result["picture4"]){
-                ?>
-                <div class="carousel-item">
-                  <img src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture4"] ?>' class="d-block w-100" alt="Immagine 2">
-                </div>
-                <?php
-                    }
-                    if($result["picture5"]){
-                ?>
-                <div class="carousel-item">
-                  <img src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture5"] ?>' class="d-block w-100" alt="Immagine 2">
-                </div>
-                <?php
-                    }
-                ?>
-              </div>
-                <?php
-                    if($result["picture2"] || $result["picture3"] || $result["picture4"] || $result["picture5"]){
-                ?>
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
-                <?php
-                    }
-                ?>
+    <div class="container header_container" align="center">
+        <div class="login_bar row">
+            <div  class="col-12 col-lg-4">
+                <a class="login_link" href="index.php"><img class="logo_img" src="./img/2_new.png"></a>
             </div>
-        </div>
-        <?php
-            $sql_proprietario = "SELECT * FROM utenti WHERE id=$1";
-            $query_proprietario = pg_query_params($db, $sql_proprietario, array($result["utente"]));
-            $result_proprietario = pg_fetch_assoc($query_proprietario);
-        ?>
-        <div class="product-grid-item" >
-            <div class="insert_Ad">
-                <div class="product-grid">
-                    <div class="product-grid-item" align="left">
-                        <b style="background-color: #e8e8e8; padding: 6px;"><?php echo strtoupper($result["categoria"]) ?></b>
+            <div class="col-12 col-lg-4">
+                <a class="ins_annuncio_text" href="insert_ad.php">
+                    <button class="ins_annuncio_header">
+                        <img class="icon" style="vertical-align: center;" src="./img/plus.png">
+                        <b style="font-size: 20px;">Inserisci annuncio</b>
+                    </button>
+                </a>
+            </div>
+
+            <?php
+
+                if(isset($_SESSION["id"])){
+                    $sql_utenti = "SELECT * from utenti where id = $1";
+                    $query_utenti = pg_query_params($db, $sql_utenti, array($_SESSION["id"]));
+                    $result_utenti = pg_fetch_assoc($query_utenti);
+
+            ?>
+
+            <div align="center" id="accedi" class="col-12 col-lg-4">
+                
+                <div align="left" class="dropdown">
+                    <div id="dropdown">
+                        <a style="text-decoration: none; color: black;" href="myaccount.php">
+                            <img class="icon" src="./img/user.png">
+                            <b>Ciao <span style="color: #fa5f5a;"><?php echo ucfirst($result_utenti["nome"]) ?></span> <img class=icon src="./img/down.png"></b>
+                        </a>
                     </div>
-                    <div class="product-grid-item" align="right">
-                        <?php
-                            if(!isset($_SESSION["id"])){
-                        ?>
-                        <img id="preferito" data-id-prod='<?php echo $id ?>' style="margin-right: 30%; width: 35px;" onclick="redirectToLogin()" src="./img/hearth.png">
-                        <?php
-                            } else if($_SESSION["id"] == $result["utente"]){
-                                
-                            } else {
-                                $sql_hearth = 'SELECT * from preferiti where utente = $1 and prodotto = $2';
-                                $query_hearth = pg_query_params($db, $sql_hearth, array($_SESSION["id"], $id));
-                                if(!pg_fetch_assoc($query_hearth)){
-                        ?>
-                        <img id="preferito" data-id-prod='<?php echo $id ?>' style="margin-right: 30%; width: 35px;" onclick="cambiaImmagine(this)" src="./img/hearth.png">
-                        <?php
-                                } else {
-                        ?>
-                        <img id="preferito" data-id-prod='<?php echo $id ?>' style="margin-right: 30%; width: 35px;" onclick="cambiaImmagine(this)" src="./img/hearth_black.png">
-                        <?php
-                                }
-                            }
-                        ?>
-                    </div>
+                    <div class="dropdown-content">
+                        <a href="favourites-product.php">
+                            <div>
+                                <img class="dropdown-icon" src="./img/love.png">
+                                Preferiti
+                            </div>
+                        </a>
+                        <a href="mypurchase.php">
+                            <div>
+                                <img class="dropdown-icon" src="./img/carrello.png">
+                                I Miei Acquisti
+                            </div>
+                        </a>
+                        <a href="myad.php">
+                            <div>
+                                <img class="dropdown-icon" src="./img/message.png">
+                                I Miei Annunci
+                            </div>
+                        </a>
+                        <a href="./logout/logout.php">
+                            <div>
+                                <img class="dropdown-icon" src="./img/logout.png">
+                                Esci
+                            </div>
+                        </a>
+                    </div>                
                 </div>
-            
-                <hr style=" margin-right: 15%">               
-                <div class="product-grid">
-                    <div class="product-grid-item">    
-                        <h2 style="text-align: left"><?php echo ucwords($result["nome"]) ?></h2>
-                        <br>
-                        <b style="font-size: 20px"><img style="width: 25px; vertical-align: sub;" src="./img/maps.png"> <?php echo strtoupper($result["comune"]) ?></b>
-                        <br><br>
-                        <h2 style="color: #fa5f5a;"><?php echo $result["prezzo"] ?> €</h2>
-                        <br>
-                        <div style="max-width: 40vh">
-                            <p><?php echo $result["descrizione"] ?></p>
+            </div>
+
+            <?php
+
+                } else {
+
+            ?>  
+
+            <div align="center" id="accedi" class="col-12 col-lg-4">
+                <a href="./login/login.php"><img class="icon" src="./img/login.png"></a>
+                <a class="login_link" href="./login/login.php"><b>Accedi</b></a>
+                <a class="reg_link" href="./register/register.php"><b>Registrati</b></a>
+            </div>
+
+            <?php
+
+                }
+
+            ?>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-sm-12" align="center">
+                <div id="carouselExampleIndicators" class="carousel slide">
+                  <div class="carousel-indicators">
+                    <?php
+                        if($result["picture2"]){
+                    ?>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <?php
+                        }
+                        if($result["picture3"]){
+                    ?>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <?php
+                        }
+                        if($result["picture4"]){
+                    ?>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 4"></button>
+                    <?php
+                        }
+                        if($result["picture5"]){
+                    ?>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 5"></button>
+                    <?php
+                        }
+                    ?>
+                  </div>
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <img src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture1"] ?>' class="d-block w-100" alt="Immagine 1">
+                    </div>
+                    <?php
+                        if($result["picture2"]){
+                    ?>
+                    <div class="carousel-item">
+                      <img src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture2"] ?>' class="d-block w-100" alt="Immagine 2">
+                    </div>
+                    <?php
+                        }
+                        if($result["picture3"]){
+                    ?>
+                    <div class="carousel-item">
+                      <img src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture3"] ?>' class="d-block w-100" alt="Immagine 2">
+                    </div>
+                    <?php
+                        }
+                        if($result["picture4"]){
+                    ?>
+                    <div class="carousel-item">
+                      <img src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture4"] ?>' class="d-block w-100" alt="Immagine 2">
+                    </div>
+                    <?php
+                        }
+                        if($result["picture5"]){
+                    ?>
+                    <div class="carousel-item">
+                      <img src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture5"] ?>' class="d-block w-100" alt="Immagine 2">
+                    </div>
+                    <?php
+                        }
+                    ?>
+                  </div>
+                    <?php
+                        if($result["picture2"] || $result["picture3"] || $result["picture4"] || $result["picture5"]){
+                    ?>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                    <?php
+                        }
+                    ?>
+                </div>
+            </div>
+            <?php
+                $sql_proprietario = "SELECT * FROM utenti WHERE id=$1";
+                $query_proprietario = pg_query_params($db, $sql_proprietario, array($result["utente"]));
+                $result_proprietario = pg_fetch_assoc($query_proprietario);
+            ?>
+            <div class="col" >
+                <div class="insert_Ad">
+                    <div class="row">
+                        <div class="col-10" align="left">
+                            <b style="background-color: #e8e8e8; padding: 6px;"><?php echo strtoupper($result["categoria"]) ?></b>
+                        </div>
+                        <div class="col-2" align="right">
+                            <?php
+                                if(!isset($_SESSION["id"])){
+                            ?>
+                            <img id="preferito" data-id-prod='<?php echo $id ?>' class="hearth" style="width: 35px;" onclick="redirectToLogin()" src="./img/hearth.png">
+                            <?php
+                                } else if($_SESSION["id"] == $result["utente"]){
+
+                                } else {
+                                    $sql_hearth = 'SELECT * from preferiti where utente = $1 and prodotto = $2';
+                                    $query_hearth = pg_query_params($db, $sql_hearth, array($_SESSION["id"], $id));
+                                    if(!pg_fetch_assoc($query_hearth)){
+                            ?>
+                            <img id="preferito" data-id-prod='<?php echo $id ?>' class="hearth" style="width: 35px;" onclick="cambiaImmagine(this)" src="./img/hearth.png">
+                            <?php
+                                    } else {
+                            ?>
+                            <img id="preferito" data-id-prod='<?php echo $id ?>' class="hearth" style="width: 35px;" onclick="cambiaImmagine(this)" src="./img/hearth_black.png">
+                            <?php
+                                    }
+                                }
+                            ?>
                         </div>
                     </div>
-
-                    <div class="product-grid-item" align="center" >
-                        <div class="user-product" style="margin-right: 30%">
-                            <img class="icon" src="./img/user (1).png">
-                            <b><?php echo ucfirst($result_proprietario["nome"]) . ' ' . ucfirst($result_proprietario["cognome"]) ?></b>
+                            
+                    <hr class="line">             
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12">    
+                            <h2 class="title"><?php echo ucwords($result["nome"]) ?></h2>
+                            <br>
+                            <b style="font-size: 20px"><img style="width: 25px; vertical-align: sub;" src="./img/maps.png"> <?php echo strtoupper($result["comune"]) ?></b>
                             <br><br>
-                            <b>N.Tel: <?php echo $result_proprietario["telefono"] ?></b>
+                            <h2 style="color: #fa5f5a;"><?php echo $result["prezzo"] ?> €</h2>
+                            <br>
+                            <div style="max-width: 40vh">
+                                <p><?php echo $result["descrizione"] ?></p>
+                            </div>
                         </div>
-                        <br>
-                        <?php
-                            if($_SESSION["id"] == $result["utente"]){
 
-                            } else {
-                                if(!isset($_SESSION["id"])){ 
-                        
-                        ?>
-                            <a class="ins_annuncio_text" style="margin-right: 30%;" href="./login/login.php">
-                                <button class="ins_annuncio">
-                                    <b style="font-size: 20px;">Acquista</b>
-                                </button>
-                            </a>
-                        <?php } else { ?>
-                            <a class="ins_annuncio_text" style="margin-right: 30%;" href="#">
-                                <button class="ins_annuncio" data-id-prod="<?php echo $result['id']?>" data-id-costoArtic="<?php echo $result["prezzo"]?>" data-id-costoSped="0" onclick="apriPopup(this);">
-                                    <b style="font-size: 20px;">Acquista</b>
-                                </button>
-                            </a>
-                        
-                        <?php }
-                            } 
-                        ?>
+                        <div align="center" class="col-lg-6 col-sm-12">
+                            <div class="user-product">
+                                <img class="icon" src="./img/user (1).png">
+                                <b><?php echo ucfirst($result_proprietario["nome"]) . ' ' . ucfirst($result_proprietario["cognome"]) ?></b>
+                                <br><br>
+                                <b>N.Tel: <?php echo $result_proprietario["telefono"] ?></b>
+                            </div>
+                            <br>
+                            <?php
+                                if($_SESSION["id"] == $result["utente"]){
+
+                                } else {
+                                    if(!isset($_SESSION["id"])){ 
+                                    
+                            ?>
+                                <a class="ins_annuncio_text" href="./login/login.php">
+                                    <button class="ins_annuncio">
+                                        <b style="font-size: 20px;">Acquista</b>
+                                    </button>
+                                </a>
+                            <?php } else { ?>
+                                <a class="ins_annuncio_text" href="#">
+                                    <button class="ins_annuncio" data-id-prod="<?php echo $result['id']?>" data-id-costoArtic="<?php echo $result["prezzo"]?>" data-id-costoSped="0" onclick="apriPopup(this);">
+                                        <b style="font-size: 20px;">Acquista</b>
+                                    </button>
+                                </a>
+                            
+                            <?php }
+                                } 
+                            ?>
+                        </div>
                     </div>
                 </div>
             </div>
