@@ -153,7 +153,7 @@ $dove_cerchi = strtolower($_POST["doveCerchi"]);
                             }
                         ?>
                         <?php
-                            if(isset($_SESSION["id"]) && $_SESSION["id"] == $result["utente"]){
+                            if(isset($_SESSION["id"]) && $_SESSION["id"] == $result_prodotto["utente"]){
 
                             } else {
                                 if(!isset($_SESSION["id"])){ 

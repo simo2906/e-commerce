@@ -160,7 +160,7 @@ function apriPopup(elemento){
     document.getElementById("costoOggetto").innerHTML = elemento.getAttribute("data-id-costoArtic") + "€";
     document.getElementById("costoSpedizione").innerHTML =  elemento.getAttribute("data-id-costoSped") + "€";
     document.getElementById("costoTotale").innerHTML = parseInt(elemento.getAttribute("data-id-costoArtic")) + parseInt(elemento.getAttribute("data-id-costoSped")) + "€";
-    document.getElementById("acquistaButton").href = "./successbuy.php?id=" + elemento.getAttribute("data-id-prod");
+    document.getElementById("acquistaButton").setAttribute("data-id-href", "./successbuy.php?id=" + elemento.getAttribute("data-id-prod"));
 }
 
 function chiudiPopup(){
@@ -209,6 +209,7 @@ function controllaOrdine(){
         alert("Il CVV non è valido");
         return false;
     }
-    window.open("../successbuy.php?id=" + elemento.getAttribute("data-id-prod"));
+    
+    window.location.href = document.getElementById("acquistaButton").getAttribute("data-id-href");
     return true;
 }

@@ -345,7 +345,7 @@
                 <br>
             </div>
             <br>
-            <button onclick="controllaOrdine()" id="acquistaButton" class="ins_annuncio"><b>Acquista</b></button>
+            <button onclick="controllaOrdine()" data-id-href="" id="acquistaButton" class="ins_annuncio"><b>Acquista</b></button>
         </form>
         </div>
     </div>

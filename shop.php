@@ -149,7 +149,7 @@ $db = pg_connect("host=localhost port=5432 dbname=ecommerce user=simone password
                             }
                         ?>
                         <?php
-                            if(isset($_SESSION["id"]) && $_SESSION["id"] == $result["utente"]){
+                            if(isset($_SESSION["id"]) && $_SESSION["id"] == $result_prodotto["utente"]){
 
                             } else {
                                 if(!isset($_SESSION["id"])){ 
@@ -162,7 +162,7 @@ $db = pg_connect("host=localhost port=5432 dbname=ecommerce user=simone password
                             </a>
                         <?php } else { ?>
                             <a class="ins_annuncio_text" style="margin-right: 15%;" href="#">
-                                <button class="ins_annuncio" data-id-prod="<?php echo $result['id']?>" data-id-costoArtic="<?php echo $result["prezzo"]?>" data-id-costoSped="0" onclick="apriPopup(this);">
+                                <button class="ins_annuncio" data-id-prod="<?php echo $result_prodotto['id']?>" data-id-costoArtic="<?php echo $result_prodotto["prezzo"]?>" data-id-costoSped="0" onclick="apriPopup(this);">
                                     <b style="font-size: 20px;">Acquista</b>
                                 </button>
                             </a>

@@ -145,7 +145,7 @@
             </div>
             <div class="carousel-inner" style="border-radius:0.375rem">
               <div class="carousel-item active" data-bs-interval="3000">
-                <a href="shop.php"><img src="./img/prova1.jpg" class="d-block w-100" alt="immagine1"></a>
+                <a href="shop.php"><img src="./img/banner.png" class="d-block w-100" alt="immagine1"></a>
               </div>
               <div class="carousel-item">
                 <a href="shop.php"><img src="./img/prova2.jpg" class="d-block w-100" alt="immagine2"></a>

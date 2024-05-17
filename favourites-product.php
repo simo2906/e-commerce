@@ -117,7 +117,7 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
                                 <b style="font-size: 20px;">Acquista</b>
                             </button>
                             <?php } else { ?>
-                                <button class="ins_annuncio" style="background: #808080">
+                                <button class="ins_annuncio" style="background: #808080; cursor: pointer">
                                     <b style="font-size: 20px;">Non Disponibile</b>
                                 </button>
                             <?php } ?>
@@ -161,14 +161,14 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
             <br>
             <form action="#" method="post" name="confermaOrdine" id="confermaOrdine">
                 <div>
-                    <input type="text" style="width: 70%" name="indirizzoSped" placeholder="Inserisci il tuo indirizzo (Via/V.le/P.za)" class="input_log">
-                    <input type="text" style="width: 20%" name="nCivSped" placeholder="N. Civico" class="input_log">
+                    <input type="text" style="width: 70%" id="indirizzoSped" placeholder="Inserisci il tuo indirizzo (Via/V.le/P.za)" class="input_log">
+                    <input type="text" style="width: 20%" id="nCivSped" placeholder="N. Civico" class="input_log">
                 </div>
                 <div>
-                    <input type="text" style="width: 20%" name="cittaSped" placeholder="Città" class="input_log">
-                    <input type="text" style="width: 15%" name="provinciaSped" placeholder="Provincia" size=2 class="input_log">
-                    <input type="text" style="width: 30%" name="paeseSped" placeholder="Nazione" class="input_log">
-                    <input type="text" style="width: 25%" name="zipCodeSped" placeholder="Cod. Postale" class="input_log" size=5>
+                    <input type="text" style="width: 20%" id="cittaSped" placeholder="Città" class="input_log">
+                    <input type="text" style="width: 15%" id="provinciaSped" placeholder="Provincia" size=2 class="input_log">
+                    <input type="text" style="width: 30%" id="paeseSped" placeholder="Nazione" class="input_log">
+                    <input type="text" style="width: 25%" id="zipCodeSped" placeholder="Cod. Postale" class="input_log" size=5>
                 </div>
                 <br>
             </div>
@@ -181,14 +181,14 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
                         <input type="text" style="width: 30%" id="dataScadenza" placeholder="MM/YY" class="input_log">
                     </div>
                     <div>
-                        <input type="text" style="width: 60%" name="nomeTitolare" placeholder="Nome titolare" class="input_log">
-                        <input type="password" style="width: 30%" name="CVV" placeholder="CVV" class="input_log">
+                        <input type="text" style="width: 60%" id="nomeTitolare" placeholder="Nome titolare" class="input_log">
+                        <input type="password" style="width: 30%" id="CVV" placeholder="CVV" class="input_log">
                     </div>
                 </form>
                 <br>
             </div>
             <br>
-            <button onclick="controllaOrdine()" class="ins_annuncio" id="acquistaButton"><b>Acquista</b></button>
+            <button onclick="controllaOrdine()" data-id-href="" class="ins_annuncio" id="acquistaButton"><b>Acquista</b></button>
         </form>
         </div>
     </div>

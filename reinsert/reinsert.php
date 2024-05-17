@@ -18,6 +18,9 @@
 
     $sql2 = 'UPDATE preferiti SET prodotto = $1 where prodotto = $2';
     $query2 = pg_query_params($db, $sql2, array($new_id, $id));
+
+    $sql3 = 'UPDATE acquisti SET acquisto = $1 where acquisto = $2';
+    $query3 = pg_query_params($db, $sql3, array($new_id, $id));
     
 
     $sql = 'UPDATE prodotti SET id = $1, quantita = $2 where id = $3';
