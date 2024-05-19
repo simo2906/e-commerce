@@ -85,12 +85,18 @@
                 
                 <div align="left" class="dropdown">
                     <div id="dropdown">
-                        <a style="text-decoration: none; color: black;" href="myaccount.php">
+                        <a style="text-decoration: none; color: black;">
                             <img class="icon" src="./img/user.png">
                             <b>Ciao <span style="color: #fa5f5a;"><?php echo ucfirst($result_utenti["nome"]) ?></span> <img class=icon src="./img/down.png"></b>
                         </a>
                     </div>
                     <div class="dropdown-content">
+                        <a href="myaccount.php">
+                            <div>
+                                <img class="dropdown-icon" src="./img/user-dropdown.png">
+                                My Account
+                            </div>
+                        </a>
                         <a href="favourites-product.php">
                             <div>
                                 <img class="dropdown-icon" src="./img/love.png">
@@ -115,7 +121,7 @@
                                 Esci
                             </div>
                         </a>
-                    </div>                
+                    </div>                  
                 </div>
             </div>
 
@@ -141,9 +147,9 @@
     <br>
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 col-sm-12" align="center">
+            <div class="col-lg-6 col-sm-12" align="center" style="position: relative">
                 <div id="carouselExampleIndicators" class="carousel slide">
-                  <div class="carousel-indicators">
+                    <div class="carousel-indicators">
                     <?php
                         if($result["picture2"]){
                     ?>
@@ -218,6 +224,27 @@
                         }
                     ?>
                 </div>
+                <?php
+                    if(!isset($_SESSION["id"])){
+                ?>
+                    <button class="overlay_button_prod"><img id="preferito" data-id-prod='<?php echo $id ?>' class="icon" style="background-color: white; border-radius: 3rem" onclick="redirectToLogin()" src="./img/hearth.png"></button>
+                    <?php
+                        } else if($_SESSION["id"] == $result["utente"]){
+
+                        } else {
+                            $sql_hearth = 'SELECT * from preferiti where utente = $1 and prodotto = $2';
+                            $query_hearth = pg_query_params($db, $sql_hearth, array($_SESSION["id"], $id));
+                            if(!pg_fetch_assoc($query_hearth)){
+                    ?>
+                    <button class="overlay_button_prod"><img id="preferito" data-id-prod='<?php echo $id ?>' class="icon" style="background-color: white; border-radius: 3rem" onclick="cambiaImmagine(this)" src="./img/hearth.png"></button>
+                    <?php
+                        } else {
+                    ?>
+                    <button class="overlay_button_prod"><img id="preferito" data-id-prod='<?php echo $id ?>' class="icon" style="background-color: white; border-radius: 3rem" onclick="cambiaImmagine(this)" src="./img/hearth_black.png"></button>
+                <?php
+                        }
+                    }
+                ?>
             </div>
             <?php
                 $sql_proprietario = "SELECT * FROM utenti WHERE id=$1";
@@ -227,44 +254,21 @@
             <div class="col" >
                 <div class="insert_Ad">
                     <div class="row">
-                        <div class="col-10" align="left">
-                            <b style="background-color: #e8e8e8; padding: 6px;"><?php echo strtoupper($result["categoria"]) ?></b>
-                        </div>
-                        <div class="col-2" align="right">
-                            <?php
-                                if(!isset($_SESSION["id"])){
-                            ?>
-                            <img id="preferito" data-id-prod='<?php echo $id ?>' class="hearth" style="width: 35px;" onclick="redirectToLogin()" src="./img/hearth.png">
-                            <?php
-                                } else if($_SESSION["id"] == $result["utente"]){
-
-                                } else {
-                                    $sql_hearth = 'SELECT * from preferiti where utente = $1 and prodotto = $2';
-                                    $query_hearth = pg_query_params($db, $sql_hearth, array($_SESSION["id"], $id));
-                                    if(!pg_fetch_assoc($query_hearth)){
-                            ?>
-                            <img id="preferito" data-id-prod='<?php echo $id ?>' class="hearth" style="width: 35px;" onclick="cambiaImmagine(this)" src="./img/hearth.png">
-                            <?php
-                                    } else {
-                            ?>
-                            <img id="preferito" data-id-prod='<?php echo $id ?>' class="hearth" style="width: 35px;" onclick="cambiaImmagine(this)" src="./img/hearth_black.png">
-                            <?php
-                                    }
-                                }
-                            ?>
-                        </div>
+                        <div class="col align_product">
+                            <b class="titolo"><?php echo ucwords($result["nome"]) ?></b>
+                        </div> 
                     </div>
                             
                     <hr class="line">             
                     <div class="row">
-                        <div class="col-lg-6 col-sm-12">    
-                            <h2 class="title"><?php echo ucwords($result["nome"]) ?></h2>
-                            <br>
-                            <b style="font-size: 20px"><img style="width: 25px; vertical-align: sub;" src="./img/maps.png"> <?php echo strtoupper($result["comune"]) ?></b>
+                        <div class="col-lg-6 col-sm-12 align_product">
+                            <b style="background-color: #e8e8e8; padding: 6px; "><?php echo strtoupper($result["categoria"]) ?></b>    
                             <br><br>
-                            <h2 style="color: #fa5f5a;"><?php echo $result["prezzo"] ?> €</h2>
+                            <b class="comune" style="font-size: 20px"><img style="width: 25px; vertical-align: sub;" src="./img/maps.png"> <?php echo strtoupper($result["comune"]) ?></b>
+                            <br><br>
+                            <h2 class="prezzo" style="color: #fa5f5a;"><?php echo $result["prezzo"] ?> €</h2>
                             <br>
-                            <div style="max-width: 40vh">
+                            <div class="description_product">
                                 <p><?php echo $result["descrizione"] ?></p>
                             </div>
                         </div>
@@ -368,8 +372,10 @@
     </div>
 </div>
 <footer>
-    <div class="div_footer footer-grid-container">  
-        <div class="footer-grid-item">
+    <div class="div_footer">
+        <br>
+        <div class="row">
+        <div class="col-lg-4 custom-auto-width">
             <b>Servizio Clienti</b>
             <ul style="list-style-type: none; padding: 0; margin: 0;">
                 <li>Centro Assistenza</li>
@@ -379,17 +385,13 @@
                 <li>Privacy</li>
             </ul>
         </div>
-        <div class="footer-grid-item">
+        <div class="col-lg-4 custom-auto-width">
             <b>Paga Con</b><br><br>
             <img src="https://img.alicdn.com/tfs/TB1xcMWdEKF3KVjSZFEXXXExFXa-68-48.png" class="pay_icon">
             <img src="https://ae01.alicdn.com/kf/S7b20ce778ba44e60a062008c35e98b57M/216x144.png" class="pay_icon">
             <img src="https://ae01.alicdn.com/kf/S91ee3e0f4fde4535aad35f7c30f6bacfh/216x144.png" class="pay_icon">
-            <img src="https://ae01.alicdn.com/kf/S173da9e53a234dcb9795cebd1856c4d7J/216x144.png" class="pay_icon">
-            <img src="https://ae01.alicdn.com/kf/S8df1a1d99c8049d1b1a86c9a144719b6W/216x144.png" class="pay_icon"><br>
-            <img style="margin-top: 5px;" src="https://ae01.alicdn.com/kf/S0321450614244c4dafba2517560de3b8s/216x144.png" class="pay_icon">
-            <img src="https://ae01.alicdn.com/kf/S2a5881f5906b4fb58a0c6da600ddf7bf1/216x144.png" class="pay_icon">
         </div>
-        <div class="footer-grid-item">
+        <div class="col-lg-4 custom-auto-width ">
             <b>Scoprici sui Social</b><br><br>
             <img class="icon" src="./img/social/facebook.png">
             <img class="icon" src="./img/social/instagram.png">
@@ -400,7 +402,9 @@
             <img class="icon" src="./img/social/youtube.png">
 
         </div>
+        </div>
     </div>
+    <br>
 </footer>
 </body>
 </html>

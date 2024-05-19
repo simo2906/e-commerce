@@ -135,35 +135,34 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
                 <br><br><br>
                 <b>Inserisci le immagini del prodotto</b>
                 <br><br>
-                <div class="first-grid">
-
-                    <div class="upload-container first-grid-item">
-                        <div id="preview1"><b class="photo-icon">1</b></div>
-                        <input type="file" name="fileToUpload1" id="fileToUpload1" accept="image/*" onchange="previewImage('preview1','fileToUpload1', 1)">
-                        
+                <div align="center"class="container photo">
+                    <div class="row" style="justify-content: center">                        
+                         <div class="upload-container col-3 custom-auto-width-photo">
+                             <div id="preview1"><b class="photo-icon">1</b></div>
+                             <input type="file" name="fileToUpload1" id="fileToUpload1" accept="image/*" onchange="previewImage('preview1','fileToUpload1', 1)">
+                        </div>
+                        <div class="upload-container col-3 custom-auto-width-photo">
+                            <div id="preview2"><b class="photo-icon">2</b></div>
+                            <input type="file" name="fileToUpload2" id="fileToUpload2" accept="image/*" onchange="previewImage('preview2','fileToUpload2', 2)">
+                        </div>
+                        <div class="upload-container col-3 custom-auto-width-photo">
+                            <div id="preview3"><b class="photo-icon">3</b></div>
+                            <input type="file" name="fileToUpload3" id="fileToUpload3" accept="image/*" onchange="previewImage('preview3','fileToUpload3', 3)">
+                        </div>
                     </div>
-                    <div class="upload-container first-grid-item">
-                        <div id="preview2"><b class="photo-icon">2</b></div>
-                        <input type="file" name="fileToUpload2" id="fileToUpload2" accept="image/*" onchange="previewImage('preview2','fileToUpload2', 2)">
-                    </div>
-                    <div class="upload-container first-grid-item">
-                        <div id="preview3"><b class="photo-icon">3</b></div>
-                        <input type="file" name="fileToUpload3" id="fileToUpload3" accept="image/*" onchange="previewImage('preview3','fileToUpload3', 3)">
-                    </div>
-
                 </div>
-                <br><br>
-                <div class="product-grid">
-
-                    <div class="upload-container product-grid-item" style="margin-left: 41%">
-                        <div id="preview4"><b class="photo-icon">4</b></div>
-                        <input type="file" name="fileToUpload4" id="fileToUpload4" accept="image/*" onchange="previewImage('preview4','fileToUpload4', 4)">
+                
+                <div class="container">
+                    <div class="row" style="justify-content: center">
+                        <div class="col-3 custom-auto-width-photo upload-container">
+                            <div id="preview4"><b class="photo-icon">4</b></div>
+                            <input type="file" name="fileToUpload4" id="fileToUpload4" accept="image/*" onchange="previewImage('preview4','fileToUpload4', 4)">
+                        </div>
+                        <div class="col-3 custom-auto-width-photo upload-container">
+                            <div id="preview5"><b class="photo-icon">5</b></div>
+                            <input type="file" name="fileToUpload5" id="fileToUpload5" accept="image/*" onchange="previewImage('preview5','fileToUpload5', 5)">
+                        </div>
                     </div>
-                    <div class="upload-container product-grid-item" style="margin-right: 41%">
-                        <div id="preview5"><b class="photo-icon">5</b></div>
-                        <input type="file" name="fileToUpload5" id="fileToUpload5" accept="image/*" onchange="previewImage('preview5','fileToUpload5', 5)">
-                    </div>
-
                 </div>
                 <br><br>
 
@@ -175,8 +174,10 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
     </div>
 
     <footer>
-    <div class="div_footer footer-grid-container">  
-        <div class="footer-grid-item">
+    <div class="div_footer">
+        <br>
+        <div class="row">
+        <div class="col-lg-4 custom-auto-width">
             <b>Servizio Clienti</b>
             <ul style="list-style-type: none; padding: 0; margin: 0;">
                 <li>Centro Assistenza</li>
@@ -186,17 +187,13 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
                 <li>Privacy</li>
             </ul>
         </div>
-        <div class="footer-grid-item">
+        <div class="col-lg-4 custom-auto-width">
             <b>Paga Con</b><br><br>
             <img src="https://img.alicdn.com/tfs/TB1xcMWdEKF3KVjSZFEXXXExFXa-68-48.png" class="pay_icon">
             <img src="https://ae01.alicdn.com/kf/S7b20ce778ba44e60a062008c35e98b57M/216x144.png" class="pay_icon">
             <img src="https://ae01.alicdn.com/kf/S91ee3e0f4fde4535aad35f7c30f6bacfh/216x144.png" class="pay_icon">
-            <img src="https://ae01.alicdn.com/kf/S173da9e53a234dcb9795cebd1856c4d7J/216x144.png" class="pay_icon">
-            <img src="https://ae01.alicdn.com/kf/S8df1a1d99c8049d1b1a86c9a144719b6W/216x144.png" class="pay_icon"><br>
-            <img style="margin-top: 5px;" src="https://ae01.alicdn.com/kf/S0321450614244c4dafba2517560de3b8s/216x144.png" class="pay_icon">
-            <img src="https://ae01.alicdn.com/kf/S2a5881f5906b4fb58a0c6da600ddf7bf1/216x144.png" class="pay_icon">
         </div>
-        <div class="footer-grid-item">
+        <div class="col-lg-4 custom-auto-width ">
             <b>Scoprici sui Social</b><br><br>
             <img class="icon" src="./img/social/facebook.png">
             <img class="icon" src="./img/social/instagram.png">
@@ -207,7 +204,9 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
             <img class="icon" src="./img/social/youtube.png">
 
         </div>
+        </div>
     </div>
+    <br>
 </footer>
 </body>
 </html>

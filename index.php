@@ -32,7 +32,7 @@
     </div>
     <div class="container header_container" align="center">
         <div class="login_bar row">
-            <div  class="col-12 col-lg-4">
+            <div class="col-12 col-lg-4">
                 <a class="login_link" href="index.php"><img class="logo_img" src="./img/2_new.png"></a>
             </div>
             <div class="col-12 col-lg-4">
@@ -57,12 +57,18 @@
                 
                 <div align="left" class="dropdown">
                     <div id="dropdown">
-                        <a style="text-decoration: none; color: black;" href="myaccount.php">
+                        <a style="text-decoration: none; color: black;">
                             <img class="icon" src="./img/user.png">
                             <b>Ciao <span style="color: #fa5f5a;"><?php echo ucfirst($result["nome"]) ?></span> <img class=icon src="./img/down.png"></b>
                         </a>
                     </div>
                     <div class="dropdown-content">
+                        <a href="myaccount.php">
+                            <div>
+                                <img class="dropdown-icon" src="./img/user-dropdown.png">
+                                My Account
+                            </div>
+                        </a>
                         <a href="favourites-product.php">
                             <div>
                                 <img class="dropdown-icon" src="./img/love.png">
@@ -232,7 +238,7 @@
             <div align="center" class=" col-lg-2 col-sm-12">
                 <div class="single_product">
                     <div class="card">
-                        <a href='single-product.php?id=<?php echo $result["id"]?>'><img class="card-img-top" src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture1"] ?>'></a>
+                        <a href='single-product.php?id=<?php echo $result["id"]?>'><img class="card-img-top img-fluid" src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture1"] ?>'></a>
                         <div class="overlay-container">
                             <?php
                                 if(!isset($_SESSION["id"])){
@@ -284,8 +290,9 @@
 </div>
 <footer>
     <div class="div_footer">
+        <br>
         <div class="row">
-        <div class="col-lg-4 col-sm-4">
+        <div class="col-lg-4 custom-auto-width">
             <b>Servizio Clienti</b>
             <ul style="list-style-type: none; padding: 0; margin: 0;">
                 <li>Centro Assistenza</li>
@@ -295,13 +302,13 @@
                 <li>Privacy</li>
             </ul>
         </div>
-        <div class="col-lg-4 col-sm-4">
+        <div class="col-lg-4 custom-auto-width">
             <b>Paga Con</b><br><br>
             <img src="https://img.alicdn.com/tfs/TB1xcMWdEKF3KVjSZFEXXXExFXa-68-48.png" class="pay_icon">
             <img src="https://ae01.alicdn.com/kf/S7b20ce778ba44e60a062008c35e98b57M/216x144.png" class="pay_icon">
             <img src="https://ae01.alicdn.com/kf/S91ee3e0f4fde4535aad35f7c30f6bacfh/216x144.png" class="pay_icon">
         </div>
-        <div class="col-lg-4 col-sm-4">
+        <div class="col-lg-4 custom-auto-width ">
             <b>Scoprici sui Social</b><br><br>
             <img class="icon" src="./img/social/facebook.png">
             <img class="icon" src="./img/social/instagram.png">
@@ -314,6 +321,7 @@
         </div>
         </div>
     </div>
+    <br>
 </footer>
 </body>
 </html>

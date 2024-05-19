@@ -24,10 +24,6 @@ html, body {
     margin-right: 50%;
 }
 
-.title{
-    text-align: left;
-}
-
 .header{
     background: linear-gradient(to right, #fcbe4f, #fa5f5a);
     color: white;
@@ -221,6 +217,37 @@ footer{
     outline: none;
 }
 
+.overlay_button_pref {
+    position: absolute;
+    top: 15%;
+    left: 10%;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+}
+
+.overlay_button_prod {
+    position: absolute;
+    top: 4%;
+    left: 14%;
+    z-index: 10;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+}
+
+.acquista_button{
+    margin-top: 15%;
+}
+
+.myad_button{
+    margin-top: 20%;
+}
+
 .container-item {
     display: flex;
     justify-content: space-around;
@@ -388,6 +415,8 @@ main {
     height: auto;
 }
 
+
+
 .photo-icon{
     width: 30px;
     height: auto;
@@ -395,12 +424,19 @@ main {
     
 }
 
+.photo{
+    margin-bottom: 5%;
+}
+
 .upload-container {
-    margin: auto;
     border-radius: 0.355rem;
     position: relative;
-    width: 14vh; 
+    width: auto; 
     height: 14vh;
+    margin-left: 3%;
+    margin-right: 3%;
+    align-items: center;
+    text-align: center;
     border: 1px solid #ccc;
     overflow: hidden;
 }
@@ -450,8 +486,41 @@ main {
 }
 
 .list-product{
-    margin-left: 25%;
-    margin-right: 25%;
+   width: 60%;
+}
+
+.description_product{
+    text-align: justify;
+}
+
+.titolo{ 
+    font-size: 25px;
+}
+
+.comune{
+    font-size: 16px; 
+    margin-top: 10px;
+}
+
+.prezzo{
+    font-size: 25px; 
+    color: #fa5f5a;
+}
+
+.categoria{
+    color: #A0A0A0; 
+    font-size: 16px;
+}
+
+.align_product{
+    text-align: left;
+}
+
+
+.button_annuncio_2{
+    width: 50%; 
+    padding: 10px;
+    margin-bottom: 3%;
 }
 
 .favourite-grid{

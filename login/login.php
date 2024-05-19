@@ -81,8 +81,10 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
     <br><br>
 </div>
 <footer>
-    <div class="div_footer footer-grid-container">  
-        <div class="footer-grid-item">
+    <div class="div_footer">
+        <br>
+        <div class="row">
+        <div class="col-lg-4 custom-auto-width">
             <b>Servizio Clienti</b>
             <ul style="list-style-type: none; padding: 0; margin: 0;">
                 <li>Centro Assistenza</li>
@@ -92,17 +94,13 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
                 <li>Privacy</li>
             </ul>
         </div>
-        <div class="footer-grid-item">
+        <div class="col-lg-4 custom-auto-width">
             <b>Paga Con</b><br><br>
             <img src="https://img.alicdn.com/tfs/TB1xcMWdEKF3KVjSZFEXXXExFXa-68-48.png" class="pay_icon">
             <img src="https://ae01.alicdn.com/kf/S7b20ce778ba44e60a062008c35e98b57M/216x144.png" class="pay_icon">
             <img src="https://ae01.alicdn.com/kf/S91ee3e0f4fde4535aad35f7c30f6bacfh/216x144.png" class="pay_icon">
-            <img src="https://ae01.alicdn.com/kf/S173da9e53a234dcb9795cebd1856c4d7J/216x144.png" class="pay_icon">
-            <img src="https://ae01.alicdn.com/kf/S8df1a1d99c8049d1b1a86c9a144719b6W/216x144.png" class="pay_icon"><br>
-            <img style="margin-top: 5px;" src="https://ae01.alicdn.com/kf/S0321450614244c4dafba2517560de3b8s/216x144.png" class="pay_icon">
-            <img src="https://ae01.alicdn.com/kf/S2a5881f5906b4fb58a0c6da600ddf7bf1/216x144.png" class="pay_icon">
         </div>
-        <div class="footer-grid-item">
+        <div class="col-lg-4 custom-auto-width ">
             <b>Scoprici sui Social</b><br><br>
             <img class="icon" src="../img/social/facebook.png">
             <img class="icon" src="../img/social/instagram.png">
@@ -113,7 +111,9 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
             <img class="icon" src="../img/social/youtube.png">
 
         </div>
+        </div>
     </div>
+    <br>
 </footer>
 </body>
 <?php

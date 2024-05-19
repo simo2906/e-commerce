@@ -44,6 +44,48 @@
         margin-top: 5% !important;
     }
 
+    .custom-auto-width-button{
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .myad_button{
+        margin-top:0;
+    }
+
+    .align_product{
+        text-align: center;
+    }
+
+    footer{
+        height: auto;
+    }
+
+    .description_product{
+        text-align: center;
+    }
+
+    .acquista_button{
+        margin-top: 0;
+    }
+
+    .custom-auto-width-photo{
+        flex: 0 0 auto !important;
+        width: 50% !important;
+        max-width: 100% !important;
+        margin-top: 5% !important;
+    }
+
+    .list-product{
+        width: 85%;
+    }
+
+
+    .photo{
+        margin-bottom: 0;
+    }
+
     .single_product{
         width: 80%;
     }
@@ -59,6 +101,18 @@
     .single_product:hover{
         transform: none;
         border: none;
+    }
+
+    .register{
+        width: 85%;
+    }
+
+    .insertAd{
+        width: 85%;
+    }
+
+    .buyPopup{
+        width: 95%;
     }
 
 }
