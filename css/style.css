@@ -3,6 +3,10 @@ html, body {
     margin: 0;
 }
 
+.img_shop{
+    width: 60%;
+}
+
 .mytable{
     text-align: left;
 }
@@ -242,10 +246,6 @@ footer{
 
 .acquista_button{
     margin-top: 15%;
-}
-
-.myad_button{
-    margin-top: 20%;
 }
 
 .container-item {

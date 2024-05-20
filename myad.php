@@ -107,7 +107,7 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
                 </div>
                 <div class="col" style="margin-top: 2%">
                     <div class="row">
-                        <div class="col-12 align_product">
+                        <div class="col align_product">
                             <a href='single-product.php?id=<?php echo $result_prodotto["id"]?>' class="login_link">
                                 <b class="titolo" style="font-family: SuisseIntl-Medium, sans-serif;"><?php echo ucwords($result_prodotto["nome"]) ?></b><br>
                             </a>
@@ -116,32 +116,31 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
                             <br><br>
                             <b class="prezzo"><?php echo $result_prodotto["prezzo"] ?> €</b>
                         </div>
-                        <div class="col-12 custom-auto-width">
+                        <div class="col custom-auto-width">
 
                             <?php
 
                                 if($result_prodotto["quantita"] > 0){
 
                             ?>
-                            <div class="row">
-                                <div class="col-6 custom-auto-width">
+                            
+                                <div class="col custom-auto-width">
                                     <form action="./refill/confirmRefill.php?id=<?php echo $result_prodotto["id"]?>" method="post" name="addForm" id="addForm">    
-                                        <input type="number" placeholder="Quantità da aggiungere:" name="scorteDaAggiungere" min="0" class="input_log" style="margin-bottom: 2%; width: 75%"/>
+                                        <input type="number" placeholder="Quantità da aggiungere:" name="scorteDaAggiungere" min="0" class="input_log" style="margin-bottom: 2%; width: 75%" required>
                                         <a class="ins_annuncio_text button_annuncio" href="#">
-                                            <button class="ins_annuncio button_annuncio_2" style="width: 80%;">
+                                            <button class="ins_annuncio button_annuncio_2" style="width: 100%;">
                                                 <b style="font-size: 20px;">Aggiungi scorte</b>
                                             </button>
                                         </a>
                                     </form>
-                                </div>
-                                <div class="col-6 custom-auto-width-button">
+                                
                                     <a class="ins_annuncio_text button_annuncio" href="./remove/confirmRemove.php?id=<?php echo $result_prodotto["id"] ?>">
-                                        <button class="ins_annuncio button_annuncio_2 myad_button" style="width: 80%;">
+                                        <button class="ins_annuncio button_annuncio_2 myad_button" style="width: 100%;">
                                             <b style="font-size: 20px;">Elimina</b>
                                         </button>
                                     </a>
                                 </div>
-                            </div>
+                            
                                 <?php
                                     } else {
                                 ?>

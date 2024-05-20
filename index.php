@@ -146,7 +146,8 @@
         </div> 
     </form>
     </div>
-    <div align="center" style="margin-top: 1%;">
+
+    <div align="center">
         <div id="carouselExampleIndicators" class="carousel slide home_carousel" data-bs-ride="carousel" style="margin-top: 1%">
             <div class="carousel-indicators">
               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -279,14 +280,20 @@
         </div>
     </div>
 
-    <!--
-    <div align="center" style="margin-top: 2%">
-        <div class="container-item">
-            <a href="shop.php" style="margin-right: 3%"><img srcset="./img/prova3.webp"  type="image/webp"></a>
-            <a href="shop.php"><img srcset="./img/right-banner.png" width="100%" height="100%" type="image/webp"></a>
+
+    <div align="center">
+        <br>
+        <a class="shop button" href="shop.php"><button class="ins_annuncio_header"><b>Vai allo Shop</b></button></a>
+    </div>
+    <br>
+    <div align="center">
+        <div class="row">
+            <div>
+                <a href="shop.php"><img srcset="./img/right-banner.png" class="img-fluid img_shop" type="image/webp"></a>
+            </div>
         </div>
     </div>
-    -->
+    
 </div>
 <footer>
     <div class="div_footer">

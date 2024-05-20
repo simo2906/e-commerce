@@ -25,6 +25,10 @@
         width: 100%;
     }
 
+    .img_shop{
+        width: 90%;
+    }
+
     .ricerca{
         margin-top: 5%;
     }
@@ -50,9 +54,6 @@
         max-width: 100% !important;
     }
 
-    .myad_button{
-        margin-top:0;
-    }
 
     .align_product{
         text-align: center;
