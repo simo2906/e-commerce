@@ -14,7 +14,7 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=='post'){
     $prezzo = $_POST["productPrice"];
     $comune = pg_escape_string($db, strtolower($_POST["productMunicipality"]));
     $descrizione = pg_escape_string($db, strtolower($_POST["productDescription"]));
-    $quantita = $_POST["productQuantity"];
+    $quantita = $_POST["productquantity"];
     $tempFile1Path = $_FILES['fileToUpload1']['tmp_name'];
     $File1Name = pg_escape_string($_FILES['fileToUpload1']['name']);
     $tempFile2Path = $_FILES['fileToUpload2']['tmp_name'];
