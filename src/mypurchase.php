@@ -137,6 +137,7 @@ if(!isset($_SESSION["id"])) header("Location: ./login/login.php");
                     </div>
                 </div>  
             </div>
+            <br>
             <?php
                 }
             ?>

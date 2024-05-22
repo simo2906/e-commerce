@@ -287,9 +287,11 @@
     </div>
     <br>
     <div align="center">
-        <div class="row">
-            <div>
-                <a href="shop.php"><img srcset="./img/right-banner.png" class="img-fluid img_shop" type="image/webp"></a>
+        <div class="container">
+            <div class="row">
+                <div>
+                    <a href="shop.php"><img srcset="./img/right-banner.png" class="img-fluid img_shop" type="image/webp"></a>
+                </div>
             </div>
         </div>
     </div>
