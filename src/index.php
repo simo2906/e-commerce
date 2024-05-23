@@ -290,7 +290,7 @@
         <div class="container">
             <div class="row">
                 <div>
-                    <a href="shop.php"><img srcset="./img/right-banner.png" class="img-fluid img_shop" type="image/webp"></a>
+                    <a href="http://localhost:3000/single-product.php?id=60"><img srcset="./img/right-banner.png" class="img-fluid img_shop" type="image/webp"></a>
                 </div>
             </div>
         </div>

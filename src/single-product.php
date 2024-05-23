@@ -164,12 +164,12 @@
                         }
                         if($result["picture4"]){
                     ?>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 4"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
                     <?php
                         }
                         if($result["picture5"]){
                     ?>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 5"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
                     <?php
                         }
                     ?>
@@ -189,21 +189,21 @@
                         if($result["picture3"]){
                     ?>
                     <div class="carousel-item">
-                      <img src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture3"] ?>' class="d-block w-100" alt="Immagine 2">
+                      <img src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture3"] ?>' class="d-block w-100" alt="Immagine 3">
                     </div>
                     <?php
                         }
                         if($result["picture4"]){
                     ?>
                     <div class="carousel-item">
-                      <img src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture4"] ?>' class="d-block w-100" alt="Immagine 2">
+                      <img src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture4"] ?>' class="d-block w-100" alt="Immagine 4">
                     </div>
                     <?php
                         }
                         if($result["picture5"]){
                     ?>
                     <div class="carousel-item">
-                      <img src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture5"] ?>' class="d-block w-100" alt="Immagine 2">
+                      <img src='./Annunci/<?php echo $result["utente"] . "/" . $result["id"] . "/" . $result["picture5"] ?>' class="d-block w-100" alt="Immagine 5">
                     </div>
                     <?php
                         }
