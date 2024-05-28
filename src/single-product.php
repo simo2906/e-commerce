@@ -295,7 +295,7 @@
                                 </a>
                             <?php } else { ?>
                                 <a class="ins_annuncio_text" href="#">
-                                    <button class="ins_annuncio" data-id-prod="<?php echo $result['id']?>" data-id-costoArtic="<?php echo $result["prezzo"]?>" data-id-costoSped="0" onclick="apriPopup(this);">
+                                    <button class="ins_annuncio" data-id-prod="<?php echo $result['id']?>" data-id-costoArtic="<?php echo $result["prezzo"]?>" data-id-costoSped="<?php if((($result["prezzo"]/100) * 10) < 30) echo ($result["prezzo"]/100) * 10; else echo 30; ?>" onclick="apriPopup(this);">
                                         <b style="font-size: 20px;">Acquista</b>
                                     </button>
                                 </a>

@@ -172,7 +172,7 @@ $db = pg_connect("host=localhost port=5432 dbname=ecommerce user=simone password
                                 </a>
                             <?php } else { ?>
                                 <a class="ins_annuncio_text button_annuncio" href="#">
-                                    <button class="ins_annuncio button_annuncio_2 acquista_button" data-id-prod="<?php echo $result_prodotto['id']?>" data-id-costoArtic="<?php echo $result_prodotto["prezzo"]?>" data-id-costoSped="0" onclick="apriPopup(this);">
+                                    <button class="ins_annuncio button_annuncio_2 acquista_button" data-id-prod="<?php echo $result_prodotto['id']?>" data-id-costoArtic="<?php echo $result_prodotto["prezzo"]?>" data-id-costoSped="<?php if((($result_prodotto["prezzo"]/100) * 10) < 30) echo ($result_prodotto["prezzo"]/100) * 10; else echo 30; ?>" onclick="apriPopup(this);">
                                         <b style="font-size: 2vh;">Acquista</b>
                                     </button>
                                 </a>

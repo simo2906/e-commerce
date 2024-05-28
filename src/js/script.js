@@ -169,7 +169,7 @@ function chiudiPopup(){
 }
 
 function controllaOrdine(){
-    if(!document.getElementById("indirizzoSped").value.match(/^(Via|Viale|Piazza|via|viale|piazza) \w+$/gm)){
+    if(!document.getElementById("indirizzoSped").value.match(/^(Via|Viale|Piazza|via|viale|piazza) .+$/gm)){
         alert("Il campo indirizzo non è valido");
         return false;
     }
